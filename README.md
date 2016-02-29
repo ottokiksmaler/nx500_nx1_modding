@@ -19,7 +19,7 @@ Things that work:
   - Performing remote control over telnet (two different ways) including changing modes, exposure parameters, capturing images, setting resolution and quality, etc.
   - [**NX500** - **1920x1080 video at 120fps and ~40Mbps**](https://github.com/ottokiksmaler/nx500/blob/master/Enable-1080p-120fps-video-on-NX500.md) (already present in NX1)
   - [**NX500** - **2560x1440 video at 30fps and ~12Mbps - no crop**] (https://github.com/ottokiksmaler/nx500/blob/master/Enable-2.5k-on-NX500.md)
-  - Working with key events (detecting and sending) - also covers touch (st key 
+  - [Working with key events](https://github.com/ottokiksmaler/nx500/blob/master/Working-with-key-events.md) (detecting and sending) - also covers touch
   - Working with generic X - xeyes work, xmessage works, etc.
 
 ##To do ...

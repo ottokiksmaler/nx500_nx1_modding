@@ -9,6 +9,7 @@ Your easiest route is to use prebuilt gdb and gdbserver from [linaro](https://la
   2. You will need arm-linux-gnueabihf-gdb from gcc-linaro-arm-linux-gnueabihf-4.7-2012.10-20121022_linux/bin on your PC.
   3. On camera start /mnt/mmc/gdbserver --multi 0.0.0.0:2345
   4. On PC start gdb 
+
   ```
   (gdb) target extended-remote IP_OF_CAMERA:2345
   (gdb) attach 414

@@ -1,6 +1,6 @@
 #Enabling support for PTP over USB for NX500 and related cameras (NX2000 and newer)
 
-**This is a very simple non-destructiv "hack" that you can safely try.**
+**This is a very simple non-destructive "hack" that you can safely try.**
 
 To best of my knowledge NX500 is not supposed to be used tethered by USB to PC, that was left as a domain of NX1 as professional model. When you connect it via USB cable to PC it automatically switches SD card to mass storage mode and disables any camera operation (at least my NX500 does when connected to Linux).
 

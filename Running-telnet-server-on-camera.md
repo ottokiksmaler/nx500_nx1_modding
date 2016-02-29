@@ -42,9 +42,9 @@ root 399 0.0 0.0 4696 380 ? S<s 23:16 0:00 /mnt/mmc/telnetd
 root 402 0.0 0.2 2704 1352 pts/0 S<s 23:16 0:00 -sh
 root 469 3.0 0.1 2664 904 pts/0 R<+ 23:20 0:00 ps aux
 ```
-Congratulations - we have remote root. To control the camera from command line use **st** command like this:
-```
-The fun stuff is the command st. It's swiss army knife - it contains everything. For example, you want to take a "smart" shot?
+Congratulations - we have remote root.
+
+The fun stuff is the command **st**. It's swiss army knife - it contains everything. For example, you want to take a "smart" shot?
 
 > st cap capt smart
 

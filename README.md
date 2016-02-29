@@ -21,11 +21,11 @@ Things that work:
   - [**NX500** - **2560x1440 video at 30fps and ~12Mbps - no crop**] (https://github.com/ottokiksmaler/nx500/blob/master/Enable-2.5k-on-NX500.md)
   - [Working with key events](https://github.com/ottokiksmaler/nx500/blob/master/Working-with-key-events.md) (detecting and sending) - also covers touch
   - Working with generic X - xeyes work, xmessage works, etc.
+  - [Running debugger](https://github.com/ottokiksmaler/nx500/blob/master/Running-gdb.md) - gdb on device and gdb server on device
 
 ##To do ...
 
-Things that sould work given time:
-  - Running debugger - gdb on device and gdb server on device - in progress
+Things that should work given time:
   - Removing video recording time limit
   - SSH on camera - client should work just fine, have to test server
   - Automatic backup - have to decide how to implement - related work

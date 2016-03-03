@@ -15,6 +15,7 @@ Things that work:
   - [Capturing screenshots of LCD](https://github.com/ottokiksmaler/nx500/blob/master/Enable-Screenshot.md)
   - [Running arbitrary shell scripts from SD card](https://github.com/ottokiksmaler/nx500/blob/master/Running-shell-scripts-from-SD-card.md)
   - [Running a telnet server for remote access to camera](https://github.com/ottokiksmaler/nx500/blob/master/Running-telnet-server-on-camera.md)
+  - [Running a FTP server on camera](https://github.com/ottokiksmaler/nx500/blob/master/Running%20FTP%20server%20on%20the%20camera.md)
   - Running a fully functional browser on camera (run **browser** from script or telnet session)
   - Performing remote control over telnet (two different ways) including changing modes, exposure parameters, capturing images, setting resolution and quality, etc.
   - Not a real 120fps - sorry - [**NX500** - **1920x1080 video at 120fps and ~40Mbps**](https://github.com/ottokiksmaler/nx500/blob/master/Enable-1080p-120fps-video-on-NX500.md) (already present in NX1)

@@ -1,4 +1,4 @@
-#Enabling 2.5k video on NX500
+#Enabling 2.5k video on NX500 (very low bitrate)
 
 First see procedure of running shell scripts from SD card as explained here: [Running arbitrary shell scripts from SD card](https://github.com/ottokiksmaler/nx500/blob/master/Running-shell-scripts-from-SD-card.md)
 

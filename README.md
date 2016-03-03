@@ -17,7 +17,7 @@ Things that work:
   - [Running a telnet server for remote access to camera](https://github.com/ottokiksmaler/nx500/blob/master/Running-telnet-server-on-camera.md)
   - [Running a FTP server on camera](https://github.com/ottokiksmaler/nx500/blob/master/Running%20FTP%20server%20on%20the%20camera.md)
   - Running a fully functional browser on camera (run **browser** from script or telnet session)
-  - Performing remote control over telnet (two different ways) including changing modes, exposure parameters, capturing images, setting resolution and quality, etc.
+  - [Controlling the camera](https://github.com/ottokiksmaler/nx500/blob/master/Control-camera-from-command-line.md) over telnet or from scripts (two different ways) including changing modes, exposure parameters, capturing images, setting resolution and quality, etc.
   - Not a real 120fps - sorry - [**NX500** - **1920x1080 video at 120fps and ~40Mbps**](https://github.com/ottokiksmaler/nx500/blob/master/Enable-1080p-120fps-video-on-NX500.md) (already present in NX1)
   - Very low bitrate - sorry - [**NX500** - **2560x1440 video at 30fps and ~12Mbps - no crop**] (https://github.com/ottokiksmaler/nx500/blob/master/Enable-2.5k-on-NX500.md)
   - [Working with key events](https://github.com/ottokiksmaler/nx500/blob/master/Working-with-key-events.md) (detecting and sending) - also covers touch

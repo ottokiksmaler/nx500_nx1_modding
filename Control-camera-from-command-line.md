@@ -33,7 +33,11 @@ This will display the message on screen.
 From there on you can use any of the dfms commands available and documented in part here: [DFMS Commands](https://github.com/ottokiksmaler/nx500/blob/master/DFMS%20Commands.md)
 When you've had enough and want your touchscreen functionality back:
 ```
-killall dfmsd
+[root@drime5 mmc]# killall dfmsd
+[SYS_DFMS  ] dfms-server: thread exited 
+[SYS_DFMS  ] dfms-server: thread terminated. 
+[SYS_DFMS  ] dfms-osd: thread exited 
+[SYS_DFMS  ] program exited. 
 ```
 
 

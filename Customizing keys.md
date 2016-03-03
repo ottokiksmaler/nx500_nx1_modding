@@ -21,9 +21,11 @@ Fret not, here is the solution:
     4. EV+HalfPressShutter -> take a shot after roughly 10s (with blinking lights) - any shot including bracketing and burst
     5. EV+MOBILE -> (connect to wireless before clicking this) start telnet server and display IP address for 30s on screen
 
-*"Wow, this is nice, but could you implement **this** shortcut?*
+*"Wow, this is nice, but could you implement __this__ shortcut?*
+
 No. But you can :)
-In scripts directory on SD card there is a bunch of shell scripts called EV_EV.sh, EV_OK.sh, EV_AEL.sh and the like. They are called when corresponding combination of keys is pressed. You can freely alter their contents (you *should* first test interactively via telnet - it's easier that way). You can also create other files for other key combinations.
+
+In the *scripts* directory on SD card there is a bunch of shell scripts called EV_EV.sh, EV_OK.sh, EV_AEL.sh and the like. They are called when corresponding combination of keys is pressed. You can freely alter their contents (you *should* first test interactively via telnet - it's easier that way). You can also create other files for other key combinations.
 
 Possible key combinations (shell script names) on NX500:
   - EV_EV.sh - double click EV

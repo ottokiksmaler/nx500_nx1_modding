@@ -1,4 +1,4 @@
-#Enabling 1080p 120fps video on NX500
+#Enabling 1080p 120fps video on NX500 (not a real 120fps)
 
 First see procedure of running shell scripts from SD card as explained here: [Running arbitrary shell scripts from SD card](https://github.com/ottokiksmaler/nx500/blob/master/Running-shell-scripts-from-SD-card.md)
 

@@ -34,11 +34,11 @@ Index Speed Noise
   - Commands 120fps, sv, tv, evc, etc - I don't know yet what they do
   - To toggle AF assist beam use **st cap iq af led**
   - You can also enable debugging (not usable to me might be to someone else)
-		- multi perflog [on,off] :: enable performance log
-		- multi aflog [on,off] :: enable AF operation log
-		- multi hybridlog [on,off] :: enable hybrid AF operation log
-		- multi algo log [on,off] :: enable multi box operation log
-		- multi algo save [on,off] :: save gathered multi box information
-		- multi algo config [stop] [change wait] :: set wait count for small area change
-		- multi algo group [samples] [areas] :: set max number of groups
-		- multi algo set [id] [range] [low] [hi] :: set time-average algorithm configuration
+    - multi perflog [on,off] :: enable performance log
+    - multi aflog [on,off] :: enable AF operation log
+    - multi hybridlog [on,off] :: enable hybrid AF operation log
+    - multi algo log [on,off] :: enable multi box operation log
+    - multi algo save [on,off] :: save gathered multi box information
+    - multi algo config [stop] [change wait] :: set wait count for small area change
+    - multi algo group [samples] [areas] :: set max number of groups
+    - multi algo set [id] [range] [low] [hi] :: set time-average algorithm configuration

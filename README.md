@@ -24,6 +24,7 @@ Things that work:
   - Working with generic X - xeyes work, xmessage works, etc.
   - [Running debugger](https://github.com/ottokiksmaler/nx500/blob/master/Running-gdb.md) - gdb on device and gdb server on device
   - [Description of working with focus from command line](https://github.com/ottokiksmaler/nx500/blob/master/Working%20with%20focus.md)
+  - [Description of working with lens](https://github.com/ottokiksmaler/nx500/blob/master/Working%20with%20lens.md)
 
 ##To do ...
 

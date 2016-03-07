@@ -21,6 +21,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#define NXKEY_EV1 150
 #define NXKEY_EV 173
 #define NXKEY_OK 96
 #define NXKEY_MENU 127
@@ -85,7 +86,8 @@ int main (int argc, char *argv[])
 	
 	for (i=0;i<255;i++)
 		nxkeyname[i]="";
-	nxkeyname[173] = "EV";
+	nxkeyname[150] = "EV"; //EV key on NX1
+	nxkeyname[173] = "EV"; //EV key on NX500
 	nxkeyname[96] = "OK";
 	nxkeyname[183] = "PB";
 	nxkeyname[172] = "FN";
@@ -167,7 +169,7 @@ int main (int argc, char *argv[])
 		call_shell=0;
         if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 2) {
 			debug && printf("%s %d\n", evval[ev.value], (int)ev.code);
-			if (NXKEY_EV == (int)ev.code || NXKEY_SHIFT == (int)ev.code) {
+			if (NXKEY_EV == (int)ev.code || NXKEY_EV1 == (int)ev.code || NXKEY_SHIFT == (int)ev.code) {
 				if (1 == ev.value)
 					ev_pressed=1;
 				if (1 == ev_pressed && 0 == ev.value)

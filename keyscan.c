@@ -21,7 +21,6 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
-#define NXKEY_EV1 150
 #define NXKEY_EV 173
 #define NXKEY_OK 96
 #define NXKEY_MENU 127
@@ -49,7 +48,25 @@
 #define NXKEY_S 67
 #define NXKEY_M 68
 #define NXKEY_C 71
+// FOR NX1
+#define NXKEY_EV1 150
+#define NXKEY_C2 71 
+#define NXKEY_LCD 149
+#define NXKEY_JOG3_CW 105
+#define NXKEY_JOG3_CCW 106
+#define NXKEY_EVF 151
+#define NXKEY_SS 90 // Single shot
+#define NXKEY_CN 91 // Continuous normal
+#define NXKEY_CH 94 // Continuous high
+#define NXKEY_TIMER 97
+#define NXKEY_BRACKETING 100
+#define NXKEY_WB 185
+#define NXKEY_ISO 186
+#define NXKEY_AF 184
+#define NXKEY_METERING 93
+#define NXKEY_FRONT 193
 
+// FOR PC DEBUG
 #define NXKEY_SHIFT 42
 
 static const char *const evval[3] = {
@@ -86,7 +103,6 @@ int main (int argc, char *argv[])
 	
 	for (i=0;i<255;i++)
 		nxkeyname[i]="";
-	nxkeyname[150] = "EV"; //EV key on NX1
 	nxkeyname[173] = "EV"; //EV key on NX500
 	nxkeyname[96] = "OK";
 	nxkeyname[183] = "PB";
@@ -107,7 +123,21 @@ int main (int argc, char *argv[])
 	nxkeyname[66] = "MODE_A";
 	nxkeyname[67] = "MODE_S";
 	nxkeyname[68] = "MODE_M";
-	nxkeyname[71] = "MODE_C";
+	nxkeyname[71] = "MODE_C"; // MODE_C1 on NX1
+	nxkeyname[150] = "EV"; //EV key on NX1
+	nxkeyname[70] = "MODE_C2";
+	nxkeyname[149] = "TOP_LCD"; //NX top LCD backlight
+	nxkeyname[151] = "EVF";
+	nxkeyname[90] = "SS";
+	nxkeyname[91] = "CN";
+	nxkeyname[94] = "CH";
+	nxkeyname[97] = "TIMER";
+	nxkeyname[100] = "BRACKETING";
+	nxkeyname[185] = "WB";
+	nxkeyname[186] = "ISO";
+	nxkeyname[184] = "AF";
+	nxkeyname[93] = "METERING";
+	nxkeyname[193] = "FRONT";
 
 	nxkeyname[38] = "LK"; nxkeyname[37] = "KK";	nxkeyname[42] = "EV"; // for debugging on PC
 
@@ -188,7 +218,7 @@ int main (int argc, char *argv[])
 			if (ev_pressed == 1 && (int)ev.code != NXKEY_EV && (int)ev.code != NXKEY_SHIFT && 1 == (int)ev.value) {
 				debug && printf("Combo EV + %s %d %s\n", nxkeyname[(int)ev.code], (int)ev.code, evval[(int)ev.value]);
 				strncpy(shell_name,"EV_",4);
-				strncat(shell_name,nxkeyname[(int)ev.code],8);
+				strncat(shell_name,nxkeyname[(int)ev.code],16);
 				call_shell=1;
 			}
 			if (ev.value == 1) {

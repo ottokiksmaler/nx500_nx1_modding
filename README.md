@@ -25,6 +25,10 @@ Things that work:
   - [Running debugger](https://github.com/ottokiksmaler/nx500/blob/master/Running-gdb.md) - gdb on device and gdb server on device
   - [Description of working with focus from command line](https://github.com/ottokiksmaler/nx500/blob/master/Working%20with%20focus.md)
   - [Description of working with lens](https://github.com/ottokiksmaler/nx500/blob/master/Working%20with%20lens.md)
+  - [Focus buttons](https://github.com/ottokiksmaler/nx500/blob/master/focus_buttons.c) - Program that displays series of buttons on top of the screen 
+    - long press (1+s) to save current focus position
+    - click to restore saved focus position
+    - Can be used for studio shooting, astrophotography (focus on infinity during day, recall the focus during the night), etc.
 
 ##To do ...
 

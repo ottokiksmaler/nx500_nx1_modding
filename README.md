@@ -29,6 +29,7 @@ Things that work:
     - long press (1+s) to save current focus position
     - click to restore saved focus position
     - Can be used for studio shooting, astrophotography (focus on infinity during day, recall the focus during the night), etc.
+    - Precompiled binary is here: https://github.com/ottokiksmaler/nx500/blob/master/focus_buttons
 
 ##To do ...
 

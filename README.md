@@ -30,6 +30,15 @@ Things that work:
     - click to restore saved focus position
     - Can be used for studio shooting, astrophotography (focus on infinity during day, recall the focus during the night), etc.
     - Precompiled binary is here: https://github.com/ottokiksmaler/nx500/blob/master/focus_buttons
+  - [Focus stacking](https://github.com/ottokiksmaler/nx500/blob/master/focus_stack.c)
+    - Focus on near point - press "Near"
+    - Focus on far point - press "Far"
+    - Click "Stack" and wait for it to finish
+    - Files are in the usual place - remember to fix exposure/awb/etc as you normally would
+    - Precompiled binary is here: https://github.com/ottokiksmaler/nx500/blob/master/focus_stack
+    - Command line options are:
+      ```focus_stack [ help | sweep | number_of_photos [ delay_between_photos [ button_height [ button_width ] ] ] ]```
+
 
 ##To do ...
 

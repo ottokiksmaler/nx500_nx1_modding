@@ -21,9 +21,13 @@ char stringline[255], label_entry[255], sample_text[255];
 int focus_pos_near=1200, focus_pos_far=1100, focus_pos_min=0, focus_pos_max=0, number_points = DEFAULT_STEPS, shot_delay = 6;
 int button_height = 45, button_width=130;
 
+static void run_command(char * command) {
+	debug && printf("CMD: %s\n",command);
+	system(command);
+}
 static void restore_touch()
 {
-	system("/usr/bin/st key touch click 360 240");	// TODO: quick hack to release input focus
+	run_command("/usr/bin/st key touch click 360 240");	// TODO: quick hack to release input focus
 }
 
 static void click_quit(void *data, Evas_Object * obj, void *event_info)
@@ -58,7 +62,7 @@ static void popup_show(char * message, int timeout, int row) {
 	elm_box_pack_end(popup_box, lab);
 	evas_object_show(lab);
 	evas_object_show(popup_win);
-	timer = ecore_timer_add(1, popup_hide, NULL);
+	timer = ecore_timer_add(timeout, popup_hide, NULL);
 }
 
 static int get_af_position()
@@ -85,26 +89,26 @@ static void focus_to_position(int position)
 {
 	int amount = 0;
 	amount = position - get_af_position();
-	debug && printf("Focus to position at %d by %d\n", position, amount);
+// 	debug && printf("Focus to position at %d by %d\n", position, amount);
 	sprintf(stringline, "/usr/bin/st cap iq af mv 255 %d 255", amount);
 	debug && printf("CMD: %s\n", stringline);
-	system(stringline);
+	run_command(stringline);
 }
 
 static void focus_move(int amount)
 {
-	debug && printf("Focus move by %d\n", amount);
+// 	debug && printf("Focus move by %d\n", amount);
 	sprintf(stringline, "/usr/bin/st cap iq af mv 255 %d 255", amount);
 	debug && printf("CMD: %s\n", stringline);
-	system(stringline);
+	run_command(stringline);
 }
 
 static void run_stack(int near, int far, int steps, int delay) {
 	int initial_position,current_position=0, step=0;
 	double delta=0;
 	evas_object_hide(win);
-	system("/usr/bin/st app nx capture af-mode manual"); // show manual focus mode
-	system("/usr/bin/st cap capdtm setusr AFMODE 0x70003"); // force manual focus mode
+	run_command("/usr/bin/st app nx capture af-mode manual\n"); // show manual focus mode
+	run_command("/usr/bin/st cap capdtm setusr AFMODE 0x70003\n"); // force manual focus mode
 	sleep(2);
 	focus_to_position(near);
 	sleep(2);
@@ -115,12 +119,15 @@ static void run_stack(int near, int far, int steps, int delay) {
 	while (current_position>far && step < steps && step < MAX_STEPS) {
 		step++;
 		sleep(delay/2);
-		system("st app nx capture single && st key click s1"); // capture single frame and exit photo preview is exists
+// 		run_command("/usr/bin/st app nx capture single && /bin/sleep 0.5 && /usr/bin/st key click s1\n"); // capture single frame and exit photo preview is exists
+		run_command("st key push s1 && sleep 0.3 && st key click s2 && st key release s1 && sleep 0.5 && st key click s1\n"); // capture single frame and exit photo preview is exists
 		sleep(delay - delay/2);
 		focus_move((int)(near + (int)(step*delta)-current_position));
 		current_position = near + (int)(step*delta);
 	}
 	evas_object_show(win);
+	char message[255];
+	sprintf (message, "<align=center>Frames: %d  delay: %d</align>",number_points,shot_delay);
 }
 
 static void click_near(void *data, Evas_Object * obj, void *event_info)
@@ -137,9 +144,6 @@ static void click_far(void *data, Evas_Object * obj, void *event_info)
 
 static void click_stack(void *data, Evas_Object * obj, void *event_info)
 {
-	char message[255];
-	sprintf (message, "<align=center>Frames: %d  delay: %ds</align>",number_points,shot_delay);
-	popup_show(message,2,3);
 	run_stack(focus_pos_near,focus_pos_far,number_points, shot_delay);
 }
 

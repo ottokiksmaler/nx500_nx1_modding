@@ -8,7 +8,7 @@
  * 
  * Default command line: keyscan /dev/event0 /dev/event1 /mnt/mmc/scripts/
  * 
- * Compile: arm-linux-gnueabihf-gcc --static -o keyscan keyscan.c -s
+ * Compile: arm-linux-gnueabi-gcc --static -o keyscan keyscan.c -s
  * 
  */
 #include <stdlib.h>
@@ -208,7 +208,7 @@ int main (int argc, char *argv[])
 			if (ev.value == 1) {
 				msec_elapsed = msec_passed(&previous_ev.time,&ev.time);
 			}
-			if (msec_elapsed < 1000 && ev.code == previous_ev.code && ev.value == previous_ev.value) {
+			if (NXKEY_EV1 != (int)ev.code && msec_elapsed < 1000 && ev.code == previous_ev.code && ev.value == previous_ev.value) {
 				debug && printf("Doubleclick %s %d\n", nxkeyname[(int)ev.code], (int)ev.code);
 				strncpy(shell_name,nxkeyname[(int)ev.code],8);
 				strncat(shell_name,"_",8);

@@ -2,6 +2,8 @@
 
 **Does not work on NX1**
 
+**Works only in single shot mode (not in CN or CH)**
+
 Execute needed command from telnet session or script, etc:
 ```
 [root@drime5 ~]£ st cap capdtm setusr 117 0x00750001

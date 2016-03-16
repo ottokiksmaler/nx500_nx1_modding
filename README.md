@@ -38,30 +38,32 @@ Things that work:
     - Precompiled binary is here: https://github.com/ottokiksmaler/nx500/blob/master/focus_stack
     - Command line options are:
       ```focus_stack [ help | sweep | number_of_photos [ delay_between_photos [ button_height [ button_width ] ] ] ]```
+  - [Remove 29:59 time limit for video via DEV Mode](https://github.com/ottokiksmaler/nx500/blob/master/DEV%20and%20CS%20modes.md) - original work by [Vasile](http://www.dpreview.com/forums/thread/3979382)
+  - [NX500 - Fully electronic shutter - silent](https://github.com/ottokiksmaler/nx500/blob/master/NX500%20Silent%20shooting.md)
 
 
 ##To do ...
 
 Things that should work given time:
-  - Removing video recording time limit
-  - SSH on camera - client should work just fine, have to test server
-  - Automatic backup - have to decide how to implement - related work
+  - [x] Removing video recording time limit - thanks to Vasile
+  - [ ] SSH on camera - client should work just fine, have to test server
+  - [ ] Automatic backup - have to decide how to implement - related work
     - http://lemmster.de/auto-backup-from-nx300-via-ftp.html
     - https://cedarandthistle.wordpress.com/2014/11/01/autobackup-to-linux-from-the-samsung-nx300m/
-  - Enabling additional kernel modules - should work similar to  [what's described here](http://www.lemmster.de/cross-compile-kernel-module-samsung-nx300-ubnut-14.04.html)
-  - Crypto like here [NX Crypto Photography](https://sites.google.com/site/nxcryptophotography/)
+  - [ ] Enabling additional kernel modules - should work similar to  [what's described here](http://www.lemmster.de/cross-compile-kernel-module-samsung-nx300-ubnut-14.04.html)
+  - [ ] Crypto like here [NX Crypto Photography](https://sites.google.com/site/nxcryptophotography/)
 
 Things that could work with a bit of luck
-  - USB audio
-  - Removing sharpening and noise reduction in video
-  - Adding support for different Gamma/LUT in video on NX500 (perhaps on NX1 as well)
+  - [ ] USB audio
+  - [ ] Removing sharpening and noise reduction in video
+  - [ ] Adding support for different Gamma/LUT in video on NX500 (perhaps on NX1 as well)
 
 Not likely - but might be possible
-  - No crop 4k video
-  - Higher framerate 1080p or 720p (sensor can be read at 240fps but that's that - not implemented anywhere else in camera)
-  - Higher bitrates for any video mode
-  - Full sensor video at any rate
-  - Silent shutter (fully electronic)
+  - [ ] No crop 4k video
+  - [ ] Higher framerate 1080p or 720p (sensor can be read at 240fps but that's that - not implemented anywhere else in camera)
+  - [ ] Higher bitrates for any video mode
+  - [ ] Full sensor video at any rate
+  - [x] Silent shutter (fully electronic) - NX500 only for now
 
 #Donations
 

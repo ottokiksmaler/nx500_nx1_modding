@@ -1,10 +1,10 @@
-#Samsung NX500 / NX1 - rooting and hacking
+#Samsung NX500 / NX1 Modding
 
 ##About
 
-This is a repo hosting information for those interested in altering the functionality of their Samsung NX500 and NX1 cameras.
+This is a repository hosting information for those interested in altering the functionality of their Samsung NX500 and NX1 cameras.
 
-These cameras run a full blown Linux ditribution (Tizen) with shell, X, networking stack, debugging and testing tools - the works. This enables us to alter functionality of the cameras and ... well - just play around - it's fun! Seeing xeyes on your camera is such a heart warming experience :)
+These cameras run a full blown Linux distribution (Tizen) with shell, X, networking stack, debugging and testing tools - the works. This enables us to alter functionality of the cameras and ... well - just play around - it's fun! Seeing xeyes on your camera is such a heart warming experience :)
 
 Inital work was done and presented on DPReview Samsung Forum [here](http://www.dpreview.com/forums/thread/3964253) and [here](http://www.dpreview.com/forums/thread/3971805) and EOSHD [here](http://www.eoshd.com/comments/topic/19099-petition-for-samsung-nx1-hack/?do=findComment&comment=134256). Special thanks to tecnoworld who provided information on NX1.
 

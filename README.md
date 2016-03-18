@@ -8,6 +8,10 @@ These cameras run a full blown Linux distribution (Tizen) with shell, X, network
 
 Inital work was done and presented on DPReview Samsung Forum [here](http://www.dpreview.com/forums/thread/3964253) and [here](http://www.dpreview.com/forums/thread/3971805) and EOSHD [here](http://www.eoshd.com/comments/topic/19099-petition-for-samsung-nx1-hack/?do=findComment&comment=134256). Special thanks to tecnoworld who provided information on NX1.
 
+##TL;DR - I want my camera hacked - what to do?
+
+Read [Customizing functions of various keys](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Customizing%20keys.md) for introduction.
+
 ##Status
 
 Things that work:

@@ -28,7 +28,7 @@ No. But you can :)
 In the *scripts* directory on SD card there is a bunch of shell scripts called EV_EV.sh, EV_OK.sh, EV_AEL.sh and the like. They are called when corresponding combination of keys is pressed. You can freely alter their contents (you *should* first test interactively via telnet - it's easier that way). You can also create other files for other key combinations.
 
 Possible key combinations (shell script names) on NX500:
-  - EV_EV.sh - double click EV
+  - EV_EV.sh - double click EV (NX500 only)
   - EV_MOBILE.sh
   - EV_AEL.sh
   - EV_S1.sh - EV + half press the shutter
@@ -38,6 +38,7 @@ Possible key combinations (shell script names) on NX500:
   - EV_DOWN
   - EV_LEFT
   - EV_RIGHT
+  - Many more on NX1
 
 ##How does it work?
 

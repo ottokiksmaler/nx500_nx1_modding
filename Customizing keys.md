@@ -11,7 +11,7 @@ There are also some other illogical choices like:
   - ... whatever irks *you* ...
 
 Fret not, here is the solution:
-  1. Download [sd.tar](https://github.com/ottokiksmaler/nx500/blob/master/sd.tar) file
+  1. Download [sd.zip](https://github.com/ottokiksmaler/nx500/blob/master/sd.zip) file
   2. Extract it to the root of the SD card (so that SD card root contains *info.tg* file and *scripts* directory)
   3. Put the card in the camera and power it on. Wait a few seconds (booting with custom scripts lasts a bit longer)
   4. Use any of the key combinations, like:

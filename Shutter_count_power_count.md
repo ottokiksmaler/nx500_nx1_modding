@@ -21,7 +21,7 @@ Number of power-on events:
 
 ##NX1
 
-From telnet session execute **prefman get 3 0x208 l** (that's lower L, not 1):
+From telnet session execute **prefman get 4 0x208 l** (that's lower L, not 1):
 ```
 [root@drime5 ~]# prefman get 4 0x208 l
 [sysrw] in memory: 

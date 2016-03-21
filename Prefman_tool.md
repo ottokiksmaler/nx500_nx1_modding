@@ -2,6 +2,8 @@
 
 Samsung includes very powerful tool named **prefman** with modern NX cameras (/usr/bin/prefman). This tool enables a variety of operations to be performed on camera settings. There is also a **prefman.sh** script (/usr/bin/prefman.sh) that automates full dumps/restores.
 
+**Note: NX1 has slightly different layout of IDs - for example SYSRW is 4, not 3 as in these NX500 examples**
+
 Example output of prefman.sh
 ```
 [root@drime5 ~]# prefman.sh 

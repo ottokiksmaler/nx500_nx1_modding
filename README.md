@@ -44,7 +44,8 @@ Things that work:
       ```focus_stack [ help | sweep | number_of_photos [ delay_between_photos [ button_height [ button_width ] ] ] ]```
   - [Remove 29:59 time limit for video via DEV Mode](https://github.com/ottokiksmaler/nx500/blob/master/DEV%20and%20CS%20modes.md) - original work by [Vasile](http://www.dpreview.com/forums/thread/3979382)
   - [NX500 - Fully electronic shutter - silent](https://github.com/ottokiksmaler/nx500/blob/master/NX500%20Silent%20shooting.md)
-
+  - [Shutter count and power on count](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Shutter_count_power_count.md)
+  - [Prefman tool - access to full preferences in usable form](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Prefman_tool.md)
 
 ##To do ...
 

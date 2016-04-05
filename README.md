@@ -46,6 +46,10 @@ Things that work:
   - [NX500 - Fully electronic shutter - silent](https://github.com/ottokiksmaler/nx500/blob/master/NX500%20Silent%20shooting.md)
   - [Shutter count and power on count](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Shutter_count_power_count.md)
   - [Prefman tool - access to full preferences in usable form](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Prefman_tool.md)
+  - Collection of small utilities for bash scripting:
+    - ```popup_timeout ["text message"] [timeout_in_seconds]``` - displays a popup message for a given number of seconds
+    - ```popup_ok [message] [ok label] [cancel label]``` - displays a OK / Cancel dialog, returns 0 if OK, 255 if Cancel
+    - ```popup_entry [message] [OK label] [cancel label] [sample entry]``` - displays an entry box with OK/Cancel buttons and prefilled sample text, returns entered text and 0 code for OK or just 255 for cancel.
 
 ##To do ...
 

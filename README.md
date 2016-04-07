@@ -50,6 +50,7 @@ Things that work:
     - ```popup_timeout ["text message"] [timeout_in_seconds]``` - displays a popup message for a given number of seconds
     - ```popup_ok [message] [ok label] [cancel label]``` - displays a OK / Cancel dialog, returns 0 if OK, 255 if Cancel
     - ```popup_entry [message] [OK label] [cancel label] [sample entry]``` - displays an entry box with OK/Cancel buttons and prefilled sample text, returns entered text and 0 code for OK or just 255 for cancel.
+  - [Running scripts without factory mode by starting WiFi](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode.md)
 
 ##To do ...
 
@@ -70,7 +71,7 @@ Things that could work with a bit of luck
 Not likely - but might be possible
   - [ ] No crop 4k video
   - [ ] Higher framerate 1080p or 720p (sensor can be read at 240fps but that's that - not implemented anywhere else in camera)
-  - [ ] Higher bitrates for any video mode
+  - [x] Higher bitrates for any video mode
   - [ ] Full sensor video at any rate
   - [x] Silent shutter (fully electronic) - NX500 only for now
 

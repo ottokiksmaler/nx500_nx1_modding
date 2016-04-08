@@ -26,7 +26,7 @@ Once you have telnet access do following:
 ```
 [root@drime5 ~]# mount -o remount,rw /
 [root@drime5 ~]# cd /usr/sbin
-[root@drime5 sbin]# cp bluetoothd bluetoothd.orig
+[root@drime5 sbin]# mv bluetoothd bluetoothd.orig
 [root@drime5 sbin]# vi bluetoothd
 #!/bin/bash
 if [ -x /opt/storage/sdcard/scripts/init.sh ];

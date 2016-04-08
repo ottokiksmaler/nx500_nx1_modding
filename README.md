@@ -51,6 +51,7 @@ Things that work:
     - ```popup_ok [message] [ok label] [cancel label]``` - displays a OK / Cancel dialog, returns 0 if OK, 255 if Cancel
     - ```popup_entry [message] [OK label] [cancel label] [sample entry]``` - displays an entry box with OK/Cancel buttons and prefilled sample text, returns entered text and 0 code for OK or just 255 for cancel.
   - [Running scripts without entering factory mode by starting Bluetooth] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode_BT.md)
+  - [Controlling LCD / EVF] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Control_LCD_EVF.md)
 
 ##To do ...
 

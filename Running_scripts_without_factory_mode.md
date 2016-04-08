@@ -1,5 +1,7 @@
 # Running Files From SD Card Without Entering the Factory Mode by Starting WiFi
 
+** NEW - see superior [Bluetooth approach] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode_BT.md) **
+
 ### *Warning - this procedure WILL modify your camera internal filesystem*
 
 ### *Warning - this procedure was tested only on NX500 but there is no reason for it to not work on NX1*

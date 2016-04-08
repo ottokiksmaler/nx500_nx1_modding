@@ -3,6 +3,53 @@
 Misc usage instructions included in various places in firmware. Not all commands/operations work.
 
 ```
+usage: st [command] [param]
+Supported bult-in commands
+        help            readl           writel          dump    
+        gpio            hdmi            log             lcd     
+        cap             pmu             clk             thread  
+        key             firmware        util            app     
+        leak            devman          stlcd           bat     
+        rtc             tbm             micom           misc    
+        oic             dvfs            adc     
+
+usage: st pmu [command]
+       st pmu help
+               display help.
+       st pmu show
+               show out all pmu informations.
+       st pmu set <ip name> <on | off>
+               set pmu configuration.
+[root@drime5 ~]# st pmu show
+   Module      Power
+-----------------------
+   pp            ON 
+   ipc_top       ON 
+   ipc_lcac      ON 
+   ipc_bnr       ON 
+   ipc_nanr      ON 
+   ipc_cnr       ON 
+   fmc           OFF
+   ep_top        ON 
+   ep_mc         ON 
+   ep_rsz        ON 
+   sss           OFF
+   dp_top        ON 
+   dp_tv         OFF
+   hevc          OFF
+   mp            OFF
+   gpu           ON 
+   srp           OFF
+   lli           ON 
+   csidsi        ON 
+   usb           OFF
+   hsic          OFF
+-----Don't Control-----
+   rtsys         ON 
+   apsys         ON 
+   dram_a        ON 
+   dram_b        OFF
+
 st app nx menu test-mode: set the test mode configuration
 st app nx menu format: format the card
 st app nx menu flash [mode]: adjust flash options

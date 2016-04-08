@@ -2,7 +2,7 @@
 
 ### *Warning - this procedure WILL modify your camera internal filesystem*
 
-### *Warning - this procedure was tested only on NX500 but there is no reason for it to not work on NX1*
+### *Warning - this procedure was tested only on NX500 - reported to work on NX1*
 
 That said, **it's reversible** - either by reading till the end or by simple firmware upgrade.
 

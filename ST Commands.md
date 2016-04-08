@@ -1,6 +1,6 @@
 #ST Commands
 
-Misc usage instructions included in various placen in firmware
+Misc usage instructions included in various places in firmware. Not all commands/operations work.
 
 ```
 st app nx menu test-mode: set the test mode configuration

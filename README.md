@@ -27,7 +27,7 @@ Things that work:
   - [Working with key events](https://github.com/ottokiksmaler/nx500/blob/master/Working-with-key-events.md) (detecting and sending) - also covers touch
   - Working with generic X - xeyes work, xmessage works, etc.
   - [Running debugger](https://github.com/ottokiksmaler/nx500/blob/master/Running-gdb.md) - gdb on device and gdb server on device
-  - [Description of working with focus from command line](https://github.com/ottokiksmaler/nx500/blob/master/Working%20with%20focus.md)
+  - [Description of working with focus from command line] (https://github.com/ottokiksmaler/nx500/blob/master/Working%20with%20focus.md)
   - [Description of working with lens](https://github.com/ottokiksmaler/nx500/blob/master/Working%20with%20lens.md)
   - [Focus buttons](https://github.com/ottokiksmaler/nx500/blob/master/focus_buttons.c) - Program that displays series of buttons on top of the screen 
     - long press (1+s) to save current focus position
@@ -42,15 +42,15 @@ Things that work:
     - Precompiled binary is here: https://github.com/ottokiksmaler/nx500/blob/master/focus_stack
     - Command line options are:
       ```focus_stack [ help | sweep | number_of_photos [ delay_between_photos [ button_height [ button_width ] ] ] ]```
-  - [Remove 29:59 time limit for video via DEV Mode](https://github.com/ottokiksmaler/nx500/blob/master/DEV%20and%20CS%20modes.md) - original work by [Vasile](http://www.dpreview.com/forums/thread/3979382)
-  - [NX500 - Fully electronic shutter - silent](https://github.com/ottokiksmaler/nx500/blob/master/NX500%20Silent%20shooting.md)
-  - [Shutter count and power on count](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Shutter_count_power_count.md)
-  - [Prefman tool - access to full preferences in usable form](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Prefman_tool.md)
+  - [Remove 29:59 time limit for video via DEV Mode] (https://github.com/ottokiksmaler/nx500/blob/master/DEV%20and%20CS%20modes.md) - original work by [Vasile] (http://www.dpreview.com/forums/thread/3979382)
+  - [NX500 - Fully electronic shutter - silent] (https://github.com/ottokiksmaler/nx500/blob/master/NX500%20Silent%20shooting.md)
+  - [Shutter count and power on count] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Shutter_count_power_count.md)
+  - [Prefman tool - access to full preferences in usable form] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Prefman_tool.md)
   - Collection of small utilities for bash scripting:
     - ```popup_timeout ["text message"] [timeout_in_seconds]``` - displays a popup message for a given number of seconds
     - ```popup_ok [message] [ok label] [cancel label]``` - displays a OK / Cancel dialog, returns 0 if OK, 255 if Cancel
     - ```popup_entry [message] [OK label] [cancel label] [sample entry]``` - displays an entry box with OK/Cancel buttons and prefilled sample text, returns entered text and 0 code for OK or just 255 for cancel.
-  - [Running scripts without factory mode by starting WiFi](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode.md)
+  - [Running scripts without entering factory mode by starting Bluetooth] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode_BT.md)
 
 ##To do ...
 
@@ -71,7 +71,7 @@ Things that could work with a bit of luck
 Not likely - but might be possible
   - [ ] No crop 4k video
   - [ ] Higher framerate 1080p or 720p (sensor can be read at 240fps but that's that - not implemented anywhere else in camera)
-  - [x] Higher bitrates for any video mode
+  - [x] Higher bitrates for any video mode - under development by Vasile - [see here for NX1 instructions] (http://www.dpreview.com/forums/thread/3988168)
   - [ ] Full sensor video at any rate
   - [x] Silent shutter (fully electronic) - NX500 only for now
 

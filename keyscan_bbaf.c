@@ -7,9 +7,9 @@
  * If the fourth parameter is "debug" verbose mode is turned on.
  * If the fourth parameter is "bbaf" then "True BB-AF" mode is turned on - CAF while AF pressed, MF when not.
  * 
- * Default command line: keyscan /dev/event0 /dev/event1 /mnt/mmc/scripts/ [debug|bbaf]
+ * Default command line: keyscan_bbaf /dev/event0 /dev/event1 /mnt/mmc/scripts/ [debug|bbaf]
  * 
- * Compile: arm-linux-gnueabihf-gcc --static -o keyscan keyscan.c -s
+ * Compile: arm-linux-gnueabihf-gcc --static -o keyscan_bbaf keyscan_bbaf.c -s
  * 
  */
 #include <stdlib.h>
@@ -66,6 +66,7 @@
 #define NXKEY_AF 184
 #define NXKEY_METERING 93
 #define NXKEY_FRONT 193
+#define NXKEY_AFON 188
 
 // FOR PC DEBUG
 #define NXKEY_SHIFT 42
@@ -75,6 +76,8 @@ static const char *const evval[3] = {
     "PRESSED ",
     "REPEATED"
 };
+
+int debug=0, bbaf=0, bbaf_nx500=0;
 
 long msec_passed(struct timeval *fromtime, struct timeval *totime)
 {
@@ -91,7 +94,6 @@ int main (int argc, char *argv[])
 	char *shell_dir = NULL;
     int fd0,fd1;
 	fd_set inputs;
-	int debug, bbaf;
     struct input_event ev, previous_ev = {};
 	struct timeval previous_press_time;
 	long msec_elapsed;
@@ -155,8 +157,6 @@ int main (int argc, char *argv[])
 	else 
 		shell_dir = "/mnt/mmc/scripts/";
 
-	debug=0;
-	bbaf=0;
 	if (argc > 4) {
 		if (strcmp("bbaf",argv[4])==0) {
 			printf("BB-AF ON\n");
@@ -208,18 +208,6 @@ int main (int argc, char *argv[])
 		call_shell=0;
         if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 2) {
 			debug && printf("%s %d\n", evval[ev.value], (int)ev.code);
-			if (bbaf && NXKEY_AF == (int)ev.code && 1 == ev.value) {
-				system("/usr/bin/st cap capdtm setusr AFMODE 0x70001");
-			}
-			if (bbaf && NXKEY_AF == (int)ev.code && 0 == ev.value) {
-				system("/usr/bin/st cap capdtm setusr AFMODE 0x70003");
-			}
-			if (NXKEY_EV == (int)ev.code || NXKEY_EV1 == (int)ev.code || NXKEY_SHIFT == (int)ev.code) {
-				if (1 == ev.value)
-					ev_pressed=1;
-				if (1 == ev_pressed && 0 == ev.value)
-					ev_pressed=0;
-			}
 			if (ev.value == 1) {
 				msec_elapsed = msec_passed(&previous_ev.time,&ev.time);
 			}
@@ -229,6 +217,17 @@ int main (int argc, char *argv[])
 				strncat(shell_name,"_",8);
 				strncat(shell_name,nxkeyname[(int)ev.code],8);
 				call_shell=1;
+			}
+			if (bbaf && NXKEY_AFON == (int)ev.code && 1 == ev.value) {
+				system("/usr/bin/st cap capdtm setusr AFMODE 0x70001");
+			} else if (bbaf && NXKEY_AFON == (int)ev.code && 0 == ev.value) {
+				system("/usr/bin/st cap capdtm setusr AFMODE 0x70003");
+			}
+			if (NXKEY_EV == (int)ev.code || NXKEY_EV1 == (int)ev.code || NXKEY_SHIFT == (int)ev.code) {
+				if (1 == ev.value)
+					ev_pressed=1;
+				if (1 == ev_pressed && 0 == ev.value)
+					ev_pressed=0;
 			}
 			if (ev_pressed == 1 && (int)ev.code != NXKEY_EV && (int)ev.code != NXKEY_SHIFT && 1 == (int)ev.value) {
 				debug && printf("Combo EV + %s %d %s\n", nxkeyname[(int)ev.code], (int)ev.code, evval[(int)ev.value]);

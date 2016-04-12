@@ -8,6 +8,8 @@
  * Example:
  * ./poker 247 0x00400658:45464748:42424242 - changes 'AAAA' to 'EFGH' at address 0x00400658' of PID 247 only if original bytes were 'AAAA'
  * 
+ * ./poker 247 0x00400658:45464748:42424242 0x00400668:45464748 0x00800658:45464748 0x00400444:45464748:41414141- works as well
+ * 
  * Compile with
  * arm-linux-gnueabihf-gcc --static -o poker poker.c --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.s
  */
@@ -131,7 +133,7 @@ int main(int argc, unsigned char *argv[])
 	unsigned char *spl;
 	
 	if (argc < 3) {
-		printf("\nUsage: %s <PID> <hex_address:hexpair_value[:hexpair_value_original]>\n\nExample:\n%s 247 0x00400658:45464748 - changes 4 bytes to 'EFGH' at address 0x00400658' of PID 247\n\nExample:\n%s 247 0x00400658:45464748:42424242 - changes 'AAAA' to 'EFGH' at address 0x00400658' of PID 247 only if original bytes were 'AAAA'\n\n",argv[0],argv[0],argv[0]);
+		printf("\nUsage: %s <PID> <hex_address:hexpair_value[:hexpair_value_original]>\n\nExample:\n%s 247 0x00400658:45464748 - changes 4 bytes to 'EFGH' at address 0x00400658' of PID 247\n\nExample:\n%s 247 0x00400658:45464748:42424242 - changes 'AAAA' to 'EFGH' at address 0x00400658' of PID 247 only if original bytes were 'AAAA'\n\n%s 247 0x00400658:45464748:42424242 0x00400668:45464748 0x00800658:45464748 0x00400444:45464748:41414141- works as well",argv[0],argv[0],argv[0],argv[0]);
 		return 1;
 	}
 	pid = atoi(argv[1]);

@@ -1,14 +1,18 @@
 /*
  * Change memory of another process 4 bytes at a time :)
  * 
- * Usage: ./poker <PID> <hex_address:hexpair_value[:hexpair_value_original]>
- * Example:
- * ./poker 247 0x00400658:45464748 - changes 4 bytes to 'EFGH' at address 0x00400658' of PID 247
+ * Usage: ./poker <PID> <hex_address[:hexpair_value[:hexpair_value_original]]>
  * 
  * Example:
- * ./poker 247 0x00400658:45464748:42424242 - changes 'AAAA' to 'EFGH' at address 0x00400658' of PID 247 only if original bytes were 'AAAA'
+ * ./poker 247 0x00400658 - reads 4 bytes from address 0x00400658 of PID 247
  * 
- * ./poker 247 0x00400658:45464748:42424242 0x00400668:45464748 0x00800658:45464748 0x00400444:45464748:41414141- works as well
+ * Example:
+ * ./poker 247 0x00400658:45464748 - changes 4 bytes to 'EFGH' at address 0x00400658 of PID 247
+ * 
+ * Example:
+ * ./poker 247 0x00400658:45464748:41414141 - changes 'AAAA' to 'EFGH' at address 0x00400658 of PID 247 only if original bytes were 'AAAA'
+ * 
+ * ./poker 247 0x00400658:45464748:41414141 0x00400668:45464748 0x00800658:45464748 0x00400444:45464748:41414141- works as well
  * 
  * Compile with
  * arm-linux-gnueabihf-gcc --static -o poker poker.c --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.s
@@ -129,11 +133,11 @@ int main(int argc, unsigned char *argv[])
 	int fd,i,b;
 	pid_t pid;
 	off_t offset;
-	unsigned char arg[BUFF_SIZE], buff_old[4], buff_new[4];
+	unsigned char arg[BUFF_SIZE], buff_old[4], buff_new[4], buff_peek[4];
 	unsigned char *spl;
 	
 	if (argc < 3) {
-		printf("\nUsage: %s <PID> <hex_address:hexpair_value[:hexpair_value_original]>\n\nExample:\n%s 247 0x00400658:45464748 - changes 4 bytes to 'EFGH' at address 0x00400658' of PID 247\n\nExample:\n%s 247 0x00400658:45464748:42424242 - changes 'AAAA' to 'EFGH' at address 0x00400658' of PID 247 only if original bytes were 'AAAA'\n\n%s 247 0x00400658:45464748:42424242 0x00400668:45464748 0x00800658:45464748 0x00400444:45464748:41414141- works as well",argv[0],argv[0],argv[0],argv[0]);
+		printf("\nUsage: %s <PID> <hex_address[:hexpair_value[:hexpair_value_original]]>\n\nExample:\n%s 247 0x00400658 - reads 4 bytes from address 0x00400658 of PID 247\n\nExample:\n%s 247 0x00400658:45464748 - changes 4 bytes to 'EFGH' at address 0x00400658' of PID 247\n\nExample:\n%s 247 0x00400658:45464748:42424242 - changes 'AAAA' to 'EFGH' at address 0x00400658' of PID 247 only if original bytes were 'AAAA'\n\n%s 247 0x00400658:45464748:42424242 0x00400668:45464748 0x00800658:45464748 0x00400444:45464748:41414141- works as well\n\n",argv[0],argv[0],argv[0],argv[0],argv[0]);
 		return 1;
 	}
 	pid = atoi(argv[1]);
@@ -150,15 +154,24 @@ int main(int argc, unsigned char *argv[])
 			spl = strtok(arg, ":");
 			offset = strtol(spl, NULL, 16);
 			spl = strtok(NULL, ":");
-			hex_to_char_array(spl,buff_new);
-			spl = strtok(NULL, ":");
-			if (spl) {
-				hex_to_char_array(spl,buff_old);
-				if(!pokeif(fd, offset, buff_old, buff_new, 4))
+			if (!spl) {
+				if (!peek(fd,offset,buff_peek,4))
 					return 1;
+				printf("0x%x:",(int)offset);
+				for (b = 0; b < 4; ++b)
+					printf("%x", buff_peek[b]);
+				printf("\n");
 			} else {
-				if(!poke(fd, offset, buff_new, 4))
-					return 1;
+				hex_to_char_array(spl,buff_new);
+				spl = strtok(NULL, ":");
+				if (spl) {
+					hex_to_char_array(spl,buff_old);
+					if(!pokeif(fd, offset, buff_old, buff_new, 4))
+						return 1;
+				} else {
+					if(!poke(fd, offset, buff_new, 4))
+						return 1;
+				}
 			}
 		}
 	} else {

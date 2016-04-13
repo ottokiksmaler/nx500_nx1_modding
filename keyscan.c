@@ -4,11 +4,12 @@
  * 
  * Key events are coming from two devices /dev/event0 and /dev/event1 for top and back keys.
  * The program will capture keys and execute corresponding shell scripts from provided directory.
- * If the fourth parameter is present verbose mode is turned on.
+ * If the fourth parameter is "debug" verbose mode is turned on. File named /tmp/key_code holds name of key currently pressed
+ * If the fourth parameter is "bbaf" then "True BB-AF" mode is turned on on NX1 - CAF while AF pressed, MF when not.
  * 
- * Default command line: keyscan /dev/event0 /dev/event1 /mnt/mmc/scripts/
+ * Default command line: keyscan /dev/event0 /dev/event1 /mnt/mmc/scripts/ [debug|bbaf]
  * 
- * Compile: arm-linux-gnueabi-gcc --static -o keyscan keyscan.c -s
+ * Compile: arm-linux-gnueabihf-gcc --static -o keyscan keyscan.c -s
  * 
  */
 #include <stdlib.h>
@@ -20,6 +21,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/file.h>
 
 #define NXKEY_EV 173
 #define NXKEY_OK 96
@@ -65,6 +67,7 @@
 #define NXKEY_AF 184
 #define NXKEY_METERING 93
 #define NXKEY_FRONT 193
+#define NXKEY_AFON 188
 
 // FOR PC DEBUG
 #define NXKEY_SHIFT 42
@@ -75,6 +78,9 @@ static const char *const evval[3] = {
     "REPEATED"
 };
 
+int debug=0, bbaf=0, bbaf_nx500=0;
+static const char *key_temp_file="/tmp/key_code";
+
 long msec_passed(struct timeval *fromtime, struct timeval *totime)
 {
   long msec;
@@ -83,14 +89,30 @@ long msec_passed(struct timeval *fromtime, struct timeval *totime)
   return msec;
 }
 
+void create_temp_file(char *key) {
+	int fd=open(key_temp_file, O_CREAT | O_TRUNC | O_WRONLY);
+	if (fd<0) printf("error opening file: %s %d\n",key_temp_file,errno);
+	write(fd, key, sizeof(key));
+	close(fd);
+}
+
 int main (int argc, char *argv[])
 {
+	// Prevent double starting the keyscan
+	int pid_file = open("/tmp/keyscan.pid", O_CREAT | O_RDWR, 0666);
+	if(flock(pid_file, LOCK_EX | LOCK_NB)) {
+		if(EWOULDBLOCK == errno) {
+			printf("Error - another %s instance already running!\n",argv[0]);
+			return 255;
+		}
+	}
+	
+
     char *input_device0 = NULL;
 	char *input_device1 = NULL;
 	char *shell_dir = NULL;
     int fd0,fd1;
 	fd_set inputs;
-	int debug;
     struct input_event ev, previous_ev = {};
 	struct timeval previous_press_time;
 	long msec_elapsed;
@@ -154,9 +176,15 @@ int main (int argc, char *argv[])
 	else 
 		shell_dir = "/mnt/mmc/scripts/";
 
-	debug=0;
-	if (argc > 4)
-		debug=1;
+	if (argc > 4) {
+		if (strcmp("bbaf",argv[4])==0) {
+			printf("BB-AF ON\n");
+			bbaf=1;
+		} else {
+			printf("DEBUG ON\n");
+			debug=1;
+		}
+	}
 
 	debug && printf("Opening inputs %s %s\n",input_device0,input_device1) && fflush(stdout);
 	
@@ -199,11 +227,9 @@ int main (int argc, char *argv[])
 		call_shell=0;
         if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 2) {
 			debug && printf("%s %d\n", evval[ev.value], (int)ev.code);
-			if (NXKEY_EV == (int)ev.code || NXKEY_EV1 == (int)ev.code || NXKEY_SHIFT == (int)ev.code) {
-				if (1 == ev.value)
-					ev_pressed=1;
-				if (1 == ev_pressed && 0 == ev.value)
-					ev_pressed=0;
+			if (debug) {
+				if ((int)ev.value == 1) create_temp_file(nxkeyname[(int)ev.code]);
+				if ((int)ev.value == 0) unlink(key_temp_file);
 			}
 			if (ev.value == 1) {
 				msec_elapsed = msec_passed(&previous_ev.time,&ev.time);
@@ -214,6 +240,17 @@ int main (int argc, char *argv[])
 				strncat(shell_name,"_",8);
 				strncat(shell_name,nxkeyname[(int)ev.code],8);
 				call_shell=1;
+			}
+			if (bbaf && NXKEY_AFON == (int)ev.code && 1 == ev.value) {
+				system("/usr/bin/st cap capdtm setusr AFMODE 0x70001");
+			} else if (bbaf && NXKEY_AFON == (int)ev.code && 0 == ev.value) {
+				system("/usr/bin/st cap capdtm setusr AFMODE 0x70003");
+			}
+			if (NXKEY_EV == (int)ev.code || NXKEY_EV1 == (int)ev.code || NXKEY_SHIFT == (int)ev.code) {
+				if (1 == ev.value)
+					ev_pressed=1;
+				if (1 == ev_pressed && 0 == ev.value)
+					ev_pressed=0;
 			}
 			if (ev_pressed == 1 && (int)ev.code != NXKEY_EV && (int)ev.code != NXKEY_SHIFT && 1 == (int)ev.value) {
 				debug && printf("Combo EV + %s %d %s\n", nxkeyname[(int)ev.code], (int)ev.code, evval[(int)ev.value]);

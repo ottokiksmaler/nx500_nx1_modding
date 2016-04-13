@@ -1,5 +1,7 @@
 # Controlling LCD / EVF display
 
+**This does not turn off the touchscreen - it still works**
+
 You can control what is shown on what video display device by using **st app bb** command as follows:
 
 st app bb [lcd|evf|tv][on|off|osd|video]

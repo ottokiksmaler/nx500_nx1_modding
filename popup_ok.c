@@ -1,15 +1,18 @@
 /*
 Compile with:
 
-arm-linux-gnueabihf-gcc -o example example.c `pkg-config --cflags --libs elementary` --sysroot=/path_to_arm_usr_and_lib/ -Wl,-dynamic-linker,/lib/ld-2.13.so
+arm-linux-gnueabihf-gcc -o example example.c `pkg-config --cflags --libs ecore elementary` -lecore_input --sysroot=/path_to_arm_usr_and_lib/ -Wl,-dynamic-linker,/lib/ld-2.13.so
 
 We need to specify the correct ld or it will not work on device.
  */
 #include <Elementary.h>
 #include <strings.h>
+#include <Ecore.h>
+#include <Ecore_Input.h>
 
 char *message="No message given",message_out[255], label_ok[255], label_cancel[255], label_entry[255], sample_text[255];
 Evas_Object *win, *bg, *bg2, *bgl, *box, *box2, *lab, *button_ok, *button_cancel, *entry_field, *entry_frame;
+int debug=0;
 
 static void
 ok_button_1_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -24,6 +27,21 @@ ok_button_2_clicked(void *data, Evas_Object *obj, void *event_info)
    /* quit the mainloop (elm_run) */
    elm_exit();
    exit(255);
+}
+
+static Eina_Bool key_down_callback(void *data, int type, void *ev)
+{
+   Ecore_Event_Key *event = ev;
+   if (!strcmp("KP_Enter", event->key))
+   {
+	   ok_button_1_clicked(NULL, NULL, NULL);
+   }
+   if (!strcmp("Menu", event->key))
+   {
+	   ok_button_2_clicked(NULL, NULL, NULL);
+   }
+   debug && printf("Key: %s\n",event->key);
+   return ECORE_CALLBACK_PASS_ON;
 }
 
 
@@ -85,8 +103,10 @@ elm_main(int argc, char **argv)
    elm_box_pack_end(box2, button_cancel);
    evas_object_show(button_cancel);
    evas_object_smart_callback_add(button_cancel, "clicked", ok_button_2_clicked, NULL);
+   elm_object_focus_set(button_cancel, EINA_TRUE);
 
    evas_object_show(win);
+   ecore_event_handler_add(ECORE_EVENT_KEY_DOWN, key_down_callback, NULL);
 
    elm_run();
 

@@ -1,7 +1,7 @@
 /*
 Compile with:
 
-arm-linux-gnueabihf-gcc -o example example.c `pkg-config --cflags --libs elementary` --sysroot=/path_to_arm_usr_and_lib/ -Wl,-dynamic-linker,/lib/ld-2.13.so
+arm-linux-gnueabihf-gcc -o example example.c `pkg-config --cflags --libs elementary` -lecore_input --sysroot=/path_to_arm_usr_and_lib/ -Wl,-dynamic-linker,/lib/ld-2.13.so
 
 We need to specify the correct ld or it will not work on device.
  */
@@ -10,11 +10,13 @@ We need to specify the correct ld or it will not work on device.
 #include <strings.h>
 #include <unistd.h>
 #include <pthread.h>
+#include <Ecore.h>
+#include <Ecore_Input.h>
 
 pthread_t pt;
 Evas_Object *win, *bg, *box, *lab;
 char *message="No message given.",message_out[255];
-int timeout=2;
+int timeout=3, debug=1;
 
 static void
 on_done(void *data, Evas_Object *obj, void *event_info)
@@ -27,6 +29,21 @@ void* closePopup(void* arg) {
 	sleep(timeout);
 	elm_exit();
 	exit(0);
+}
+
+static Eina_Bool key_down_callback(void *data, int type, void *ev)
+{
+   Ecore_Event_Key *event = ev;
+   if (!strcmp("KP_Enter", event->key))
+   {
+	   on_done(NULL, NULL, NULL);
+   }
+   if (!strcmp("Menu", event->key))
+   {
+	   on_done(NULL, NULL, NULL);
+   }
+   debug && printf("Key: %s\n",event->key);
+   return ECORE_CALLBACK_PASS_ON;
 }
 
 EAPI int
@@ -66,6 +83,7 @@ elm_main(int argc, char **argv)
    evas_object_show(win);
    
    pthread_create(&pt, NULL, &closePopup, NULL);
+   ecore_event_handler_add(ECORE_EVENT_KEY_DOWN, key_down_callback, NULL);
    
    elm_run();
 

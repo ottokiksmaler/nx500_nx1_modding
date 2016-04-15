@@ -53,6 +53,7 @@ Things that work:
   - [Running scripts without entering factory mode by starting Bluetooth] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode_BT.md)
   - [Controlling LCD / EVF] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Control_LCD_EVF.md)
   - [Utility for direct read/write access to RAM of another process](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Poker.md) - useful for in place patching of already loaded binaries
+  - [Boot process and speeding up the mods] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Boot_Process_and_Speeding_up_Mods.md)
 
 ##To do ...
 

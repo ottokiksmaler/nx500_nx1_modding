@@ -33,6 +33,7 @@
 #include <stdint.h>
 
 #define BUFF_SIZE 255
+#define _FILE_OFFSET_BITS 64
 
 static bool debug = false;
 static bool debug_errors = true;

@@ -152,7 +152,7 @@ int main(int argc, unsigned char *argv[])
 			debug && printf("ARG %d %s\n",i,argv[i]);
 			strncpy(arg,argv[i],32);
 			spl = strtok(arg, ":");
-			offset = strtol(spl, NULL, 16);
+			offset = strtoll(spl, NULL, 16);
 			spl = strtok(NULL, ":");
 			if (!spl) {
 				if (!peek(fd,offset,buff_peek,4))

@@ -15,7 +15,7 @@
  * ./poker 247 0x00400658:45464748:41414141 0x00400668:45464748 0x00800658:45464748 0x00400444:45464748:41414141- works as well
  * 
  * Compile with
- * arm-linux-gnueabihf-gcc --static -o poker poker.c --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.s
+ * arm-linux-gnueabihf-gcc -D_FILE_OFFSET_BITS=64 --static -o poker poker.c --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.s
  */
 
 #include <strings.h>

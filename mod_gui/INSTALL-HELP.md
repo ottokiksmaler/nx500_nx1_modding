@@ -16,4 +16,11 @@ There are four different options:
     - This option makes a bit more modifications to your camera - it modifies the file /usr/sbin/bluetooth as described [here] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode_BT.md) and stores keyscan binary on the camera **root filesystem**. The **scripts** are on the SD card. This enables for faster startup of the keyscan binary 
   4. Mods and scripts on camera
     - This option makes even more modifications to your camera - it modifies the file /usr/sbin/bluetooth as described [here] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode_BT.md) and stores keyscan binary and scripts directory on the camera **root filesystem**. This enables for faster startup of the keyscan binary and persistent mods (like rolling shutter that does not survive power-off - power-on).
-  
+ 
+#TL;DR
+
+**Q: I just want to use the mods, what to choose? **
+  - A: Pick second option "Mods and scripts on SD card" 
+
+Q: I am an advanced user, what to pick? 
+  - A: Pick the third option "Mods on camera scripts on card" 

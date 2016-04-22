@@ -19,7 +19,7 @@ There are four different options:
  
 #TL;DR
 
-**Q: I just want to use the mods, what to choose? **
+Q: I just want to use the mods, what to choose?
   - A: Pick second option "Mods and scripts on SD card" 
 
 Q: I am an advanced user, what to pick? 

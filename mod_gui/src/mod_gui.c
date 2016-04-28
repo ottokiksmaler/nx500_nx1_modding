@@ -1,9 +1,11 @@
 /*
 * Usage: 
 * 
-* mod_gui path_to_scripts_folder
+* mod_gui path_to_scripts_folder_or_config_file
 * 
-* mod_gui will search for buttons.cfg in path_to_scripts_folder of format
+* mod_gui will search for either (MODEL = NX1 or NX500):
+* 1) mod_gui.cfg.MODEL if given a scripts directory 
+* 2) config_file.MODEL if given a config filename, scripts directory is dir containing the config file
 * 
 * # A comment
 * <checkbox|button>|<Label text 1>|<script_to_run1.sh>
@@ -20,7 +22,6 @@
 * arm-linux-gnueabi-gcc -o mod_gui mod_gui.c `pkg-config --cflags --libs ecore elementary` -lecore_input -lX11 --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.so
 * We need to specify the correct ld or it will not work on device.
 */
-
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <Ecore.h>
@@ -43,7 +44,8 @@
 
 int debug = 0;
 
-Evas_Object *install_win, *win, *bg, *bg2, *box, *btn, *chk, *btn_quit, *table, *btn_settings;
+Evas_Object *install_win, *win, *bg, *bg2, *box, *btn, *chk, *btn_quit, *table,
+    *btn_settings;
 Evas_Object *popup_win;
 Ecore_Timer *timer;
 
@@ -93,7 +95,10 @@ static void click_quit(void *data, Evas_Object * obj, void *event_info)
 static Eina_Bool key_down_callback(void *data, int type, void *ev)
 {
 	Ecore_Event_Key *event = ev;
-	if (0 == strcmp("Menu", event->key) || 0 == strcmp("Super_L", event->key) || 0 == strcmp("Super_R", event->key) || 0 == strcmp("KP_Enter", event->key)) {
+	if (0 == strcmp("Menu", event->key)
+	    || 0 == strcmp("Super_L", event->key)
+	    || 0 == strcmp("Super_R", event->key)
+	    || 0 == strcmp("KP_Enter", event->key)) {
 		quit_app();
 	}
 	debug && printf("Key: %s\n", event->key);
@@ -115,6 +120,7 @@ static void click_btn_generic(void *data, Evas_Object * obj, void *event_info)
 	run_command(command);
 
 }
+
 // GENERIC BUTTON CLICK HANDLER END
 
 // GENERIC CHECKBOX CLICK HANDLER BEGIN
@@ -143,8 +149,8 @@ static void click_checkbox_generic(void *data, Evas_Object * obj,
 		if (0 == unlink(auto_checkbox_script)) {
 			debug
 			    && printf("Delete OK: %s\n", auto_checkbox_script);
-		if (0 == access(checkbox_off_script, X_OK))
-			run_command(checkbox_off_script);
+			if (0 == access(checkbox_off_script, X_OK))
+				run_command(checkbox_off_script);
 			quit_app();
 		} else {
 			chk_value[btn_id] = 1;
@@ -202,7 +208,7 @@ static int configuration_load()
 		free(line);
 		return 0;
 	}
-	printf("Invalid configuration file '%s'.\n",configuration_file);
+	printf("Invalid configuration file '%s'.\n", configuration_file);
 	quit_app();
 	return -1;
 }
@@ -271,39 +277,45 @@ int file_copy(char *file_in, char *file_out)
 	return 0;
 }
 
-
 // INSTALL BUTTON CLICK HANDLER BEGIN
 static void click_btn_install(void *data, Evas_Object * obj, void *event_info)
 {
 	//TODO test all installer scripts
-	debug && printf("Clicked: %s\n",(char *)data);
-	if (0==strcmp((char *)data, "help")) {
-		system("/usr/apps/org.tizen.browser/bin/browser https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/mod_gui/INSTALL-HELP.md");
+	debug && printf("Clicked: %s\n", (char *)data);
+	if (0 == strcmp((char *)data, "help")) {
+		system
+		    ("/usr/apps/org.tizen.browser/bin/browser https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/mod_gui/INSTALL-HELP.md");
 	}
-	if (0==strcmp((char *)data, "factory")) {
+	if (0 == strcmp((char *)data, "factory")) {
 		system("/mnt/mmc/scripts/install/install_factory.sh");
 	}
-	if (0==strcmp((char *)data, "card")) {
+	if (0 == strcmp((char *)data, "card")) {
 		system("/mnt/mmc/scripts/install/install_to_bt.sh");
 	}
-	if (0==strcmp((char *)data, "hybrid")) {
+	if (0 == strcmp((char *)data, "hybrid")) {
 		system("/mnt/mmc/scripts/install/install_to_bt.sh");
 		system("/mnt/mmc/scripts/install/install_copy_keyscan.sh");
 	}
-	if (0==strcmp((char *)data, "camera")) {
+	if (0 == strcmp((char *)data, "camera")) {
 		system("/mnt/mmc/scripts/install/install_to_bt.sh");
 		system("/mnt/mmc/scripts/install/install_copy_scripts.sh");
 	}
-	
+
 }
+
 // INSTALL BUTTON CLICK HANDLER END
 
 // Installer GUI screen
-void show_install() {
-	debug && printf("Running installer on %s v%s\n", version_model, version_release);
-	int btn_num=0;
-	install_win = elm_win_add(NULL, "NX-MOD GUI INSTALLER", ELM_WIN_DIALOG_BASIC);
-	evas_object_smart_callback_add(install_win, "delete,request", click_quit, NULL);
+void show_install()
+{
+	debug
+	    && printf("Running installer on %s v%s\n", version_model,
+		      version_release);
+	int btn_num = 0;
+	install_win =
+	    elm_win_add(NULL, "NX-MOD GUI INSTALLER", ELM_WIN_DIALOG_BASIC);
+	evas_object_smart_callback_add(install_win, "delete,request",
+				       click_quit, NULL);
 
 	box = elm_box_add(install_win);
 	elm_win_resize_object_add(install_win, box);
@@ -313,11 +325,12 @@ void show_install() {
 
 	evas_object_size_hint_min_set(box, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-	button_width=SCREEN_WIDTH;
-	button_height=80;
-	
+	button_width = SCREEN_WIDTH;
+	button_height = 80;
+
 	char *title;
-	asprintf(&title,"NX-MOD INSTALL (click for help) %s v%s",version_model,version_release);
+	asprintf(&title, "NX-MOD INSTALL (click for help) %s v%s",
+		 version_model, version_release);
 	// button begin
 	btn_num++;
 	btn = elm_button_add(install_win);
@@ -325,21 +338,22 @@ void show_install() {
 	elm_object_text_set(btn, title);
 	evas_object_show(btn);
 	evas_object_size_hint_min_set(btn, button_width, button_height);
-	
+
 	bg2 = evas_object_rectangle_add(evas_object_evas_get(btn));
-	evas_object_size_hint_min_set(bg2, button_width,button_height);
+	evas_object_size_hint_min_set(bg2, button_width, button_height);
 	evas_object_color_set(bg2, 20, 30, 40, 255);
 	evas_object_show(bg2);
-	
+
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn));
 	evas_object_size_hint_min_set(bg, button_width - 2, button_height - 2);
 	evas_object_color_set(bg, 60, 60, 60, 255);
 	evas_object_show(bg);
-	
+
 	elm_table_pack(table, bg2, 1, btn_num, 1, 1);
 	elm_table_pack(table, bg, 1, btn_num, 1, 1);
 	elm_table_pack(table, btn, 1, btn_num, 1, 1);
-	evas_object_smart_callback_add(btn, "clicked", click_btn_install, "help");
+	evas_object_smart_callback_add(btn, "clicked", click_btn_install,
+				       "help");
 	// button end
 
 	// button begin
@@ -349,21 +363,22 @@ void show_install() {
 	elm_object_text_set(btn, "Factory mode (limited functionality)");
 	evas_object_show(btn);
 	evas_object_size_hint_min_set(btn, button_width, button_height);
-	
+
 	bg2 = evas_object_rectangle_add(evas_object_evas_get(btn));
-	evas_object_size_hint_min_set(bg2, button_width,button_height);
+	evas_object_size_hint_min_set(bg2, button_width, button_height);
 	evas_object_color_set(bg2, 20, 30, 40, 255);
 	evas_object_show(bg2);
-	
+
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn));
 	evas_object_size_hint_min_set(bg, button_width - 2, button_height - 2);
 	evas_object_color_set(bg, 40, 90, 40, 255);
 	evas_object_show(bg);
-	
+
 	elm_table_pack(table, bg2, 1, btn_num, 1, 1);
 	elm_table_pack(table, bg, 1, btn_num, 1, 1);
 	elm_table_pack(table, btn, 1, btn_num, 1, 1);
-	evas_object_smart_callback_add(btn, "clicked", click_btn_install, "factory");
+	evas_object_smart_callback_add(btn, "clicked", click_btn_install,
+				       "factory");
 	// button end
 
 	// button begin
@@ -373,21 +388,22 @@ void show_install() {
 	elm_object_text_set(btn, "Mods and scripts on SD card");
 	evas_object_show(btn);
 	evas_object_size_hint_min_set(btn, button_width, button_height);
-	
+
 	bg2 = evas_object_rectangle_add(evas_object_evas_get(btn));
-	evas_object_size_hint_min_set(bg2, button_width,button_height);
+	evas_object_size_hint_min_set(bg2, button_width, button_height);
 	evas_object_color_set(bg2, 20, 30, 40, 255);
 	evas_object_show(bg2);
-	
+
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn));
 	evas_object_size_hint_min_set(bg, button_width - 2, button_height - 2);
 	evas_object_color_set(bg, 40, 100, 100, 255);
 	evas_object_show(bg);
-	
+
 	elm_table_pack(table, bg2, 1, btn_num, 1, 1);
 	elm_table_pack(table, bg, 1, btn_num, 1, 1);
 	elm_table_pack(table, btn, 1, btn_num, 1, 1);
-	evas_object_smart_callback_add(btn, "clicked", click_btn_install, "card");
+	evas_object_smart_callback_add(btn, "clicked", click_btn_install,
+				       "card");
 	// button end
 
 	// button begin
@@ -397,21 +413,22 @@ void show_install() {
 	elm_object_text_set(btn, "Mods on camera scripts on card");
 	evas_object_show(btn);
 	evas_object_size_hint_min_set(btn, button_width, button_height);
-	
+
 	bg2 = evas_object_rectangle_add(evas_object_evas_get(btn));
-	evas_object_size_hint_min_set(bg2, button_width,button_height);
+	evas_object_size_hint_min_set(bg2, button_width, button_height);
 	evas_object_color_set(bg2, 20, 30, 40, 255);
 	evas_object_show(bg2);
-	
+
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn));
 	evas_object_size_hint_min_set(bg, button_width - 2, button_height - 2);
 	evas_object_color_set(bg, 100, 100, 20, 255);
 	evas_object_show(bg);
-	
+
 	elm_table_pack(table, bg2, 1, btn_num, 1, 1);
 	elm_table_pack(table, bg, 1, btn_num, 1, 1);
 	elm_table_pack(table, btn, 1, btn_num, 1, 1);
-	evas_object_smart_callback_add(btn, "clicked", click_btn_install, "hybrid");
+	evas_object_smart_callback_add(btn, "clicked", click_btn_install,
+				       "hybrid");
 	// button end
 
 	// button begin
@@ -421,21 +438,22 @@ void show_install() {
 	elm_object_text_set(btn, "Mods and scripts on camera");
 	evas_object_show(btn);
 	evas_object_size_hint_min_set(btn, button_width, button_height);
-	
+
 	bg2 = evas_object_rectangle_add(evas_object_evas_get(btn));
-	evas_object_size_hint_min_set(bg2, button_width,button_height);
+	evas_object_size_hint_min_set(bg2, button_width, button_height);
 	evas_object_color_set(bg2, 20, 30, 40, 255);
 	evas_object_show(bg2);
-	
+
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn));
 	evas_object_size_hint_min_set(bg, button_width - 2, button_height - 2);
 	evas_object_color_set(bg, 140, 60, 40, 255);
 	evas_object_show(bg);
-	
+
 	elm_table_pack(table, bg2, 1, btn_num, 1, 1);
 	elm_table_pack(table, bg, 1, btn_num, 1, 1);
 	elm_table_pack(table, btn, 1, btn_num, 1, 1);
-	evas_object_smart_callback_add(btn, "clicked", click_btn_install, "camera");
+	evas_object_smart_callback_add(btn, "clicked", click_btn_install,
+				       "camera");
 	// button end
 
 	// button begin
@@ -445,17 +463,17 @@ void show_install() {
 	elm_object_text_set(btn, "QUIT (press Menu to quit)");
 	evas_object_show(btn);
 	evas_object_size_hint_min_set(btn, button_width, button_height);
-	
+
 	bg2 = evas_object_rectangle_add(evas_object_evas_get(btn));
-	evas_object_size_hint_min_set(bg2, button_width,button_height);
+	evas_object_size_hint_min_set(bg2, button_width, button_height);
 	evas_object_color_set(bg2, 20, 30, 40, 255);
 	evas_object_show(bg2);
-	
+
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn));
 	evas_object_size_hint_min_set(bg, button_width - 2, button_height - 2);
 	evas_object_color_set(bg, 40, 40, 40, 255);
 	evas_object_show(bg);
-	
+
 	elm_table_pack(table, bg2, 1, btn_num, 1, 1);
 	elm_table_pack(table, bg, 1, btn_num, 1, 1);
 	elm_table_pack(table, btn, 1, btn_num, 1, 1);
@@ -468,9 +486,9 @@ void show_install() {
 	ecore_event_handler_add(ECORE_EVENT_KEY_DOWN, key_down_callback, NULL);
 }
 
-
 // Main GUI screen
-void show_main() {
+void show_main()
+{
 	debug && printf("Running MOD_GUI\n");
 	configuration_load();
 	fill_checkboxes();
@@ -490,7 +508,8 @@ void show_main() {
 	int first_button = 2;
 
 	int btn_num = 0;
-	if (button_number/2*button_height>SCREEN_HEIGHT) button_height=SCREEN_HEIGHT*2/button_number;
+	if (button_number / 2 * button_height > SCREEN_HEIGHT)
+		button_height = SCREEN_HEIGHT * 2 / button_number;
 	for (btn_num = first_button; btn_num < first_button + button_number;
 	     btn_num++) {
 		datas[btn_num] = btn_num - first_button;
@@ -508,8 +527,7 @@ void show_main() {
 		evas_object_show(btn);
 		evas_object_size_hint_min_set(btn, button_width, button_height);
 		bg2 = evas_object_rectangle_add(evas_object_evas_get(btn));
-		evas_object_size_hint_min_set(bg2, button_width,
-					      button_height);
+		evas_object_size_hint_min_set(bg2, button_width, button_height);
 		evas_object_color_set(bg2, 20, 30, 40, 255);
 		evas_object_show(bg2);
 		bg = evas_object_rectangle_add(evas_object_evas_get(btn));
@@ -546,6 +564,18 @@ void show_main() {
 	ecore_event_handler_add(ECORE_EVENT_KEY_DOWN, key_down_callback, NULL);
 }
 
+// Taken from https://stackoverflow.com/questions/1575278/function-to-split-a-filepath-into-path-and-file
+void split_path_file(char **p, char **f, char *pf)
+{
+	char *slash = pf, *next;
+	while ((next = strpbrk(slash + 1, "\\/")))
+		slash = next;
+	if (pf != slash)
+		slash++;
+	*p = strndup(pf, slash - pf);
+	*f = strdup(slash);
+}
+
 // MAIN BEGIN
 
 EAPI int elm_main(int argc, char **argv)
@@ -567,14 +597,25 @@ EAPI int elm_main(int argc, char **argv)
 		debug = 1;
 	}
 	if (strcmp(argv[argc - 1], "install") == 0) {
-		debug=1;
+		debug = 1;
 		show_install();
 	} else {
-		asprintf(&scripts, "%s", argv[1]);
-		asprintf(&configuration_file, "%s/%s%s%s", argv[1], "mod_gui_",version_model,".cfg");
+		char *configuration_basename;
+		split_path_file(&scripts, &configuration_basename, argv[1]);
 		debug
-			&& printf("Model: %s\nRelease: %s\n", version_model,
-				version_release);
+		    && printf("Scripts:%s\tConfiguration file:%s\n", scripts,
+			      configuration_basename);
+		if (strlen(configuration_basename) < 1) {
+			asprintf(&configuration_file, "%s/%s%s", scripts,
+				 "mod_gui.cfg.", version_model);
+		} else {
+			asprintf(&configuration_file, "%s.%s", argv[1],
+				 version_model);
+		}
+		debug && printf("Configuration file: %s\n", configuration_file);
+		debug
+		    && printf("Model: %s\nRelease: %s\n", version_model,
+			      version_release);
 		show_main();
 	}
 

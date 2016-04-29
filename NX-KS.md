@@ -1,7 +1,7 @@
 		
 		NX500-KS
 
-Self-installing pack, delivering functionality without requirement of thechnical knowledge.
+Self-installing pack, delivering functionality without requirement of technical knowledge.
 
 Key-combinations EV+
 

@@ -4,7 +4,7 @@ How to install:
 		  2) unzip the contents of the zip into the root of the sdcard
 		  3) put card in camera, and restart
 		  4) if you have not turned your Bluetooth-on yet, do it now.
-		  x) to uninstall mod - from custom menu> settings> Uninstall Mod
+		  x) to uninstall the BT-mod - select: main menu > settings> Uninstall Mod
 
 
 

@@ -8,6 +8,10 @@ How to install:
 
 
 
+Details on the installation process:
+
+After inserting the sdcard with the file, and starting the camera, initially we start in "factory mode", the script check for BT-patch, and installs it automatically if it's not present, and then the camera auto-restarts. After restart the Mod script gets loaded, and bitrates get customized. You will see a message similar to " [ Mod V1.xx ] " once the bitrates are patched. If you don't see this message, the script did not start, and your Blutooth is probably "off". Turn it "on", and the script will start (you don't need to turn on BT each time the camera starts). This version ot BT-mod disables the actual Bluetooth, so in case you need it working, please install the BT mod that comes with Vasile's zip for bitrate-mod. You do not need to Uninstall previous versions of the BT-mod installed from this pack. However should you choose to do it, you can always Uninstall your BT-mod from the menu, reinstallation however will require you put again the full zip contents in the root folder of the sdcard.
+
 .#############
 
 Key-combinations EV+:

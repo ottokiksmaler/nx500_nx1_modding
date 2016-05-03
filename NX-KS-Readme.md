@@ -2,7 +2,7 @@ How to install:
 
 		  1) start with a clean memory card (no files)
 		  2) unzip the contents of the zip into the root of the sdcard
-		  3) put card in camera, and restart
+		  3) put the card in the camera, and re/start the camera
 		  4) if you have not turned your Bluetooth-on yet, do it now.
 		  x) to uninstall the BT-mod - select: main menu > settings> Uninstall Mod
 

@@ -1,21 +1,21 @@
 How to install:
 
-1) start with a clean memory card (no files)
-2) unzip the contents of the zip into the root of the sdcard
-3) put card in camera, and restart
-4) if you have not turned your Bluetooth-on yet, do it now.
-x) to uninstall mod - from custom menu> settings> Uninstall Mod
+  1) start with a clean memory card (no files)
+  2) unzip the contents of the zip into the root of the sdcard
+  3) put card in camera, and restart
+  4) if you have not turned your Bluetooth-on yet, do it now.
+  x) to uninstall mod - from custom menu> settings> Uninstall Mod
 
 
 
 Key-combinations EV+:
-AEL: immediate hibernation
-UP: load UP profile
-DOWN: load DOWN profile
-Half-Press-Shutter: focus pull
-mobile: telnet
-EV: Main Menu  (NX500)
-OK: Main Menu (NX1)
+  AEL: immediate hibernation
+  UP: load UP profile
+  DOWN: load DOWN profile
+  Half-Press-Shutter: focus pull
+  mobile: telnet
+  EV: Main Menu  (NX500)
+  OK: Main Menu (NX1)
 
 #############
 

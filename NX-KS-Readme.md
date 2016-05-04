@@ -39,7 +39,7 @@ Main Menu
 Video Bitrates
  - lists all set bitrates
  - allows for changing them persistently (that means settings are kept even after camera restart)
- - Note: Video bitrates will not change on reboot. Setting "Current" bitrate will only temporary change the bitrate of the profile (resolution/quality) you have had selected at the moment, and it will be cleared on camera restart.
+ - Note: Setting "Current" bitrate will only temporary change the bitrate of the profile (resolution/quality) you have had selected at the moment, and it will be cleared on camera restart.
 
 Custom Functions
 - Focus Stacking

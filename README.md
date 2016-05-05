@@ -12,7 +12,7 @@ Inital work was done and presented on DPReview Samsung Forum [here](http://www.d
 
 Read [Customizing functions of various keys](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Customizing%20keys.md) for introduction.
 
-Or use a mod with many integrated options packed together by @KinoSeed: [Read about it] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS-Readme.md) [Download NX-KS.zip] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS.zip)
+Or use a mod with many integrated options packed together by @KinoSeed: [Read about it] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS-Readme.md) or [Download NX-KS.zip] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS.zip)
 
 ##Status
 

@@ -23,7 +23,7 @@ Key-combinations EV+:
 		  DOWN: load DOWN profile
 		  Half-Press-Shutter: focus pull
 		  mobile: telnet
-		  EV: Main Menu  (NX500)
+		  EV (double-click EV): Main Menu  (NX500)
 		  OK: Main Menu (NX1)
 
 .#############

@@ -95,11 +95,11 @@ int call_library(const char *callType, const char *libPath, const char *funcName
 	}
   if(strcmp(callType, "iii")==0) {
 		call_iii(func, libPath, funcName, argCount, argList);
-	} else if(callType, "si") {
+	} else if(strcmp(callType, "si")==0) {
 		call_si(func, libPath, funcName, argCount, argList);
-	} else if(callType, "vi") {
+	} else if(strcmp(callType, "vi")==0) {
 		call_vi(func, libPath, funcName, argCount, argList);
-	} else if(callType, "vv") {
+	} else if(strcmp(callType, "vv")==0) {
 		call_vv(func, libPath, funcName, argCount);
 	}
 	return 0;

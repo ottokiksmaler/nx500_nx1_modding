@@ -46,6 +46,7 @@ Custom Functions
 - Focus Buttons
 - Batch Recording (continuous recording)
 - LCD-off Recording
+- Reboot (reboots camera)
 - Kill switch (removes keyscan and gui from memory)
 
 Profiles
@@ -55,8 +56,11 @@ Profiles
 Settings
 - Silent Shutter (nx500 only)
 - VGA to 2.5K (nx500 only)
-- No Rec Limit
+- No Rec Limit (nx500 4K and UHD limits remain)
 - Refocus on Boot (on hibernate camera remembers last focus distance, and will auto-refocus if option is selected)
+- Enable Bluetooth (use this to enable Bluetooth functionality while the mod is installed)
+- Swap 256MB (add 256MB virtual memory)
+- Mod v1.**  (credits)
 - Uninstall Mod
 
 .#############

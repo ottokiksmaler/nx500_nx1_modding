@@ -61,6 +61,57 @@ Settings
 
 .#############
 
+
+Focus buttons 
+		
+		Program that displays series of buttons on top of the screen
+		long press (1+s) to save current focus position
+		click to restore saved focus position
+		Can be used for studio shooting, astrophotography 
+		(focus on infinity during day, recall the focus during the night), etc.
+
+.#############
+
+Focus stacking
+
+	Focus on near point - press "Near"
+	Focus on far point - press "Far"
+	Click "Stack" and wait for it to finish
+	Files are in the usual place - remember to fix exposure/awb/etc as you normally would
+
+.#############
+
+Focus pull - EV+half-press shutter button
+
+	Focus on subject 1
+	press EV+half-press shutter button
+	Focus on subject 2
+	consecutive EV+half-press shutter button will be switching between focus of the two subjects.
+	
+.#############
+
+Refocus on Boot
+
+	When using hibernation (EV+AEL) the camera records last focus distance
+	If this option is enabled, camera will refocus to that focus distance on boot
+	
+.#############
+
+Batch recording
+
+	The main target users are NX500, who even with "removed timelimit" still have restrictions for 4K and UHD
+	When button is pressed, the camera starts recording and auto-starts new clips until "Rec" is pressed.
+	
+.#############
+
+Kill switch
+	
+	Stops and removes the program "keyscan" ( which monitors your key-press combinations EV+* )
+	If you will have an option to let it autorestart in 3 minutes.
+	Until "keyscan" restart, you will have no way of starting the menu, or use key-combinations.
+	Bitrate modifications remain, but if not restarted in 3 minutes, you will need camera restart to enable menus.
+.#############
+
 Thanks to Otto for the programs that make this possible - keyscan, gui, poker, focus stacking, focus buttons, .. to name a few
 Thanks to Vasile for coming up with the values for the bitrate-change and nx500's 2.5K mod 
 (the values used here are based on his calculations)

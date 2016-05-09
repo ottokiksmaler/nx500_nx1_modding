@@ -111,9 +111,11 @@ Batch recording
 Kill switch
 	
 	Stops and removes the program "keyscan" ( which monitors your key-press combinations EV+* )
-	If you will have an option to let it autorestart in 3 minutes.
-	Until "keyscan" restart, you will have no way of starting the menu, or use key-combinations.
-	Bitrate modifications remain, but if not restarted in 3 minutes, you will need camera restart to enable menus.
+	You have an option to let it auto-restart in 3 minutes.
+	Until "keyscan" restarts, you will have no way of starting the menu, or use key-combinations.
+	Bitrate modifications remain, but if not restarted in 3 minutes, you will need camera-restart to enable menus.
+	
+
 .#############
 
 Thanks to Otto for the programs that make this possible - keyscan, gui, poker, focus stacking, focus buttons, .. to name a few

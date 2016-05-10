@@ -1,4 +1,4 @@
-#Release directory for Otto Kiksmaler mods
+#Development directory for Otto Kiksmaler mods
 
 What's here:
   - Modified [keyscan](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/dev/release/scripts/keyscan) that enables persistent peaking in cooperation with [OK_OK.sh](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/dev/release/scripts/OK_OK.sh) script

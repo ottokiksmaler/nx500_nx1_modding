@@ -74,7 +74,6 @@ Complete list:
 
 
 
-	Added Functionality 
 
 Focus buttons
 
@@ -114,9 +113,7 @@ Batch recording
 
 Kill Switch
 
-	Stops and removes the program "keyscan" from memory ( which monitors your key-press combinations EV+*, so there will be no key-combinations and no menu to access )
-You have an option to let it auto-restart in 3 minutes.
-Bitrate modifications remain. If not restarted in 3 minutes, you will need camera-restart to enable menus.
+	Stops and removes the program "keyscan" from memory ( which monitors your key-press combinations EV+*, so there will be no key-combinations and no menu to access ) You have an option to let it auto-restart in 3 minutes. Bitrate modifications remain. If not restarted in 3 minutes, you will need camera-restart to enable menus.
 
 
 

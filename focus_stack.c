@@ -311,6 +311,22 @@ static void click_settings(void *data, Evas_Object * obj, void *event_info)
 	entry_show(1);
 }
 
+static void video_sweep() {
+	int near, far;
+	char *command;
+	run_command("/usr/bin/st cap lens focus far");
+	sleep(1);
+	far = get_af_position();
+	run_command("/usr/bin/st cap lens focus near");
+	sleep(1);
+	near = get_af_position();
+	sleep(1);
+	run_command("st key click del; sleep 1; st key click fn; sleep 1; st key click rec; sleep 0.5");
+	asprintf(&command,"/usr/bin/st cap iq af mv 255 %d 2", (int)(far-near));
+	run_command(command);
+	run_command("st key click rec");
+}
+
 EAPI int elm_main(int argc, char **argv)
 {
 	load_settings();
@@ -320,7 +336,9 @@ EAPI int elm_main(int argc, char **argv)
 			    ("Usage:\nfocus_stack [ help | sweep | number_of_photos [ delay_between_photos [ button_height [ button_width ] ] ] ]\n\n");
 			exit(0);
 		}
-		if (!strcmp(argv[1], "sweep")) {
+		if (0==strcmp(argv[1], "sweep")) {
+			video_sweep();
+			exit(0);
 		} else {
 			number_points = atoi(argv[1]);
 		}

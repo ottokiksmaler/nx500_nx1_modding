@@ -9,7 +9,7 @@ This is the image that is unpacked to RAM when you power on the camera.
 **TLDR** - new persistent PID of di-camera-app is 248, keyscan also survives hibernation (works without bluetooth now) - we have a stable way to hack suspended image that is run on powering on the camera. :)
 
   1. **Note:** when you do ```systemctl rescue``` wait a bit (a minute? have no idea, maybe no need for the wait) and then pop-out the battery and reinsert it (power switch does nothing). 
-  2. **DON'T PANIC** It will boot **slowly**
+  2. **DON'T PANIC** It will boot **slowly** - the rear LED (SD card one) will blink the whole time it boots.
   3. Do whatever you want to camera state (apply bitrate mods, start applications, whatever) and power-off the camera nicely **to preserve current state**
   4. If you **don't** want to preserve it **pop the battery out before power-off**
   5. If you still panic, don't - firmware flashing still works :)

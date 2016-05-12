@@ -1,6 +1,7 @@
 #Update hibernation image
 
 **Note: Some issues with saving state - not all programs, including keyscan, are saved to image :(**
+** WARNING: read [this](https://github.com/ottokiksmaler/nx500_nx1_modding/issues/27#issuecomment-218834311) first ** 
 
 This is the image that is unpacked to RAM when you power on the camera.
 

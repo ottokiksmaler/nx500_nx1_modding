@@ -10,8 +10,8 @@ This is the image that is unpacked to RAM when you power on the camera.
 
   1. **Note:** when you do ```systemctl rescue``` wait a bit (a minute? have no idea, maybe no need for the wait) and then pop-out the battery and reinsert it (power switch does nothing). 
   2. **DON'T PANIC** It will boot **slowly**
-  3. Do whatever you want to camera tunning state (apply bitrate mods, start applications, whatever) and power-off the camera nicely **to preserve current state**
-  4. If you **don't** want to preserve it **pop the battery out**
+  3. Do whatever you want to camera state (apply bitrate mods, start applications, whatever) and power-off the camera nicely **to preserve current state**
+  4. If you **don't** want to preserve it **pop the battery out before power-off**
   5. If you still panic, don't - firmware flashing still works :)
 
 ###HOWTO:

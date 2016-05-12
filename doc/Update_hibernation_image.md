@@ -1,5 +1,7 @@
 #Update hibernation image
 
+**Note: Some issues with saving state - not all programs, including keyscan, are saved to image :(**
+
 This is the image that is unpacked to RAM when you power on the camera.
 
 #Any changes to  the state of the camera at the moment of power-off after ```systemctl rescue``` and cold-booting are *PERMANENT*!

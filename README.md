@@ -57,6 +57,7 @@ Things that work:
   - [Utility for direct read/write access to RAM of another process](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Poker.md) - useful for in place patching of already loaded binaries
   - [Boot process and speeding up the mods] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Boot_Process_and_Speeding_up_Mods.md)
   - [Compiling against camera library] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Compile_against_camera_library.md)
+  - [Updating the Hibernation Image] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Update_hibernation_image.md)
 
 ##To do ...
 

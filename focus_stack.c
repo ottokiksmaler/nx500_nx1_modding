@@ -177,18 +177,19 @@ static void run_stack(int near, int far, int steps, int delay)
 	run_command("/usr/bin/st cap capdtm setusr AFMODE 0x70003\n");	// force manual focus mode
 	sleep(1);
 	focus_to_position(near);
-	sleep(1);
+	sleep(2);
 	current_position = get_af_position();
 	delta = ((double)(far - current_position)) / (double)(steps - 1);
 	if (debug) printf("far: %d current: %d delta: %f\n", far, current_position, delta);
-	while (current_position >= far && step < steps && step < MAX_STEPS) {
+// 	while (current_position >= far && step < steps && step < MAX_STEPS) {
+	while (step < steps && step < MAX_STEPS) {
 		step++;
 		asprintf(&stack_message, "#%d of %d",step,steps);
 		popup_show(stack_message,1,0);
 
 		sleep(delay / 2);
-		run_command("/usr/bin/st app nx capture single && /bin/sleep 0.5 && /usr/bin/st key click s1\n");	// capture single frame and exit photo preview is exists
-//              run_command("st key push s1 && sleep 0.3 && st key click s2 && st key release s1 && sleep 0.5 && st key click s1\n"); // capture single frame and exit photo preview is exists
+//		run_command("/usr/bin/st app nx capture single && /bin/sleep 0.5 && /usr/bin/st key click s1\n");	// capture single frame and exit photo preview is exists
+        run_command("st key push s1 && sleep 0.3 && st key click s2 && st key release s1 && sleep 0.5 && st key click s1\n"); // capture single frame and exit photo preview is exists
 		if (step == steps)
 			break;
 		sleep(delay - delay / 2);

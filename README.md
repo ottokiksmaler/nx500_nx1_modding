@@ -12,7 +12,7 @@ Inital work was done and presented on DPReview Samsung Forum [here](http://www.d
 
 Read [Customizing functions of various keys](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Customizing%20keys.md) for introduction.
 
-Or use a mod with many integrated options packed together by @KinoSeed: [Read about it] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS-Readme.md) or [Download NX-KS.zip] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS.zip?raw=true)
+Or use a mod with many integrated options packed together by @KinoSeed: [Read about it] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS-Readme.md) or [Download NX-KS.zip] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS.zip?raw=true) after reading [the history of changes to it] (https://github.com/ottokiksmaler/nx500_nx1_modding/commits/master/NX-KS.zip)
 
 ##Status
 
@@ -57,6 +57,7 @@ Things that work:
   - [Utility for direct read/write access to RAM of another process](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Poker.md) - useful for in place patching of already loaded binaries
   - [Boot process and speeding up the mods] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Boot_Process_and_Speeding_up_Mods.md)
   - [Compiling against camera library] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Compile_against_camera_library.md)
+  - [Updating the Hibernation Image] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Update_hibernation_image.md)
 
 ##To do ...
 

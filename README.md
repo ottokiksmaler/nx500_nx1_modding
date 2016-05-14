@@ -4,7 +4,7 @@
 
 This is a repository hosting information for those interested in altering the functionality of their Samsung NX500 and NX1 cameras.
 
-These cameras run a full blown Linux distribution (Tizen) with shell, X, networking stack, debugging and testing tools - the works. This enables us to alter functionality of the cameras and ... well - just play around - it's fun! Seeing xeyes on your camera is such a heart warming experience :)
+These cameras run a full blown Linux distribution (Tizen) with shell, X, networking stack, debugging and testing tools - the works. This enables us to alter functionality of the cameras and ... well - just play around - it's fun! Seeing xeyes on your camera is such a heart pwarming experience :)
 
 Inital work was done and presented on DPReview Samsung Forum [here](http://www.dpreview.com/forums/thread/3964253) and [here](http://www.dpreview.com/forums/thread/3971805) and EOSHD [here](http://www.eoshd.com/comments/topic/19099-petition-for-samsung-nx1-hack/?do=findComment&comment=134256). Special thanks to tecnoworld who provided information on NX1.
 
@@ -51,7 +51,7 @@ Things that work:
   - Collection of small utilities for bash scripting:
     - ```popup_timeout ["text message"] [timeout_in_seconds]``` - displays a popup message for a given number of seconds
     - ```popup_ok [message] [ok label] [cancel label]``` - displays a OK / Cancel dialog, returns 0 if OK, 255 if Cancel
-    - ```popup_entry [message] [OK label] [cancel label] [sample entry]``` - displays an entry box with OK/Cancel buttons and prefilled sample text, returns entered text and 0 code for OK or just 255 for cancel.
+    - ```popup_entry [message] [OK label] [cancel label] [sample entry] [number]``` - displays an entry box with OK/Cancel buttons and prefilled sample text, returns entered text and 0 code for OK or just 255 for cancel. If the fifth parameter is "number" then the NUMBERONLY keyboard is shown.
   - [Running scripts without entering factory mode by starting Bluetooth] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode_BT.md)
   - [Controlling LCD / EVF] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Control_LCD_EVF.md)
   - [Utility for direct read/write access to RAM of another process](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Poker.md) - useful for in place patching of already loaded binaries

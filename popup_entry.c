@@ -12,7 +12,7 @@ We need to specify the correct ld or it will not work on device.
 
 char *message="No message given",message_out[255], label_ok[255], label_cancel[255], label_entry[255], sample_text[255];
 Evas_Object *win, *bg, *bg2, *bgl, *box, *box2, *lab, *button_ok, *button_cancel, *entry_field, *entry_frame;
-int debug=0;
+int debug=0, entry_number_only=0, button_height=80, button_width=360;
 
 static void
 ok_button_1_clicked(void *data, Evas_Object *obj, void *event_info)
@@ -63,6 +63,11 @@ elm_main(int argc, char **argv)
    if (argc > 4) {
 	   strncpy(sample_text,argv[4],255);
    }
+   if (argc > 5 && 0 == strcmp("number", argv[5]))
+   {
+	   entry_number_only=1;
+   }
+   
    strncpy(message_out,"<align=center>",20);
    strncat(message_out,message,210);
    strncat(message_out,"</align>",20);
@@ -79,54 +84,71 @@ elm_main(int argc, char **argv)
 
    box = elm_box_add(win);
    elm_win_resize_object_add(win, box);
-   evas_object_size_hint_padding_set(box, 2, 2, 2, 2);
+   evas_object_size_hint_padding_set(box, 1,1,1,1);
    evas_object_show(box);
+
+   Evas_Object* etable = elm_table_add(win);
+   elm_box_pack_end(box, etable);
+   bg2 = evas_object_rectangle_add(evas_object_evas_get(etable));
+   evas_object_size_hint_min_set(bg2, button_width, button_height);
 
    lab = elm_label_add(win);
    elm_label_line_wrap_set(lab,ELM_WRAP_WORD);
+   elm_object_style_set(lab, "transparent");
    elm_object_text_set(lab, message_out);
-   evas_object_size_hint_min_set(lab, 720, 60);
-   elm_box_pack_end(box, lab);
+   evas_object_size_hint_min_set(lab, button_width, button_height);
+   evas_object_size_hint_weight_set(lab, 1.0, 1.0);
+   bg2 = evas_object_rectangle_add(evas_object_evas_get(lab));
+   evas_object_color_set(bg2, 60, 60, 60, 255);
+   elm_table_pack(etable,bg2,1,1,1,1);
+   evas_object_show(bg2);
+   elm_table_pack(etable,lab,1,1,1,1);
    evas_object_show(lab);
 
-   Evas_Object* etable = elm_table_add(win);
    entry_field = elm_entry_add(win);
    elm_entry_single_line_set(entry_field, EINA_TRUE);
    elm_object_text_set(entry_field, sample_text);
-   evas_object_resize(entry_field,720,60);
-   evas_object_color_set(entry_field, 100, 200, 255,255);
-   elm_box_pack_end(box, etable);
-   
-   bg2 = elm_bg_add(win);
-   elm_bg_color_set(bg2, 255,0,0);
-   evas_object_resize(bg2,640,60);
+   elm_entry_cursor_pos_set(entry_field, strlen(sample_text));
+   if (entry_number_only==1)
+	     elm_entry_input_panel_layout_set(entry_field,ELM_INPUT_PANEL_LAYOUT_NUMBERONLY);
+   evas_object_resize(entry_field,button_width,button_height);
+   elm_object_style_set(entry_field, "transparent");
+   bg2 = evas_object_rectangle_add(evas_object_evas_get(entry_field));
+   evas_object_size_hint_min_set(bg2, button_width-2, button_height);
+   evas_object_color_set(bg2, 20, 30, 40, 255);
+   elm_table_pack(etable,bg2,2,1,1,1);
    evas_object_show(bg2);
+   elm_table_pack(etable,entry_field,2,1,1,1);
    evas_object_show(entry_field);
-
-   elm_table_pack(etable,bg2,1,1,1,1);
-   elm_table_pack(etable,entry_field,1,1,1,1);
-   evas_object_show(etable);
    
-   box2 = elm_box_add(win);
-   elm_box_horizontal_set(box2, EINA_TRUE);
-   elm_box_pack_end(box, box2);
-   evas_object_show(box2);
-
    button_ok = elm_button_add(win);
+   elm_object_style_set(button_ok, "transparent");
    elm_object_text_set(button_ok, label_ok);
-   evas_object_size_hint_min_set(button_ok, 360, 60);
-   elm_box_pack_end(box2, button_ok);
+   evas_object_size_hint_min_set(button_ok, button_width, button_height);
+   bg2 = evas_object_rectangle_add(evas_object_evas_get(button_ok));
+   evas_object_size_hint_min_set(bg2, button_width-2, button_height-4);
+   evas_object_color_set(bg2, 60, 120, 60, 255);
+   evas_object_show(bg2);
+   elm_table_pack(etable,bg2,2,2,1,1);
+   elm_table_pack(etable,button_ok,2,2,1,1);
    evas_object_show(button_ok);
    evas_object_smart_callback_add(button_ok, "clicked", ok_button_1_clicked, NULL);
 
    button_cancel = elm_button_add(win);
+   elm_object_style_set(button_cancel, "transparent");
    elm_object_text_set(button_cancel, label_cancel);
-   evas_object_size_hint_min_set(button_cancel, 360, 60);
-   elm_box_pack_end(box2, button_cancel);
+   evas_object_size_hint_min_set(button_cancel, button_width, button_height);
+   bg2 = evas_object_rectangle_add(evas_object_evas_get(button_cancel));
+   evas_object_size_hint_min_set(bg2, button_width-2, button_height-4);
+   evas_object_color_set(bg2, 120, 0, 0, 255);
+   evas_object_show(bg2);
+   elm_table_pack(etable,bg2,1,2,1,1);
+   elm_table_pack(etable,button_cancel,1,2,1,1);
    evas_object_show(button_cancel);
    evas_object_smart_callback_add(button_cancel, "clicked", ok_button_2_clicked, NULL);
 
    elm_object_focus_set(entry_field, EINA_TRUE);
+   evas_object_show(etable);
    evas_object_show(win);
    ecore_event_handler_add(ECORE_EVENT_KEY_DOWN, key_down_callback, NULL);
 

@@ -337,6 +337,5 @@ st cap capdtm getusr
 [113]| USERDATA_RAW_PACK             | RAW_PACK_PACK                 |0x00710000| 7405568|
 [114]| USERDATA_RAWQUALITY           | RAWQUALITY_LOSSLESS           |0x00720000| 7471104|
      +-------------------------------+-------------------------------+----------+--------+
-SMGJohn likes this
 
 ```

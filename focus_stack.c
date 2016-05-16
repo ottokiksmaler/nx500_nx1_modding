@@ -13,18 +13,18 @@ We need to specify the correct ld or it will not work on device.
 #include <sys/resource.h>
 #include <pthread.h>
 
-#define SCREEN_WIDTH 540
+#define SCREEN_WIDTH 720
 #define MAX_STEPS 100
 #define DEFAULT_STEPS 10
 
-static int debug = 1, running = 0;
+static int debug = 1, running = 0, popup_shown=0, entry_shown=0;
 static int alpha_value = 160;
 static char *settings_file = "/root/focus_stack.cfg";
 static char *caption_near = "Near";
 static char *caption_far = "Far";
 static char *caption_conf= "Conf.";
 static char *caption_start = "Start";
-static Evas_Object *lab, *win, *box, *btn_near, *btn_far, *btn_stack, *btn_quit, *entry_points, *entry_delay, *table, *btn_settings;
+static Evas_Object *entry_win,*lab, *win, *box, *btn_near, *btn_far, *btn_stack, *btn_quit, *btn_info, *entry_points, *entry_delay, *popup_box, *table, *btn_settings, *bg, *lab_2, *ok;
 Evas_Object *popup_win;
 Ecore_Timer *timer;
 char stringline[255], label_entry[255], sample_text[255];
@@ -80,46 +80,61 @@ static void click_quit(void *data, Evas_Object * obj, void *event_info)
 static Eina_Bool popup_hide()
 {
 	evas_object_hide(popup_win);
+	evas_object_del(popup_win);
+	popup_shown=0;
+}
+
+static Eina_Bool popup_timer_hide()
+{
+	popup_hide();
 	return ECORE_CALLBACK_CANCEL;
 }
 
-static void popup_show(char *message, int timeout, int row)
+static void popup_show(char *message, int timeout, int row, int height)
 {
-	if (popup_win) {
-		evas_object_hide(popup_win);
-	} 
-	popup_win = elm_win_add(NULL, "Info", ELM_WIN_BASIC);
-	elm_win_prop_focus_skip_set(popup_win, EINA_TRUE);
+	Evas_Object *popup_box, *lab, *table, *bg;
+	if (1==popup_shown) {
+		if (debug) printf("Popup already shown!\n");
+		return;
+	}
+	
+	if (entry_win) {
+// 		evas_object_hide(entry_win);
+ 		ecore_timer_del(timer);
+	}// else {
+		popup_win = elm_win_add(win, "Info", ELM_WIN_DIALOG_BASIC);
+		elm_win_prop_focus_skip_set(popup_win, EINA_TRUE);
+// 	}
 
-
-	Evas_Object *popup_box;
 	popup_box = elm_box_add(popup_win);
 	elm_win_resize_object_add(popup_win, popup_box);
-	evas_object_size_hint_min_set(popup_box, SCREEN_WIDTH, button_height);
+	evas_object_size_hint_min_set(popup_box, SCREEN_WIDTH, button_height*height);
 	evas_object_show(popup_box);
 	
-	Evas_Object *table;
 	table = elm_table_add(popup_win);
 	elm_box_pack_end(popup_box, table);
 	evas_object_show(table);
 
 	lab = elm_label_add(popup_win);
-	evas_object_size_hint_min_set(lab, SCREEN_WIDTH, button_height);
-	elm_object_text_set(lab, message);
+	evas_object_size_hint_min_set(lab, SCREEN_WIDTH, button_height*height);
 	evas_object_show(lab);
-	Evas_Object *bg;
 	bg = evas_object_rectangle_add(evas_object_evas_get(lab));
-	evas_object_size_hint_min_set(bg, SCREEN_WIDTH, button_height);
+	evas_object_size_hint_min_set(bg, SCREEN_WIDTH, button_height*height);
 	evas_object_color_set(bg, 0, 0, 0, 128);
 	evas_object_show(bg);
 	elm_table_pack(table, bg, 1, 1, 1, 1);
 	elm_table_pack(table, lab, 1, 1, 1, 1);
-
+	evas_object_size_hint_min_set(lab, SCREEN_WIDTH, button_height*height);
+	evas_object_size_hint_min_set(bg, SCREEN_WIDTH, button_height*height);
+	elm_object_text_set(lab, message);
 	evas_object_move(popup_win, 60, button_height * row);
 	evas_object_show(popup_win);
+	elm_win_render(popup_win);
 
-	if (timeout > 0)
-		ecore_timer_add(timeout, popup_hide, NULL);
+	if (timeout > 0) {
+		timer = ecore_timer_add(timeout, popup_timer_hide, NULL);
+		popup_shown=1;
+	}
 }
 
 static int get_af_position()
@@ -162,15 +177,6 @@ static void run_stack(int near, int far, int steps, int delay)
 	int current_position = 0, step = 0;
 	double delta = 0;
 	char *stack_message="";
-	if (near == 0) {
-		popup_show("<align=center>Please set Near.</align>", 2, 1);
-		return;
-	}
-	if (far == 0) {
-		popup_show("<align=center>Please set Far.</align>", 2, 1);
-		return;
-	}
-	
 	if (debug)  printf("Stacking - Near: %d \tFar: %d \tPhotos: %d \tDelay: %d\n",
 		   near, far, steps, delay);
 	run_command("/usr/bin/st app nx capture af-mode manual\n");	// show manual focus mode
@@ -181,18 +187,18 @@ static void run_stack(int near, int far, int steps, int delay)
 	current_position = get_af_position();
 	delta = ((double)(far - current_position)) / (double)(steps - 1);
 	if (debug) printf("far: %d current: %d delta: %f\n", far, current_position, delta);
+	sleep(delay / 2);
 // 	while (current_position >= far && step < steps && step < MAX_STEPS) {
 	while (step < steps && step < MAX_STEPS) {
 		step++;
 		asprintf(&stack_message, "#%d of %d",step,steps);
-		popup_show(stack_message,1,0);
+		popup_show(stack_message,1,0,1);
 
-		sleep(delay / 2);
 //		run_command("/usr/bin/st app nx capture single && /bin/sleep 0.5 && /usr/bin/st key click s1\n");	// capture single frame and exit photo preview is exists
-        run_command("st key push s1 && sleep 0.3 && st key click s2 && st key release s1 && sleep 0.5 && st key click s1\n"); // capture single frame and exit photo preview is exists
+        run_command("/usr/bin/st key push s1 && /bin/sleep 0.3 && /usr/bin/st key click s2 && /usr/bin/st key release s1 && /bin/sleep 0.5 && /usr/bin/st key click s1"); // capture single frame and exit photo preview is exists
 		if (step == steps)
 			break;
-		sleep(delay - delay / 2);
+		sleep(delay);
 		focus_move((int)
 			   (near + (int)(step * delta) - current_position));
 		current_position = near + (int)(step * delta);
@@ -201,21 +207,25 @@ static void run_stack(int near, int far, int steps, int delay)
 
 static void click_near(void *data, Evas_Object * obj, void *event_info)
 {
-	popup_show("<align=center>Near focus position set.</align>", 2, 1);
-	focus_pos_near = get_af_position();
+	if (0==popup_shown) {
+		popup_show("<align=center>Near focus position set.</align>", 2, 1,1);
+		focus_pos_near = get_af_position();
+	}
 }
 
 static void click_far(void *data, Evas_Object * obj, void *event_info)
 {
-	popup_show("<align=center>Far focus position set.</align>", 2, 1);
-	focus_pos_far = get_af_position();
+	if (0==popup_shown) {
+		popup_show("<align=center>Far focus position set.</align>", 2, 1,1);
+		focus_pos_far = get_af_position();
+	}
 }
 
 void * thread_stack(void *arg) {
 	char *message;
 	evas_object_hide(win);
 	asprintf (&message, "<align=center>Making %d photos with delay %ds</align>",number_points,shot_delay);
-	popup_show(message,0,0);
+	popup_show(message,1,0,1);
 	running = 1;
 	run_stack(focus_pos_near, focus_pos_far, number_points, shot_delay);
  	evas_object_hide(popup_win);
@@ -225,13 +235,24 @@ void * thread_stack(void *arg) {
 
 static void click_stack(void *data, Evas_Object * obj, void *event_info)
 {
-	pthread_t timer_thread;
-	pthread_create(&timer_thread, NULL, &thread_stack, NULL);
+	if (0==popup_shown) {
+		if (focus_pos_near == 0) {
+			popup_show("Set \"Near\" focus point first!",2,1,1);
+			return;
+		}
+		if (focus_pos_far == 0) {
+			popup_show("Set \"Far\" focus point first!",2,1,1);
+			return;
+		}
+		pthread_t timer_thread;
+		pthread_create(&timer_thread, NULL, &thread_stack, NULL);
+	}
 }
 
 static void settings_ok()
 {
-	evas_object_hide(popup_win);
+	evas_object_hide(entry_win);
+	evas_object_show(win);
 	int i = atoi(elm_object_text_get(entry_points));
 	if (i > 0)
 		number_points = i;
@@ -239,30 +260,36 @@ static void settings_ok()
 	if (i > 0)
 		shot_delay = i;
 	char message[255];
-	sprintf(message, "<align=center>Frames: %d  delay: %ds</align>",
+	sprintf(message, "Frames: %d  delay: %ds",
 		number_points, shot_delay);
-	popup_show(message, 2, 3);
-	if (debug) printf("Frames: %d\n", i);
+// 	popup_show(message, 2, 3,1);
+	if (debug) printf("Settings: %s\n", message);
 	save_settings();
 }
 
 static void entry_show(int row)
 {
-	popup_win = elm_win_add(NULL, "Entry", ELM_WIN_BASIC);
-	evas_object_move(popup_win, 60, button_height * row);
-	Evas_Object *bg;
-	bg = elm_bg_add(popup_win);
-	elm_win_resize_object_add(popup_win, bg);
+	if (1==popup_shown) {
+		if (debug) printf("Popup already shown!\n");
+		return;
+	}
+	evas_object_hide(win);
+	Evas_Object *lab, *lab_2, *bg, *popup_box, *table, *ok;
+	if (entry_win) {
+		evas_object_del(entry_win);
+	}
+	entry_win = elm_win_add(win, "Entry", ELM_WIN_BASIC);
+	evas_object_move(entry_win, 60, button_height * row);
+	bg = elm_bg_add(entry_win);
+	elm_win_resize_object_add(entry_win, bg);
 	evas_object_show(bg);
 
-	Evas_Object *popup_box;
-	popup_box = elm_box_add(popup_win);
+	popup_box = elm_box_add(entry_win);
 	elm_box_horizontal_set(popup_box, EINA_TRUE);
-	elm_win_resize_object_add(popup_win, popup_box);
+	elm_win_resize_object_add(entry_win, popup_box);
 	evas_object_show(popup_box);
 
-	Evas_Object *lab;
-	lab = elm_label_add(popup_win);
+	lab = elm_label_add(entry_win);
 	elm_object_text_set(lab, "Frames:");
 	evas_object_size_hint_min_set(lab, 140, button_height);
 	elm_box_pack_end(popup_box, lab);
@@ -270,41 +297,42 @@ static void entry_show(int row)
 
 	char steps_string[255];
 	sprintf(steps_string, "%d", number_points);
-	entry_points = elm_entry_add(popup_win);
+	entry_points = elm_entry_add(entry_win);
 	elm_entry_input_panel_layout_set(entry_points,ELM_INPUT_PANEL_LAYOUT_NUMBERONLY);
 	elm_object_text_set(entry_points, steps_string);
+	elm_entry_cursor_pos_set(entry_points, strlen(steps_string));
 	evas_object_show(entry_points);
 	evas_object_size_hint_min_set(entry_points, 100, button_height);
 	evas_object_show(entry_points);
 	elm_box_pack_end(popup_box, entry_points);
 
-	Evas_Object *lab_2;
-	lab_2 = elm_label_add(popup_win);
+	lab_2 = elm_label_add(entry_win);
 	elm_object_text_set(lab_2, "Delay:");
 	evas_object_size_hint_min_set(lab_2, 140, button_height);
 	elm_box_pack_end(popup_box, lab_2);
 	evas_object_show(lab_2);
 
 	sprintf(steps_string, "%d", shot_delay);
-	entry_delay = elm_entry_add(popup_win);
+	entry_delay = elm_entry_add(entry_win);
 	elm_entry_input_panel_layout_set(entry_delay,ELM_INPUT_PANEL_LAYOUT_NUMBERONLY);
 	elm_object_text_set(entry_delay, steps_string);
+	elm_entry_cursor_pos_set(entry_points, strlen(steps_string));
 	evas_object_show(entry_delay);
 	evas_object_size_hint_min_set(entry_delay, 100, button_height);
 	evas_object_show(entry_delay);
 	elm_box_pack_end(popup_box, entry_delay);
 
-	Evas_Object *ok;
-	ok = elm_button_add(popup_win);
+	ok = elm_button_add(entry_win);
 	elm_object_text_set(ok, "OK");
 	evas_object_size_hint_min_set(ok, 100, button_height);
 	elm_box_pack_end(popup_box, ok);
 	evas_object_show(ok);
 
-	evas_object_show(popup_win);
+	evas_object_show(entry_win);
 	elm_object_focus_set(entry_points, EINA_TRUE);
 
 	evas_object_smart_callback_add(ok, "clicked", settings_ok, NULL);
+	elm_win_render(entry_win);
 }
 
 static void click_settings(void *data, Evas_Object * obj, void *event_info)
@@ -327,6 +355,14 @@ static void video_sweep() {
 	run_command(command);
 	run_command("st key click rec");
 }
+
+static void click_info(void *data, Evas_Object * obj, void *event_info)
+{
+	popup_show("focus_stack v1.15<br>Usage:<br>Focus on near point - click \"Near\"<br>\
+				Focus on far point - click \"Far\"<br>Click \"Conf.\" to set number of photos<br>\
+				Click on \"Start\" to start",10,1,5);
+}
+
 
 EAPI int elm_main(int argc, char **argv)
 {
@@ -369,7 +405,6 @@ EAPI int elm_main(int argc, char **argv)
 	table = elm_table_add(win);
 	elm_box_pack_end(box, table);
 
-	Evas_Object *bg;
 	evas_object_size_hint_min_set(box, SCREEN_WIDTH, button_height);
 
 	btn_near = elm_button_add(win);
@@ -422,12 +457,26 @@ EAPI int elm_main(int argc, char **argv)
 	evas_object_size_hint_min_set(btn_stack, button_width, button_height);
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn_stack));
 	evas_object_size_hint_min_set(bg, button_width, button_height);
-	evas_object_color_set(bg, 40, 60, 80, alpha_value);
+	evas_object_color_set(bg, 0, 120, 0, alpha_value);
 	evas_object_show(bg);
 	elm_table_pack(table, bg, 7, 1, 1, 1);
 	elm_table_pack(table, btn_stack, 7, 1, 1, 1);
 
 	evas_object_smart_callback_add(btn_stack, "clicked", click_stack, NULL);
+
+	btn_info = elm_button_add(win);
+	elm_object_style_set(btn_info, "transparent");
+	elm_object_text_set(btn_info, " i ");
+	evas_object_show(btn_info);
+	evas_object_size_hint_min_set(btn_info, 80, button_height);
+	bg = evas_object_rectangle_add(evas_object_evas_get(btn_info));
+	evas_object_size_hint_min_set(bg, 80, button_height);
+	evas_object_color_set(bg, 40, 90, 90, alpha_value);
+	evas_object_show(bg);
+	elm_table_pack(table, bg, 8, 1, 1, 1);
+	elm_table_pack(table, btn_info, 8, 1, 1, 1);
+
+	evas_object_smart_callback_add(btn_info, "clicked", click_info, NULL);
 
 	btn_quit = elm_button_add(win);
 	elm_object_style_set(btn_quit, "transparent");
@@ -436,10 +485,10 @@ EAPI int elm_main(int argc, char **argv)
 	evas_object_size_hint_min_set(btn_quit, 80, button_height);
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn_quit));
 	evas_object_size_hint_min_set(bg, 80, button_height);
-	evas_object_color_set(bg, 80, 40, 20, alpha_value);
+	evas_object_color_set(bg, 0, 0, 0, 255);
 	evas_object_show(bg);
-	elm_table_pack(table, bg, 8, 1, 1, 1);
-	elm_table_pack(table, btn_quit, 8, 1, 1, 1);
+	elm_table_pack(table, bg, 9, 1, 1, 1);
+	elm_table_pack(table, btn_quit, 9, 1, 1, 1);
 
 	evas_object_smart_callback_add(btn_quit, "clicked", click_quit, NULL);
 

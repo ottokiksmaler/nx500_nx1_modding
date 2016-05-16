@@ -358,7 +358,7 @@ static void video_sweep() {
 
 static void click_info(void *data, Evas_Object * obj, void *event_info)
 {
-	popup_show("focus_stack v1.15<br>Usage:<br>Focus on near point - click \"Near\"<br>\
+	popup_show("focus_stack v2.00<br>Usage:<br>Focus on near point - click \"Near\"<br>\
 				Focus on far point - click \"Far\"<br>Click \"Conf.\" to set number of photos<br>\
 				Click on \"Start\" to start",10,1,5);
 }

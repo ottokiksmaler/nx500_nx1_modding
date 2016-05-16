@@ -18,7 +18,7 @@ We need to specify the correct ld or it will not work on device.
 #define DEFAULT_STEPS 10
 
 static int debug = 1, running = 0, popup_shown=0, entry_shown=0;
-static int alpha_value = 160;
+static int alpha_value = 255;
 static char *settings_file = "/root/focus_stack.cfg";
 static char *caption_near = "Near";
 static char *caption_far = "Far";
@@ -120,7 +120,7 @@ static void popup_show(char *message, int timeout, int row, int height)
 	evas_object_show(lab);
 	bg = evas_object_rectangle_add(evas_object_evas_get(lab));
 	evas_object_size_hint_min_set(bg, SCREEN_WIDTH, button_height*height);
-	evas_object_color_set(bg, 0, 0, 0, 128);
+	evas_object_color_set(bg, 0, 0, 0, 160);
 	evas_object_show(bg);
 	elm_table_pack(table, bg, 1, 1, 1, 1);
 	elm_table_pack(table, lab, 1, 1, 1, 1);
@@ -414,7 +414,7 @@ EAPI int elm_main(int argc, char **argv)
 	evas_object_size_hint_min_set(btn_near, button_width, button_height);
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn_near));
 	evas_object_size_hint_min_set(bg, button_width, button_height);
-	evas_object_color_set(bg, 40, 60, 80, alpha_value);
+	evas_object_color_set(bg, 40, 120, 200, alpha_value);
 	evas_object_show(bg);
 	elm_table_pack(table, bg, 1, 1, 1, 1);
 	elm_table_pack(table, btn_near, 1, 1, 1, 1);
@@ -428,7 +428,7 @@ EAPI int elm_main(int argc, char **argv)
 	evas_object_size_hint_min_set(btn_far, button_width, button_height);
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn_far));
 	evas_object_size_hint_min_set(bg, button_width, button_height);
-	evas_object_color_set(bg, 20, 40, 60, alpha_value);
+	evas_object_color_set(bg, 40, 80, 140, alpha_value);
 	evas_object_show(bg);
 	elm_table_pack(table, bg, 2, 1, 1, 1);
 	elm_table_pack(table, btn_far, 2, 1, 1, 1);
@@ -439,10 +439,10 @@ EAPI int elm_main(int argc, char **argv)
 	elm_object_style_set(btn_settings, "transparent");
 	elm_object_text_set(btn_settings, caption_conf);
 	evas_object_show(btn_settings);
-	evas_object_size_hint_min_set(btn_settings, 80, button_height);
+	evas_object_size_hint_min_set(btn_settings, 120, button_height);
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn_settings));
 	evas_object_size_hint_min_set(bg, 120, button_height);
-	evas_object_color_set(bg, 40, 80, 40, alpha_value);
+	evas_object_color_set(bg, 220, 140, 00, alpha_value);
 	evas_object_show(bg);
 	elm_table_pack(table, bg, 6, 1, 1, 1);
 	elm_table_pack(table, btn_settings, 6, 1, 1, 1);
@@ -457,7 +457,7 @@ EAPI int elm_main(int argc, char **argv)
 	evas_object_size_hint_min_set(btn_stack, button_width, button_height);
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn_stack));
 	evas_object_size_hint_min_set(bg, button_width, button_height);
-	evas_object_color_set(bg, 0, 120, 0, alpha_value);
+	evas_object_color_set(bg, 0, 200, 0, alpha_value);
 	evas_object_show(bg);
 	elm_table_pack(table, bg, 7, 1, 1, 1);
 	elm_table_pack(table, btn_stack, 7, 1, 1, 1);
@@ -471,7 +471,7 @@ EAPI int elm_main(int argc, char **argv)
 	evas_object_size_hint_min_set(btn_info, 80, button_height);
 	bg = evas_object_rectangle_add(evas_object_evas_get(btn_info));
 	evas_object_size_hint_min_set(bg, 80, button_height);
-	evas_object_color_set(bg, 40, 90, 90, alpha_value);
+	evas_object_color_set(bg, 0, 150, 150, alpha_value);
 	evas_object_show(bg);
 	elm_table_pack(table, bg, 8, 1, 1, 1);
 	elm_table_pack(table, btn_info, 8, 1, 1, 1);

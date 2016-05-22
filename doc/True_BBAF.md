@@ -1,6 +1,6 @@
 #True Back-Button Auto-Focus
 
-**Currently works only on NX1**
+**Currently not working properly - camera tries to refocus even with masked half-shutter**
 
 In order to have true BBAF, we need to prevent half-press on the shutter from engaging in AF while still allowing AF-ON to do it (essentially relocate half-press to AF-ON button). 
 

@@ -1,0 +1,2 @@
+#!/bin/sh
+arm-linux-gnueabi-g++ -D_FILE_OFFSET_BITS=64 -o nx-patch nx-patch.cpp CExeMemPatch.cpp --sysroot=../../nx500/mnt/rootfs/ libdl-2.13.so -Wl,-dynamic-linker,/lib/ld-2.13.so

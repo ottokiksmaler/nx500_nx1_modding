@@ -1,7 +1,6 @@
 /*
  * 
  * Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
- * Copyright (C) 2016  Otto Kiksmaler
  * uses /proc walk sample code provided by Arjun Pakrashi
  *       https://phoxis.org/author/phoxis/
  *
@@ -31,23 +30,23 @@
 // ====================================================================================================================
 
 class CExeMemPatch {
-	pid_t pid;
-	int fd;
-	int pidAttach ();
-	int pidDetach ();
-	bool check_if_number (const char *str);
-	pid_t getPidFromProcessName (const char *sProcessName);
+  pid_t pid;
+  int fd;
+  int pidAttach ();
+  int pidDetach ();
+  bool check_if_number (const char *str);
+  pid_t getPidFromProcessName (const char *sProcessName);
 public:
-	off_t getModuleOffset (const char *sTargetModule);
-	CExeMemPatch (const char *sProcessName);
-	~CExeMemPatch ();
-	bool peek (const char *sTargetModule, off_t offset, char *buffer, size_t size);
-	bool poke (const char *sTargetModule, off_t offset, const char *buffer, size_t size);
-	bool pokeIf (const char *sTargetModule, off_t offset, const char *buffer_original, 
-							char *buffer, size_t size);
-	bool peekUint (const char *sTargetModule, off_t offset, unsigned int *val);
-	bool pokeUint (const char *sTargetModule, off_t offset, unsigned int val);
-	bool pokeIfUint (const char *sTargetModule, off_t offset, unsigned int prevVal, unsigned int newVal);
+  off_t getModuleOffset (const char *sTargetModule);
+  CExeMemPatch (const char *sProcessName);
+  ~CExeMemPatch ();
+  bool peek (const char *sTargetModule, off_t offset, char *buffer, size_t size);
+  bool poke (const char *sTargetModule, off_t offset, const char *buffer, size_t size);
+  bool pokeIf (const char *sTargetModule, off_t offset, const char *buffer_original, 
+              char *buffer, size_t size);
+  bool peekUint (const char *sTargetModule, off_t offset, unsigned int *val);
+  bool pokeUint (const char *sTargetModule, off_t offset, unsigned int val);
+  bool pokeIfUint (const char *sTargetModule, off_t offset, unsigned int prevVal, unsigned int newVal);
 };
 
 #endif /* _CEXEMEMPATCH_H */

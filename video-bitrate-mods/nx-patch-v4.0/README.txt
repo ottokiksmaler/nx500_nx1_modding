@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-patch
 
-                               v4.0
+                               v4.1
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -18,18 +18,20 @@
    along with this program; if not, write to the Free Software Foundation,
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
-Changes since v3.0:
+Version 4.1
+  - added automatic installer
+
+Version 4.0:
   - supports (only) NX500 v1.12 and NX1 v1.41
   - renamed to nx-patch as it is intended to contain more than just bitrate
     adjustments :-) (watch this space)
   - removed NX500 15 min UHD and 25 min FHD/50 and FHD/60 limits
-  - enabled permanent DEV menu access without a SD card "special" file
+  - enabled permanent DEV menu access without a "special" SD card file
       NB you still need to do the key dance to activate it
   - enabled (many) more video slots - see enclosed nx-patch.png
-  - self-contained - does not rely on any additional scripts to identify
-    camera model and version. Does not need bash for model and version
-    check which should improve camera stability through (much) lower memory
-    requirements
+  - self-contained - does not rely on any additional scripts or on bash
+		to identify camera model and version which should improve camera 
+		stability through (much) lower memory requirements
   - improved safety and flexibility: only applies patches that are compatible
     with camera model on which it runs.
   - eliminated gdb :-) - program is now only 26kB
@@ -44,10 +46,10 @@ Changes since v3.0:
       firmware version)
     + flexible architecture for instant integration of future patches
 
-Changes since v2.0:
+Version 3.0:
   - added 2.5k resolution
 
-Changes since v1.0:
+Version 2.0:
   - added support for more bit rate slots and for NX500
 
 Initial version: v1.0
@@ -74,7 +76,7 @@ Initial version: v1.0
      Multiple argument triplets are supported as long as they are separated by
      white space (spaces, etc.).
 
-       camera = either nx1, nx500
+       camera = one of nx1, nx500
 
        from   = one of pro1, pro2, pro3
                        hq1, hq2, hq3, hq4, hq5, hq6, hq7, hq8

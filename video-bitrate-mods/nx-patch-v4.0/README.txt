@@ -1,3 +1,5 @@
+NB this is WIP - 4.1 not yet released.
+
                   Samsung NX1 and NX500 nx-patch
 
                                v4.1

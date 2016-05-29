@@ -1,0 +1,8 @@
+button|Resolutions|/opt/usr/scripts/mod_gui /tmp/resolutions
+button| |/bin/true
+button|Bit Rates|/opt/usr/scripts/mod_gui /tmp/bitrates
+button| |/bin/true
+button| |/bin/true
+button| |/bin/true
+button|About v4.1|/opt/usr/scripts/about.sh
+button|Make Default|/bin/cp /tmp/initial_patches.sh /opt/usr/scripts/ ; sync ; sync ; sync

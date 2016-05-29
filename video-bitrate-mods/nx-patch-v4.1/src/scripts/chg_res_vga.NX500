@@ -1,0 +1,6 @@
+button|VGA => DC |/bin/sed -i -r -e "s/`nx-model`:VGA:[^ ]+/`nx-model`:VGA:toDC/"  /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|VGA => UHD|/bin/sed -i -r -e "s/`nx-model`:VGA:[^ ]+/`nx-model`:VGA:toUHD/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|VGA => 2k5|/bin/sed -i -r -e "s/`nx-model`:VGA:[^ ]+/`nx-model`:VGA:to2K5/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|VGA => FHD|/bin/sed -i -r -e "s/`nx-model`:VGA:[^ ]+/`nx-model`:VGA:toFHD/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|VGA => HD |/bin/sed -i -r -e "s/`nx-model`:VGA:[^ ]+/`nx-model`:VGA:toHD/"  /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|VGA => VGA|/bin/sed -i -r -e "s/`nx-model`:VGA:[^ ]+/`nx-model`:VGA:toVGA/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh

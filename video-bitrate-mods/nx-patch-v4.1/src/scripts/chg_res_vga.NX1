@@ -1,0 +1,5 @@
+button|VGA => DC |/bin/sed -i -r -e "s/nx1:VGA:[^ ]+/nx1:VGA:toDC/"  /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|VGA => UHD|/bin/sed -i -r -e "s/nx1:VGA:[^ ]+/nx1:VGA:toUHD/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|VGA => FHD|/bin/sed -i -r -e "s/nx1:VGA:[^ ]+/nx1:VGA:toFHD/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|VGA => HD |/bin/sed -i -r -e "s/nx1:VGA:[^ ]+/nx1:VGA:toHD/"  /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|VGA => VGA|/bin/sed -i -r -e "s/nx1:VGA:[^ ]+/nx1:VGA:toVGA/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh

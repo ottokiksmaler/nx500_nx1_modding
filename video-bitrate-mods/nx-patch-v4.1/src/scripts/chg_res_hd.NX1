@@ -1,0 +1,5 @@
+button|HD => DC |/bin/sed -i -r -e "s/nx1:HD:[^ ]+/nx1:HD:toDC/"  /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|HD => UHD|/bin/sed -i -r -e "s/nx1:HD:[^ ]+/nx1:HD:toUHD/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|HD => FHD|/bin/sed -i -r -e "s/nx1:HD:[^ ]+/nx1:HD:toFHD/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|HD => HD |/bin/sed -i -r -e "s/nx1:HD:[^ ]+/nx1:HD:toHD/"  /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh
+button|HD => VGA|/bin/sed -i -r -e "s/nx1:HD:[^ ]+/nx1:HD:toVGA/" /tmp/initial_patches.sh ; /opt/usr/scripts/apply.sh

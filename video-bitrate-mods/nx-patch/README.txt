@@ -23,6 +23,20 @@
 
                           CHANGE LOG
 
+
+Version 4.12 - 2015-05-30
+  - while awaiting for the repaired burner cam to be able to work
+    on hibernation image update
+  - keyboard now shows (mostly) properly on NX1
+  - mod user interface does NOT launch if in movie (record or play) mode
+  - uninstall now requires positive confirmation
+  - BUG: on NX1 if screen times out and goes in power saving it will take
+    a a couple of more half-shutter to wake the screen up and dialogues will
+    be dismissed as a result. [won't fix as too difficult for current version
+    of the user interface - wait for a future version using another framework]
+  - BUG: on NX1 upon uninstall the confirmation keyboard does not always appear
+    just tap on the screen and it will [won't fix, same reason as above]
+
 Version 4.11 - 2015-05-29
   - added uninstall
 
@@ -97,6 +111,10 @@ Initial version: v1.0
  10. In principle, once you have set up the mod as you like and made 
      it default, it will stay so forever, you only need to activate it
      through bluetooth switch.
+ 11. NB. Mod user interface does NOT launch if in movie (record or play) mode
+     this is not a bug :-) but a feature. The mod may interfere with
+     recording or playback
+
 
   A final word:
    If you find this program useful, I have a lens fund that only reached about

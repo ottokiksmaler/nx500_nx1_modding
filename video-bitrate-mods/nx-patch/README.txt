@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-patch
 
-                               v4.11
+                               v4.12
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 

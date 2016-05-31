@@ -5,6 +5,8 @@
  * 
  * Example:
  * ./poker 247 0x00400658 - reads 4 bytes from address 0x00400658 of PID 247
+ * ./poker 247 0x00400658:#1 - reads 1 byte from address 0x00400658 of PID 247
+ * ./poker 247 0x00400658:#8 - reads 8 byte from address 0x00400658 of PID 247
  * 
  * Example:
  * ./poker 247 0x00400658:45464748 - changes 4 bytes to 'EFGH' at address 0x00400658 of PID 247
@@ -17,7 +19,7 @@
  * ./poker /tmp/var/run/memory/ap_setting/request_type 0x0:2900000001000000 - writes bytes to file starting WiFi in process
  * 
  * Compile with
- * arm-linux-gnueabihf-gcc -D_FILE_OFFSET_BITS=64 --static -o poker poker.c --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.s
+ * arm-linux-gnueabihf-gcc -D_FILE_OFFSET_BITS=64 -s -o poker poker.c --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.s
  */
 
 #include <strings.h>
@@ -66,19 +68,21 @@ int pid_detach(pid_t pid)
 
 bool peek(int fd, off_t offset, unsigned char *buffer, size_t size)
 {
-	debug && printf("fd: %d\toffset: %d\tsize: %d\n",fd, (int)offset, (int)size);
+	debug && printf("fd: %d\toffset: %lld\tsize: %d\n",fd, (long long int)offset, (int)size);
 	if (size>BUFF_SIZE) {
 		printf("SIZE TOO LARGE ERROR %d > %d\n", (int)size, BUFF_SIZE);
 		return false;
 	}
 	int i=0;
-	if (0<=lseek(fd, (off_t) offset, SEEK_SET)) {
+	if (-1 != lseek(fd, (off_t) offset, SEEK_SET)) {
 		if (read(fd, buffer, size) >= 0)
 			debug && printf("Peek: OK %d\n", i);
 		else {
-			debug && printf("Error peek: %d\n", (errno));
+			debug_errors && printf("Error peek: %d\n", (errno));
 			return false;
 		}
+	} else {
+		debug_errors && printf("Error seeking to %ld: %d\n",(unsigned long int)offset, errno);
 	}
 	return true;
 }
@@ -135,7 +139,7 @@ void hex_to_char_array(unsigned char *hex, unsigned char * buffer, int buff_size
 
 int main(int argc, unsigned char *argv[])
 {
-	int fd,i,b, is_process=1, buff_size=16;
+	int fd,i,b, is_process=1, buff_size=4;
 	pid_t pid;
 	off_t offset;
 	unsigned char arg[BUFF_SIZE], buff_old[BUFF_SIZE], buff_new[BUFF_SIZE], buff_peek[BUFF_SIZE];
@@ -166,7 +170,8 @@ int main(int argc, unsigned char *argv[])
 			spl = strtok(arg, ":");
 			offset = strtoll(spl, NULL, 16);
 			spl = strtok(NULL, ":");
-			if (!spl) {
+			if (!spl || spl[0]=='#') {
+				if (spl && spl[0]=='#') sscanf(&spl[1],"%d",&buff_size);
 				if (!peek(fd,offset,buff_peek,buff_size))
 					return 1;
 				printf("0x%08x:",(int)offset);

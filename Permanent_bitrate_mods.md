@@ -2,6 +2,8 @@
 
 Permanent => stored to hibernation image => modifications are available instantly with no need to wait for mods to load.
 
+# BEWARE - THIS MODIFIES YOUR CAMERA PERMANENTLY 
+###TESTED ON NX500 FW 1.11
 
 Modifying the **/usr/lib/libmmutil_movie.so.0.0.0** file on filesystem and then invoking **systemctl rescue**, restarting and powering off normally causes hibernation image to be updated with modified values from libmmutil_movie file (that is the file we are changing in memory when we are applying bitrate mods).
 

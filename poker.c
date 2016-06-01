@@ -94,7 +94,7 @@ bool poke(int fd, off_t offset, unsigned char *buffer, size_t size)
 		return false;
 	}
 	int i=0;
-	if (0<=lseek(fd, (off_t) offset, SEEK_SET))
+	if (-1 != lseek(fd, (off_t) offset, SEEK_SET))
 		if (i = write(fd, buffer, size) >= 0){
 			debug && printf("OK poke %d\n", i);
 		}

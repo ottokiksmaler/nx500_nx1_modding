@@ -6,6 +6,8 @@ Permanent => stored to hibernation image => modifications are available instantl
 # BEWARE - do NOT attempt this unless you know what you are doing.
 ###TESTED ON NX500 FW 1.11
 
+Also, read this first https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Update_hibernation_image.md
+
 Modifying the **/usr/lib/libmmutil_movie.so.0.0.0** file on filesystem and then invoking **systemctl rescue**, restarting and powering off normally causes hibernation image to be updated with modified values from libmmutil_movie file (that is the file we are changing in memory when we are applying bitrate mods).
 
 Positives: By doing this the bitrate modifications are **always** active - battery popping or not and there is no need re-apply them.

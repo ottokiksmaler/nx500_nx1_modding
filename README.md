@@ -10,9 +10,11 @@ Inital work was done and presented on DPReview Samsung Forum [here](http://www.d
 
 ##TL;DR - I want my camera hacked - what to do?
 
-Read [Customizing functions of various keys](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Customizing%20keys.md) for introduction.
+Resources in this repository are aimed more at "developers" or "advanced users" than "regular users". If you just want to quickly use all these mods, there are two ways to take:
+  - Use a mod with many many integrated options packed together by @KinoSeed: [Read about it at facebook.com/NXKS](https://www.facebook.com/NXKS2)
+  - Use a mod pack made by @Vasile-gh [here](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch)
 
-Or use a mod with many integrated options packed together by @KinoSeed: [Read about it] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS-Readme.md) or [Download NX-KS.zip] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX-KS.zip?raw=true) after reading [the history of changes to it] (https://github.com/ottokiksmaler/nx500_nx1_modding/commits/master/NX-KS.zip)
+You can always read the [Customizing functions of various keys](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Customizing%20keys.md) for introduction.
 
 ##Status
 

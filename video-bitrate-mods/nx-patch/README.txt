@@ -23,8 +23,14 @@
 
                           CHANGE LOG
 
+Version 4.13 - 2016-06-03
+  - 30 min video recording limit removed by default upon install
+    and reinstated upon uninstall
+  - replaced keyscan with new smaller version
+  - changed to OK_OK for user interface activation due to
+    NX1 EV_EV incompatibility
 
-Version 4.12 - 2015-05-30
+Version 4.12 - 2016-05-30
   - while awaiting for the repaired burner cam to be able to work
     on hibernation image update
   - keyboard now shows (mostly) properly on NX1
@@ -37,10 +43,10 @@ Version 4.12 - 2015-05-30
   - BUG: on NX1 upon uninstall the confirmation keyboard does not always appear
     just tap on the screen and it will [won't fix, same reason as above]
 
-Version 4.11 - 2015-05-29
+Version 4.11 - 2016-05-29
   - added uninstall
 
-Version 4.1 - 2015-05-29
+Version 4.1 - 2016-05-29
   - added automatic installer
   - this version uses keyscan, mod_gui, popup_*, tools
       (C) 2016 Otto Kiksmaler
@@ -56,7 +62,7 @@ Version 4.1 - 2015-05-29
     causes this but since I plan to replace this interface with a better
     one I do not want to spend a lot of time on this cosmetic issue.
 
-Version 4.0 - 2015-05-27:
+Version 4.0 - 2016-05-27:
   - supports (only) NX500 v1.12 and NX1 v1.41
   - renamed to nx-patch as it is intended to contain more than just bitrate
     adjustments :-) (watch this space)

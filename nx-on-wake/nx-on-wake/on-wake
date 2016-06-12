@@ -1,1 +1,14 @@
-sdsfds
+#!/bin/bash
+sleep 0.2
+echo 1 > /sys/devices/platform/leds-gpio/leds/card/brightness
+sleep 0.2
+echo 0 > /sys/devices/platform/leds-gpio/leds/card/brightness
+sleep 0.1
+echo 1 > /sys/devices/platform/leds-gpio/leds/card/brightness
+sleep 0.2
+echo 0 > /sys/devices/platform/leds-gpio/leds/card/brightness
+sleep 0.1
+echo 1 > /sys/devices/platform/leds-gpio/leds/card/brightness
+sleep 0.2
+echo 0 > /sys/devices/platform/leds-gpio/leds/card/brightness
+sleep 0.1

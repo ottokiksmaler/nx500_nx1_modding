@@ -1,0 +1,4 @@
+#!/bin/sh
+arm-linux-gnueabi-gcc -o nx-on-wake nx-on-wake.c -lpthread --sysroot=../../nx500/mnt/rootfs/ libdl-2.13.so -Wl,-dynamic-linker,/lib/ld-2.13.so
+mv nx-on-wake ../../rsync-share/
+ls -l ../../rsync-share/nx-on-wake

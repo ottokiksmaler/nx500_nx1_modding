@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-patch
 
-                               v5.0
+                               v5.01
                                
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -23,11 +23,11 @@
 
                           CHANGE LOG
 
-Version 5.0 - 2016-06-12
+Version 5.01 - 2016-06-12
   - now REQUIRES nx-on-wake mod, the new bluetooth-less launch architecture
   - no more delays in launch, mods are instantly available :-)
-  - NX1 activation with EV AFON (EV EV does not work)
   - NX500 activation with EV EV
+  - NX1 activation with OK OK (EV EV does not work on NX1)
   - nx-on-wake makes it possible to have this mod INSTANTLY available upon
     startup (bitrates are always permanently saved upon change)
 

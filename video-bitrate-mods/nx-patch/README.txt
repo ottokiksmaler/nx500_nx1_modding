@@ -1,7 +1,7 @@
                   Samsung NX1 and NX500 nx-patch
 
-                               v4.12
-
+                               v5.0
+                               
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
      some components Copyright (C) 2016 Otto Kiksmaler
@@ -23,12 +23,19 @@
 
                           CHANGE LOG
 
+Version 5.0 - 2016-06-12
+  - now REQUIRES nx-on-wake mod, the new bluetooth-less launch architecture
+  - no more delays in launch, mods are instantly available :-)
+  - NX1 activation with EV AFON (EV EV does not work)
+  - NX500 activation with EV EV
+  - nx-on-wake makes it possible to have this mod INSTANTLY available upon
+    startup (bitrates are always permanently saved upon change)
+
 Version 4.13 - 2016-06-03
   - 30 min video recording limit removed by default upon install
     and reinstated upon uninstall
   - replaced keyscan with new smaller version
-  - changed to OK_OK for user interface activation due to
-    NX1 EV_EV incompatibility
+  - no public release
 
 Version 4.12 - 2016-05-30
   - while awaiting for the repaired burner cam to be able to work
@@ -96,31 +103,22 @@ Version 2.0:
 Initial version: v1.0
   - replaces NX1 80 Mbps video bit rate 
 
-    
-                              How To
+                              HOW TO
 
   0. The file containing this README.txt includes everything you need.
-  1. Make sure your NX camera is on firmware v1.41 (NX1) or v1.12 (NX500).
+  1. Make sure the nx-on-wake mod is installed. This mod depends on nx-on-wake.
   2. The zip file includes a nx-patch.png file. Open and print it or
      familiarize yourself with it - it shows the meaning of the various
      bitrate and resolution slots. You will need to know them to use the mod.
   3. Unzip the file where you found this README in the root of your SD card.
-  4. Insert the SD card into your camera and power it up.
-     NB. I mean power up the camera, not the SD card.
+  4. Insert the SD card into your camera and power it up. NB. I mean power 
+     up the camera, not the SD card :-)
   5. Pay attention to the messages showing on the screen.
-  6. After the camera reboots, enable Bluetooth to activate the mod.
-  7. Bluetooth needs to be activated (or left active) each camera start-up,
-     otherwise the mod will not be applied.
-  8. Use EV EV to pop up the user interface.
-  9. After changing settings to taste, press Make Default for the mod to
-     remember them next time it activates.
- 10. In principle, once you have set up the mod as you like and made 
-     it default, it will stay so forever, you only need to activate it
-     through bluetooth switch.
- 11. NB. Mod user interface does NOT launch if in movie (record or play) mode
-     this is not a bug :-) but a feature. The mod may interfere with
-     recording or playback
-
+  6. You will be asked to power off and on the camera.
+  7. Use EV EV (NX500) or EV AFON (NX1) to pop up the user interface.
+  8. New bitrates are NOT remembered across cold boots. This is to reduce
+     writes to the camera flash to the minimum necessary. Set them as defaults
+     to change them permanently (across cold boots as well).
 
   A final word:
    If you find this program useful, I have a lens fund that only reached about

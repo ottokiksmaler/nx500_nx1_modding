@@ -1,0 +1,14 @@
+[Unit]
+Description=Start nx-on-wake (c) Vasile Dumitrescu
+Requires=xscim.service
+After=xscim.service
+
+[Service]
+Type=forking
+ExecStart=-/usr/local/bin/nx-on-wake
+StandardOutput=tty
+EnvironmentFile=/run/tizen-mobile-env
+TimeoutSec=5
+
+[Install]
+WantedBy=multi-user.target

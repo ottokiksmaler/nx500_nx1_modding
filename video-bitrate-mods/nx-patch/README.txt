@@ -33,7 +33,8 @@ Version 5.01 - 2016-06-12
   - NX500 activation with EV EV
   - NX1 activation with OK OK (EV EV does not work on NX1)
   - nx-on-wake makes it possible to have this mod INSTANTLY available upon
-    startup (bitrates are always permanently saved upon change)
+    cold startup (NB. you will have to "Make default" them - I did not
+    make it automatic in order to reduce camera flash writes)
 
 Version 4.13 - 2016-06-03
   - 30 min video recording limit removed by default upon install

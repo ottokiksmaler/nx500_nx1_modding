@@ -130,12 +130,12 @@ int file_copy(char *file_in, char *file_out)
 static Eina_Bool key_down_callback(void *data, int type, void *ev)
 {
 	Ecore_Event_Key *event = ev;
-	if (0 == strcmp("Menu", event->key)
-	    || 0 == strcmp("Super_L", event->key)
-	    || 0 == strcmp("Super_R", event->key)) {
+	if (debug) printf("Key: %s\n", event->key);
+	if (!(0 == strcmp("XF86Reload", event->key) ||
+		0 == strcmp("KP_Enter", event->key)))
+	{
 		quit_app();
 	}
-	if (debug) printf("Key: %s\n", event->key);
 	return ECORE_CALLBACK_PASS_ON;
 }
 
@@ -212,8 +212,8 @@ void fill_checkboxes()
 			chk_value[i] = 1;
 			if (debug) printf("Auto execute: %s\n", auto_script);
 		}
+		free(auto_script);
 	}
-	free(auto_script);
 }
 
 static int configuration_load()
@@ -247,10 +247,6 @@ static int configuration_load()
 			button_number++;
 		}
 		fclose(fp);
-		free(line);
-		free(btn_name);
-		free(btn_command);
-		free(btn_type);
 		return 0;
 	}
 	printf("Invalid configuration file '%s'.\n", configuration_file);

@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-on-wake
 
-                               v1.0
+                               v1.01
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -23,13 +23,18 @@
 
                           CHANGE LOG
 
+Version 1.01 - 2016-06-13
+  - updated README: added requirement to set power save to 30 min 
+    and display save to off.
+  - also removed duplicate definition of "satellite" mods
+
 Version 1.0 - 2016-06-12
   - initial version
   
                           DESCRIPTION
                           
    This is a one-time MASTER mod, which will free you from depending on
-   bluetooth for any "satellite" NX camera mods built to take advantage of it.
+   bluetooth for any "satellite" mods.
    
    NB. by "satellite" mods I mean mods built to take advantage of this new mod
        loading architecture.
@@ -98,41 +103,43 @@ Version 1.0 - 2016-06-12
      connected to anything: Bluetooth, any cables (EVEN CHARGING), external
      flash, battery grip. EVERYTHING that can be disconnected should be
      disconnected except the battery, SD card and lens.
-  3. To install the mod you will require a 6-digit number that you will need
+  3. Power save settings should be: Auto Display Off = off and 
+                                    Power Save = 30 min.
+  4. To install the mod you will require a 6-digit number that you will need
      to assemble from pieces spread around this README. This is intentional.
      Why? because it will (hopefully) ensure that you thoroughly read these
      instructions: if you do not follow them to the letter you WILL brick
      your camera. YOU HAVE BEEN WARNED. By the way, the middle two digits
      of the magic number are 76. Write them down.
-  4. Unzip the file where you found this README in the root of your SD card.
+  5. Unzip the file where you found this README in the root of your SD card.
      Double-check that your SD card now contains two folders: install and 
      nx-on-wake, placed in the root of the card.
-  5. Insert the SD card into your camera and power it up.
+  6. Insert the SD card into your camera and power it up.
      NB. I mean power up the camera, not the SD card :-)
-  6. You will be presented with a prompt to enter the installation code.
+  7. You will be presented with a prompt to enter the installation code.
      Unless you enter it exactly the installation will abort.
-  7. Make sure you have a watch with a seconds indicator.
-  8. Take a piece of paper and write down the exact time - to the second!
+  8. Make sure you have a watch with a seconds indicator.
+  9. Take a piece of paper and write down the exact time - to the second!
      Be aware that this is an essential step. By the way, the last two digits
      you are looking for are six and nine.
-  9. After you marked down the time, enter the magic number as prompted.
- 10. The camera screen will freeze. DO NOT TOUCH the camera. Do not even
+ 10. After you marked down the time, enter the magic number as prompted.
+ 11. The camera screen will freeze. DO NOT TOUCH the camera. Do not even
      BREATHE on it. On NX1 the camera might seem to have rebooted in "normal"
      mode. DO NOT BE FOOLED. WAIT.
- 11. Now wait 5 minutes (in reality two minutes are more than enough but
+ 12. Now wait 5 minutes (in reality two minutes are more than enough but
      this is so serious that I insist on taking five - I MAY have bricked my
      camera because I did not wait enough, and you MIGHT too if you are 
      impatient).
- 12. Read point 11 again - you have plenty of time. It is a key point.
- 13. Go get a coffee. Read a book. Whatever, as long as you DO NOT TOUCH
+ 13. Read point 11 again - you have plenty of time. It is a key point.
+ 14. Go get a coffee. Read a book. Whatever, as long as you DO NOT TOUCH
      the camera for five minutes. Refer to the time you wrote on paper and 
      make sure AT LEAST five minutes have elapsed since. 
- 14. Now pull the battery WITHOUT touching any button (not even the power
+ 15. Now pull the battery WITHOUT touching any button (not even the power
      switch - leave it on). Just open the battery compartment and
      pull the battery.
- 15. Wait 10 seconds. I repeat: wait 10 seconds. Don't say I did not tell
+ 16. Wait 10 seconds. I repeat: wait 10 seconds. Don't say I did not tell
      you to wait. Do not touch the camera for these 10 seconds.
- 16. Put back the battery in the camera. Do not touch any button, not even the
+ 17. Put back the battery in the camera. Do not touch any button, not even the
      power switch (it should already be ON). The camera should start and the SD
      card led should start flashing slowly. At some point the LED will turn
      off, and after some more time you might hear the shutter (I think) and
@@ -140,14 +147,14 @@ Version 1.0 - 2016-06-12
      process between putting the battery back in and the finalisation of the
      process is 4 minutes or less. Please BE PATIENT and DO NOT TOUCH (by the
      way, the second digit you want is five) the camera during this time.
- 17. Did you wait four minutes? Sure? Do you prefer bricking the camera to
+ 18. Did you wait four minutes? Sure? Do you prefer bricking the camera to
      waiting four minutes? Do you see the camera user interface?
      Then turn off the camera. Pull again the battery. Wait 5 seconds.
      Plug in the battery. Turn on the camera. Look at the SD card led: 
      you will see it blink three times. This is your proof that everything
      is OK. You are done now. You can drink that coffee and start installing
      other mods that depend on this one.
- 18. Uninstallation: I could have provided an unistallation script but there's
+ 19. Uninstallation: I could have provided an uninstall script but there's
      no way to automatically return the camera to its ORIGINAL state (the
      hibernation image can be regenerated but it will NOT be the same and this
      is, as you saw, a dangerous process. SO, if you want to uninstall this

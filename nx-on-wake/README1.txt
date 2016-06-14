@@ -102,8 +102,9 @@ Version 1.0 - 2016-06-12
                               HOW TO
 
      Turn OFF your brain. Do not do ANYTHING on your own initiative from now on
-     until you see the SD card led blink three times.  Do not touch the camera,
-     the screen or any camera button UNLESS instructed to do so.
+     until you see the SD card led do one long and three short blinks.
+     Do not touch the camera, the screen or any camera button UNLESS instructed
+     to do so.
 
               Otherwise you risk bricking your camera.
 
@@ -136,8 +137,9 @@ Version 1.0 - 2016-06-12
  12. Turn off the camera using the power switch. NB the second digit you want
      is five. 
  13. Pull the battery, wait 5 seconds, put it back in and turn on the camera.
- 14. Look at the SD card led: you will see it blink three times. 
-     This is your proof that everything  went OK. The second magic digit is 5.
+ 14. Look at the SD card led: you will see it blink four times as indicated in
+     the "turn off your brain" paragraph above. This is your proof that 
+     everything  went OK. The second magic digit is 5.
  15. Revert to the power saving settings you prefer.
  16. ========== You can now turn your brain ON again if you wish :-) ==========
  17. Uninstallation: I could have provided an uninstall script but there's

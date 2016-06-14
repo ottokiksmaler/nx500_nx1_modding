@@ -104,6 +104,7 @@ Version 1.0 - 2016-06-12
      Turn OFF your brain. Do not do ANYTHING on your own initiative from now on
      until you see the SD card led blink three times.  Do not touch the camera,
      the screen or any camera button UNLESS instructed to do so.
+
               Otherwise you risk bricking your camera.
 
                        YOU HAVE BEEN WARNED.
@@ -112,7 +113,7 @@ Version 1.0 - 2016-06-12
   1. Check that: 
        - NX camera is on firmware v1.41 (NX1) or v1.12 (NX500).
        - battery is FULLY charged and that the camera is NOT connected to
-         anything: Bluetooth, any cables (EVEN CHARGING), external flash,
+         anything: Bluetooth, wifi, any cables (EVEN CHARGING), external flash,
          battery grip. EVERYTHING that can be disconnected should be
          disconnected except the battery, SD card and the lens.
        - power save settings are: Auto Display Off = off and 
@@ -136,9 +137,10 @@ Version 1.0 - 2016-06-12
      is five. 
  13. Pull the battery, wait 5 seconds, put it back in and turn on the camera.
  14. Look at the SD card led: you will see it blink three times. 
-     This is your proof that everything  went OK.
- 15. You can now revert to the power saving settings you prefer.
- 16. Uninstallation: I could have provided an uninstall script but there's
+     This is your proof that everything  went OK. The second magic digit is 5.
+ 15. Revert to the power saving settings you prefer.
+ 16. ========== You can now turn your brain ON again if you wish :-) ==========
+ 17. Uninstallation: I could have provided an uninstall script but there's
      no way to automatically return the camera to its ORIGINAL state (the
      hibernation image can be regenerated but it will NOT be the same and this
      is, as you saw, a dangerous process. SO, if you want to uninstall this

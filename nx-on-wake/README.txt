@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-on-wake
 
-                               v1.01
+                               v1.02
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -22,6 +22,9 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
                           CHANGE LOG
+
+Version 1.02 - 2016-06-14
+  - another update to README following dpreview discussion.
 
 Version 1.01 - 2016-06-13
   - updated README: added requirement to set power save to 30 min 
@@ -79,12 +82,16 @@ Version 1.0 - 2016-06-12
    
               COMPATIBILITY WITH PREVIOUS GENERATION MODS
 
-   This is completely compatible with any bluetooth-mods in the sense that a
+   This is PARTIALLY compatible with any bluetooth-mods in the sense that a
    camera modded with this master mod can still run old-style mods as long as
-   no NEW "satellite" mods are installed. NB. I do not recommend UNinstalling
-   this master mod because without any satellites it has NO impact on camera
-   operation - you can safely ignore its existence. However, if you insist on
-   uninstalling it, see below.
+   no NEW "satellite" mods are installed, with ONE exception: old-style bitrate
+   mods will NOT work because this mod unavoidably changes camera memory
+   configuration in an unpredictable way (reason: Linux Address Space Layout
+   Randomisation - google it) rendering useless all mods that rely on fixed
+   shared library memory addresses.
+   NB. I do not recommend UNinstalling this master mod because without any
+   satellites it has NO impact on camera operation - you can safely ignore its
+   existence. However, if you insist on uninstalling it, see below.
    
    Please note that installing both types of mods (legacy and new "satellite")
    is likely to cause problems: they will compete for the key combinations and
@@ -97,73 +104,57 @@ Version 1.0 - 2016-06-12
 
                               HOW TO
 
+     Turn OFF your brain. Do not do ANYTHING on your own initiative from now on
+     until you see the SD card led do one long and three short blinks.
+     Do not touch the camera, the screen or any camera button UNLESS instructed
+     to do so.
+
+              Otherwise you risk bricking your camera.
+
+                       YOU HAVE BEEN WARNED.
+
   0. The zip file containing this README.txt includes everything you need.
-  1. Make sure your NX camera is on firmware v1.41 (NX1) or v1.12 (NX500).
-  2. Make sure your battery is FULLY charged and that the camera is NOT
-     connected to anything: Bluetooth, any cables (EVEN CHARGING), external
-     flash, battery grip. EVERYTHING that can be disconnected should be
-     disconnected except the battery, SD card and lens.
-  3. Power save settings should be: Auto Display Off = off and 
-                                    Power Save = 30 min.
-  4. To install the mod you will require a 6-digit number that you will need
+  1. Check that: 
+       - NX camera is on firmware v1.41 (NX1) or v1.12 (NX500).
+       - battery is FULLY charged and that the camera is NOT connected to
+         anything: Bluetooth, wifi, any cables (EVEN CHARGING), external flash,
+         battery grip. EVERYTHING that can be disconnected should be
+         disconnected except the battery, SD card and the lens.
+       - power save settings are: Auto Display Off = off and 
+                                  Power Save = 30 min.
+       - camera is off
+  2. To install the mod you will require a 6-digit number that you will need
      to assemble from pieces spread around this README. This is intentional.
      Why? because it will (hopefully) ensure that you thoroughly read these
-     instructions: if you do not follow them to the letter you WILL brick
-     your camera. YOU HAVE BEEN WARNED. By the way, the middle two digits
-     of the magic number are 76. Write them down.
-  5. Unzip the file where you found this README in the root of your SD card.
+     instructions. By the way, the middle two digits of the magic number are
+     76. Write them down.
+  3. Unzip the file where you found this README in the root of your SD card.
      Double-check that your SD card now contains two folders: install and 
      nx-on-wake, placed in the root of the card.
-  6. Insert the SD card into your camera and power it up.
-     NB. I mean power up the camera, not the SD card :-)
-  7. You will be presented with a prompt to enter the installation code.
-     Unless you enter it exactly the installation will abort.
-  8. Make sure you have a watch with a seconds indicator.
-  9. Take a piece of paper and write down the exact time - to the second!
-     Be aware that this is an essential step. By the way, the last two digits
-     you are looking for are six and nine.
- 10. After you marked down the time, enter the magic number as prompted.
- 11. The camera screen will freeze. DO NOT TOUCH the camera. Do not even
-     BREATHE on it. On NX1 the camera might seem to have rebooted in "normal"
-     mode. DO NOT BE FOOLED. WAIT.
- 12. Now wait 5 minutes (in reality two minutes are more than enough but
-     this is so serious that I insist on taking five - I MAY have bricked my
-     camera because I did not wait enough, and you MIGHT too if you are 
-     impatient).
- 13. Read point 11 again - you have plenty of time. It is a key point.
- 14. Go get a coffee. Read a book. Whatever, as long as you DO NOT TOUCH
-     the camera for five minutes. Refer to the time you wrote on paper and 
-     make sure AT LEAST five minutes have elapsed since. 
- 15. Now pull the battery WITHOUT touching any button (not even the power
-     switch - leave it on). Just open the battery compartment and
-     pull the battery.
- 16. Wait 10 seconds. I repeat: wait 10 seconds. Don't say I did not tell
-     you to wait. Do not touch the camera for these 10 seconds.
- 17. Put back the battery in the camera. Do not touch any button, not even the
-     power switch (it should already be ON). The camera should start and the SD
-     card led should start flashing slowly. At some point the LED will turn
-     off, and after some more time you might hear the shutter (I think) and
-     after a bit more time the camera should be powered up as usual. The entire
-     process between putting the battery back in and the finalisation of the
-     process is 4 minutes or less. Please BE PATIENT and DO NOT TOUCH (by the
-     way, the second digit you want is five) the camera during this time.
- 18. Did you wait four minutes? Sure? Do you prefer bricking the camera to
-     waiting four minutes? Do you see the camera user interface?
-     Then turn off the camera. Pull again the battery. Wait 5 seconds.
-     Plug in the battery. Turn on the camera. Look at the SD card led: 
-     you will see it blink three times. This is your proof that everything
-     is OK. You are done now. You can drink that coffee and start installing
-     other mods that depend on this one.
- 19. Uninstallation: I could have provided an uninstall script but there's
+  6. Insert the SD card into your camera and power up the camera.
+  7. Enter the installation code (magic number) when prompted.
+  8.                   WAIT AT LEAST FIVE minutes
+  9. Pull the battery and WAIT 10 SECONDS, then put the battery back in.
+ 10.                   WAIT AT LEAST FOUR minutes
+ 11. The last two digits you are looking for are six and nine.
+ 12. Turn off the camera using the power switch. NB the second digit you want
+     is five. 
+ 13. Pull the battery, wait 5 seconds, put it back in and turn on the camera.
+ 14. Look at the SD card led: you will see it blink four (one long and three
+     short) times as indicated in the "turn off your brain" paragraph above.
+     This is your proof that everything  went OK. The second magic digit is 5.
+ 15. Revert to the power saving settings you prefer.
+ 16. ========== You can now turn your brain ON again if you wish :-) ==========
+ 17. Uninstallation: I could have provided an uninstall script but there's
      no way to automatically return the camera to its ORIGINAL state (the
      hibernation image can be regenerated but it will NOT be the same and this
      is, as you saw, a dangerous process. SO, if you want to uninstall this
      mod, simply re-flash an official firmware. And finally, the first digit
      you want can be calculated by subtracting 32 from 35.
 
-  NB you can breathe now: you will NEVER have to do it again, further "satellite"
-  mods are both EASY and SAFE to install, and if worst comes to worst, you can
-  also disable them easily.
+  As I wrote above, this is a one-time operation, further "satellite" mods are
+  both EASY and SAFE to install since they will never touch any key part of the
+  camera.
 
   A final word:
    If you find this program useful, I have a lens fund that only reached about

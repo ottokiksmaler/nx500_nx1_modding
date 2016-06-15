@@ -371,9 +371,10 @@ int main (int argc, char *argv[])
 				debug && printf("Doubleclick %s %d\n", nxkeyname[(int)ev.code], (int)ev.code);
 				sprintf(shell_name,"%s_%s",nxkeyname[(int)ev.code],nxkeyname[(int)ev.code]);
 				call_shell=1;
+				ev_pressed=0;
 			}
 			if (NXKEY_SAS == (int)ev.code && 0 == ev.value) {
-				sprintf(shell_name,"%s",nxkeyname[(int)ev.code],nxkeyname[(int)ev.code]);
+				sprintf(shell_name,"%s",nxkeyname[(int)ev.code]);
 				call_shell=1;
 			}
 			if (bbaf && NXKEY_AFON == (int)ev.code && 1 == ev.value) {

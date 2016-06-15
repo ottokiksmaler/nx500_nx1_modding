@@ -1,7 +1,7 @@
 /*
 * Usage: 
 * 
-* mod_gui path_to_scripts_folder_or_config_file
+* mod_gui path_to_scripts_folder_or_config_file [debug]
 * 
 * mod_gui will search for either (MODEL = NX1 or NX500):
 * 1) mod_gui.cfg.MODEL if given a scripts directory 
@@ -12,12 +12,21 @@
 * <checkbox|button>|<Label text 2>|<script_to_run2.sh>
 * 
 * <checkbox|button>|<Label text X>|<script_to_runX.sh>
-* button|<Label text Y|@config_file_for_sub_menu.cfg
+* button|<Label text Y>|@config_file_for_sub_menu.cfg
 * 
 * Checkboxes upon activation and after executing the script, copy the script file to "auto" directory for keyscan to run upon start
 * Buttons just run the script 
 * If command starts with @ then it's used as a configuration file for sub-menu that is shown by clicking the button
 * MENU closes the application
+* 
+* mod_gui apps [apps_dir] [debug]
+* 
+* apps_dir - default /opt/usr/apps
+* 
+* When called as this mod_gui will scan for apps_dir/<directory>/app.cfg with following format
+* First line - Full name of application to be shown in GUI, for example 'Demo application'
+* Second line - version number of application, in major.minor format, for example 1.0
+* Third line - Command to be executed to run application relative to installation directory, for example 'demo.sh "First param" second 4 true &' would be expanded to '/opt/usr/apps/demo/demo.sh "First param" second 4 true &'
 * 
 * Compile with:
 *  
@@ -131,10 +140,16 @@ static Eina_Bool key_down_callback(void *data, int type, void *ev)
 {
 	Ecore_Event_Key *event = ev;
 	if (debug) printf("Key: %s\n", event->key);
-	if (!(0 == strcmp("XF86Reload", event->key) ||
-		0 == strcmp("KP_Enter", event->key)))
+	if ((0 == strcmp("Super_R", event->key) ||
+		0 == strcmp("Menu", event->key)||
+		0 == strcmp("Super_L", event->key)))
 	{
 		quit_app();
+	}
+	
+	if (0 == strcmp("XF86PowerOff", event->key)) {
+		evas_object_hide(win);
+		system("st key click pwoff");
 	}
 	return ECORE_CALLBACK_PASS_ON;
 }
@@ -220,10 +235,46 @@ static int configuration_load()
 {
 	FILE *fp;
 	char *line = NULL;
-	char *btn_name, *btn_command, *btn_type;
-	size_t len = 0;
+	char *btn_name, *btn_command, *btn_type, *glob_pattern;
+	size_t len=0, len1=0, len2=0, len3=0;
 	ssize_t read;
+	int i;
 
+	if (configuration_file[strlen(configuration_file)-1]=='/') {
+		asprintf(&glob_pattern,"%s*/app.cfg",configuration_file);
+		if (debug) printf("Scanning for apps in %s\n",glob_pattern);
+		glob_t globbuf;
+		button_number=0;
+		if (GLOB_NOMATCH != glob( glob_pattern, 0, NULL, &globbuf)) {
+			for( i = 0; i < globbuf.gl_pathc; i++ ) {
+				if (debug) printf("Found: %s: ", globbuf.gl_pathv[i]);
+				fp = fopen(globbuf.gl_pathv[i], "r");
+				if (fp != NULL) {
+					if (getline(&btn_name, &len1, fp) != -1 && 
+						getline(&line, &len2, fp) != -1 && 
+						getline(&btn_command, &len3, fp) != -1 && 
+						button_number < MAX_BUTTONS) {
+						btn_name[strlen(btn_name)-1]=0;
+						btn_command[strlen(btn_command)-1]=0;
+						asprintf(&button_type[button_number], "%s", "button");
+						asprintf(&button_name[button_number], "%s", btn_name);
+						asprintf(&button_command[button_number], "%s",
+							btn_command);
+						if (debug) printf("\t%s\t%s\n",
+								button_name[button_number],
+								button_command[button_number]);
+						button_number++;
+					}
+				} else {
+					printf("Error opening %s\n",globbuf.gl_pathv[i]);
+				}
+				fclose(fp);
+			}
+		}
+		if( globbuf.gl_pathc > 0 )
+			globfree( &globbuf );
+		return 0;
+	}
 	fp = fopen(configuration_file, "r");
 	if (fp != NULL) {
 		button_number=0;
@@ -387,8 +438,13 @@ EAPI int elm_main(int argc, char **argv)
 	if (strcmp(argv[argc - 1], "debug") == 0) {
 		debug = 1;
 	}
-	if (strcmp(argv[argc - 1], "install") == 0) {
-		debug = 1;
+	if (strcmp(argv[1], "apps") == 0) {
+		if (argc>2 && argv[2][0]=='/')
+			asprintf(&configuration_file,"%s/",argv[2]);
+		else 
+			asprintf(&configuration_file,"%s","/opt/usr/apps/");
+		asprintf(&scripts,"%s",configuration_file);
+		show_main();
 	} else {
 		char *configuration_basename;
 		split_path_file(&scripts, &configuration_basename, argv[1]);

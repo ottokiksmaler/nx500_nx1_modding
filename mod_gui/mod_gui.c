@@ -163,11 +163,14 @@ static void click_btn_generic(void *data, Evas_Object * obj, void *event_info)
 	const char *btn_command = button_command[btn_id];
 	if (debug) printf("Button clicked: %s [%d]\n", btn_name, btn_id);
 	if (btn_command[0] == '@') {
-		if (debug) printf("Opening new menu %s\n",btn_command);
-		if (configuration_file != NULL) free(configuration_file);
-		configuration_file=(char *)malloc(strlen(btn_command));
-		memcpy(configuration_file,btn_command+1,strlen(btn_command));
-		if (debug) printf("Opening new menu %s\n",configuration_file);
+		if (debug) printf("Clicked menu: %s\n",btn_command);
+		command=(char *)malloc(strlen(btn_command));
+		memcpy(command,btn_command+1,strlen(btn_command));
+		asprintf(&configuration_file,"%s.%s",command,version_model);
+		if (0 != access(configuration_file, R_OK)) {
+			asprintf(&configuration_file,"%s",command);
+		}
+		if (debug) printf("Opening new menu: %s\n",configuration_file);
 		show_main();
 		return;
 	} else if (btn_command[0] != '/')
@@ -220,6 +223,7 @@ void fill_checkboxes()
 {
 	char *auto_script;
 	int i;
+	for (i = 0; i < MAX_BUTTONS; i++) chk_value[i]=0; //clear the checkboxes
 	for (i = 0; i < MAX_BUTTONS; i++) {
 		asprintf(&auto_script, "%s/auto/%s", scripts,
 			 button_command[i]);

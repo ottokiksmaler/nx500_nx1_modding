@@ -1,7 +1,7 @@
                   Samsung NX1 and NX500 nx-patch
 
-                               v5.02
-                               
+                               v5.1
+
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
      some components Copyright (C) 2016 Otto Kiksmaler
@@ -23,9 +23,12 @@
 
                           CHANGE LOG
 
-Version 5.02 - 2016-06-13
-  - fixed README issue
-  - no other change
+Version 5.1 - 2016-06-17
+  - added focus stacking, silent shutter (NX500 only) and telnet access
+  - NX1 now activates with double click on top LCD illumination button
+
+Version 5.01 - 2016-06-13
+  - very minor consistency change to README - not worth bumping version number
 
 Version 5.01 - 2016-06-12
   - now REQUIRES nx-on-wake mod, the new bluetooth-less launch architecture
@@ -120,7 +123,7 @@ Initial version: v1.0
      up the camera, not the SD card :-)
   5. Pay attention to the messages showing on the screen.
   6. You will be asked to power off and on the camera.
-  7. Use EV EV (NX500) or OK OK (NX1) to pop up the user interface.
+  7. Use EV EV (NX500) or EV AFON (NX1) to pop up the user interface.
   8. New bitrates are NOT remembered across cold boots. This is to reduce
      writes to the camera flash to the minimum necessary. Set them as defaults
      to change them permanently (across cold boots as well).

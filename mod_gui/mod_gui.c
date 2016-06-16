@@ -457,9 +457,16 @@ EAPI int elm_main(int argc, char **argv)
 		if (strlen(configuration_basename) < 1) {
 			asprintf(&configuration_file, "%s/%s%s", scripts,
 				 "mod_gui.cfg.", version_model);
+			if (0 != access(configuration_file, R_OK)) {
+				asprintf(&configuration_file, "%s/%s", scripts,
+					"mod_gui.cfg");
+			}
 		} else {
 			asprintf(&configuration_file, "%s.%s", argv[1],
 				 version_model);
+			if (0 != access(configuration_file, R_OK)) {
+				asprintf(&configuration_file,"%s",argv[1]);
+			}
 		}
 		if (debug) printf("Configuration file: %s\n", configuration_file);
 		if (debug) printf("Model: %s\nRelease: %s\n", version_model,

@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-on-wake
 
-                               v1.02
+                               v1.03
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -23,6 +23,9 @@
 
                           CHANGE LOG
 
+Version 1.03 - 2016-06-17
+  - another update to README to clarify it a bit more. Thanks ARSPR@dpreview
+
 Version 1.02 - 2016-06-14
   - another update to README following dpreview discussion.
 
@@ -33,15 +36,15 @@ Version 1.01 - 2016-06-13
 
 Version 1.0 - 2016-06-12
   - initial version
-  
+
                           DESCRIPTION
-                          
+
    This is a one-time MASTER mod, which will free you from depending on
    bluetooth for any "satellite" mods.
-   
+
    NB. by "satellite" mods I mean mods built to take advantage of this new mod
        loading architecture.
-   
+
    The mod will ensure that every time the camera is started (cold or warm,
    i.e. with or without battery pull), the camera will:
      (a) if there's a file on the SD card named /nx-on-wake/on-wake, it will
@@ -63,23 +66,28 @@ Version 1.0 - 2016-06-12
        who knows his way around Linux/Tizen AND knows what to look for.
        A Samsung developer would be able to check, a service engineer most
        definitely not unless given step by step instructions by Samsung.
-   
+
    This master mod is one-time for two reasons:
      1. it is dangerous UNLESS you follow the instructions TO THE LETTER
      2. there is no need to install it every time you install new mods or
         upgrades to already installed "satellite" mods.
-   
-   It also ensures that you have a back-out procedure in case a camera-resident
-   mod misbehaves: you can always override satellite camera-resident mods by a
-   simple file stored on the SD card.
-   
+
+   It also ensures that there is always a way to regain control in case of a
+   misbehaving camera-resident mod - see below.
+
    This mod comes with a very simple "blink three times" SD-card satellite mod
    that serves as demo AND can be used to disable any camera-resident
    misbehaving mods. After mod installation, the SD led will blink three times
    every time the camera is started. To remove the demo satellite mod, you
    should simply erase the nx-on-wake folder on the SD card. NB. The main mod
    will remain installed, it will just not do anything.
-   
+
+   To disable misbehaving misbehaving camera-resident mods by re-copying the
+   nx-on-wake folder from this zip onto your SD card (including the on-wake
+   file) AND doing a cold camera boot (i.e. power off, pull battery and put
+   battery back in before power on).
+
+
               COMPATIBILITY WITH PREVIOUS GENERATION MODS
 
    This is PARTIALLY compatible with any bluetooth-mods in the sense that a

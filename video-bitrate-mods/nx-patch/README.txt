@@ -1,11 +1,11 @@
                   Samsung NX1 and NX500 nx-patch
 
-                               v5.1
+                               v5.11
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
-     some components Copyright (C) 2016 Otto Kiksmaler
-                                (https://github.com/ottokiksmaler)
+     focus_stack, keyscan, popup_* and mod_gui Copyright (C) 2016
+         Otto Kiksmaler (https://github.com/ottokiksmaler)
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,6 +23,11 @@
 
                           CHANGE LOG
 
+Version 5.11 - 2016-06-17
+  - fixed install so it no longer requires battery pull
+  - fixed forgotten incorrect reference to EV AFON
+  - no other functionality change
+  
 Version 5.1 - 2016-06-17
   - added focus stacking, silent shutter (NX500 only) and telnet access
   - NX1 now activates with double click on top LCD illumination button
@@ -122,8 +127,8 @@ Initial version: v1.0
   4. Insert the SD card into your camera and power it up. NB. I mean power 
      up the camera, not the SD card :-)
   5. Pay attention to the messages showing on the screen.
-  6. You will be asked to power off and on the camera.
-  7. Use EV EV (NX500) or EV AFON (NX1) to pop up the user interface.
+  6. You will be informed when the mod is available (installation is finished).
+  7. Use EV EV (NX500) or double click on top LCD illumination button (NX1) to pop up the user interface.
   8. New bitrates are NOT remembered across cold boots. This is to reduce
      writes to the camera flash to the minimum necessary. Set them as defaults
      to change them permanently (across cold boots as well).

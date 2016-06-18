@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-patch
 
-                               v5.11
+                               v5.2
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -22,6 +22,10 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
                           CHANGE LOG
+
+Version 5.2 - 2016-06-17
+  - added nq1, nq2, nq3 bitrate slots for both NX1 and NX500
+  - telnet only indicates IP if already connected to Wi-Fi
 
 Version 5.11 - 2016-06-17
   - fixed install so it no longer requires battery pull
@@ -115,6 +119,13 @@ Version 2.0:
 
 Initial version: v1.0
   - replaces NX1 80 Mbps video bit rate 
+
+                             TESTING
+  Thank you
+    - ARSPR@dpreview
+    - Hirsti@dpreview
+    - RiccoT@dpreview
+  for your time and testing efforts.
 
                               HOW TO
 

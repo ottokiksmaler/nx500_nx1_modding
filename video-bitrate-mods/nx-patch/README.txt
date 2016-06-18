@@ -23,7 +23,7 @@
 
                           CHANGE LOG
 
-Version 5.2 - 2016-06-17
+Version 5.2 - 2016-06-18
   - added nq1, nq2, nq3 bitrate slots for both NX1 and NX500
   - telnet only indicates IP if already connected to Wi-Fi
 

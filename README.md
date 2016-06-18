@@ -11,8 +11,8 @@ Inital work was done and presented on DPReview Samsung Forum [here](http://www.d
 ##TL;DR - I want my camera hacked - what to do?
 
 Resources in this repository are aimed more at "developers" or "advanced users" than "regular users". If you just want to quickly use all these mods, there are two ways to take:
-  - Use a mod with many many integrated options packed together by @KinoSeed: [Read about it at facebook.com/NXKS2](https://www.facebook.com/NXKS2) or download directly from http://authors-vault.com/NX-KS2.zip
-  - Use a mod pack made by @Vasile-gh [here](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch). You will need a one-time install of [this](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/nx-on-wake), though.
+  - Use a mod with many many integrated options packed together by @KinoSeed: [Read about it at facebook.com/NXKS2](https://www.facebook.com/NXKS2) or download directly from http://authors-vault.com/NX-KS2.zip - this mod is launched by enabling Bluetooth.
+  - Use a mod pack made by @Vasile-gh [here](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch). You will need a one-time install of [this](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/nx-on-wake), though. This mod is integrated into the camera hibernation image and does not require Bluetooth for startup.
 
 You can always read the [Customizing functions of various keys](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Customizing%20keys.md) for introduction.
 

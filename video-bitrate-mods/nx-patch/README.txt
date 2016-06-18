@@ -122,9 +122,9 @@ Initial version: v1.0
 
                              TESTING
   Thank you
-    - ARSPR@dpreview
-    - Hirsti@dpreview
-    - RiccoT@dpreview
+    - ARSPR@dpreview  [NX1]
+    - Hirsti@dpreview [NX1]
+    - RiccoT@dpreview [NX1]
   for your time and testing efforts.
 
                               HOW TO

@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-on-wake
 
-                               v1.03
+                               v1.04
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -22,6 +22,9 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
                           CHANGE LOG
+
+Version 1.04 - 2016-06-18
+  - yet another updated README :-(. Thanks ARSPR@dpreview
 
 Version 1.03 - 2016-06-17
   - another update to README to clarify it a bit more. Thanks ARSPR@dpreview
@@ -82,11 +85,10 @@ Version 1.0 - 2016-06-12
    should simply erase the nx-on-wake folder on the SD card. NB. The main mod
    will remain installed, it will just not do anything.
 
-   To disable misbehaving misbehaving camera-resident mods by re-copying the
+   To disable misbehaving misbehaving camera-resident you need to re-copy the
    nx-on-wake folder from this zip onto your SD card (including the on-wake
-   file) AND doing a cold camera boot (i.e. power off, pull battery and put
+   file) AND do a cold camera boot (i.e. power off, pull battery and put
    battery back in before power on).
-
 
               COMPATIBILITY WITH PREVIOUS GENERATION MODS
 

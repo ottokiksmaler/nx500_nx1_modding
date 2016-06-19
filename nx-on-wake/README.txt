@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-on-wake
 
-                               v1.04
+                               v1.05
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -22,6 +22,11 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
                           CHANGE LOG
+
+Version 1.05 - 2016-06-19
+  - yet another updated README :-(. ARSPR@dpreview - you are pushing it :-)
+  - looks like installing the mod while the camera is in M mode causes problems
+    afterwards so added requirement to have camera in Auto during install.
 
 Version 1.04 - 2016-06-18
   - yet another updated README :-(. Thanks ARSPR@dpreview
@@ -85,8 +90,8 @@ Version 1.0 - 2016-06-12
    should simply erase the nx-on-wake folder on the SD card. NB. The main mod
    will remain installed, it will just not do anything.
 
-   To disable misbehaving misbehaving camera-resident you need to re-copy the
-   nx-on-wake folder from this zip onto your SD card (including the on-wake
+   To disable a misbehaving camera-resident saltellite mod you need to re-copy
+   the nx-on-wake folder from this zip onto your SD card (including the on-wake
    file) AND do a cold camera boot (i.e. power off, pull battery and put
    battery back in before power on).
 
@@ -130,8 +135,9 @@ Version 1.0 - 2016-06-12
          anything: Bluetooth, wifi, any cables (EVEN CHARGING), external flash,
          battery grip. EVERYTHING that can be disconnected should be
          disconnected except the battery, SD card and the lens.
-       - power save settings are: Auto Display Off = off and 
+       - POWER SAVE settings are: Auto Display Off = off and 
                                   Power Save = 30 min.
+       - camera is set to AUTO mode
        - camera is off
   2. To install the mod you will require a 6-digit number that you will need
      to assemble from pieces spread around this README. This is intentional.

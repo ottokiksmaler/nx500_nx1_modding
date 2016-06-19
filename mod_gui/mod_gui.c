@@ -139,18 +139,24 @@ int file_copy(char *file_in, char *file_out)
 static Eina_Bool key_down_callback(void *data, int type, void *ev)
 {
 	Ecore_Event_Key *event = ev;
+	char *key="", *command;
 	if (debug) printf("Key: %s\n", event->key);
-	if ((0 == strcmp("Super_R", event->key) ||
-		0 == strcmp("Menu", event->key)||
-		0 == strcmp("Super_L", event->key)))
-	{
-		quit_app();
-	}
-	
+	if (0 == strcmp("F6", event->key)) asprintf(&key, "%s","smart");
+	if (0 == strcmp("F7", event->key)) asprintf(&key, "%s","p");
+	if (0 == strcmp("F8", event->key)) asprintf(&key, "%s","a");
+	if (0 == strcmp("F9", event->key)) asprintf(&key, "%s","s");
+	if (0 == strcmp("F10", event->key)) asprintf(&key, "%s","m");
+	if (0 == strcmp("KP_Home", event->key)) asprintf(&key, "%s","custom1");
 	if (0 == strcmp("XF86PowerOff", event->key)) {
 		evas_object_hide(win);
 		system("st key click pwoff");
 	}
+	if (strlen(key)>0) {
+		evas_object_hide(win);
+		asprintf(&command,"/usr/bin/st key mode %s",key);
+		system(command);
+	}
+	quit_app();
 	return ECORE_CALLBACK_PASS_ON;
 }
 

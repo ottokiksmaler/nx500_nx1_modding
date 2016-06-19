@@ -158,6 +158,37 @@ static int get_af_position()
 	}
 }
 
+static unsigned int get_af_mode()
+{
+	FILE *fp;
+	char *spl = NULL;
+	fp = popen("/usr/bin/st cap capdtm getusr AFMODE", "r");
+	if (fp == NULL) {
+		if (debug) printf("Failed get current focus mode\n");
+		return 0;
+	} else {
+		if (fgets(stringline, sizeof(stringline) - 1, fp) != NULL) {
+			stringline[0] = '_';	// fix st output
+			spl = strtok(stringline, "(");
+			spl = strtok(NULL, ")");
+		}
+		pclose(fp);
+		if (debug) printf("Current focus mode: %s (%ld)\n", spl,strtol(spl, NULL, 16));
+		return strtol(spl, NULL, 16);
+	}
+}
+
+static void set_af_mode(unsigned int af_mode)
+{
+	char * af_mode_s;
+	asprintf(&af_mode_s,"0x%06x",af_mode);
+	if (af_mode_s[strlen(af_mode_s)-1]=='0') run_command("/usr/bin/st app nx capture af-mode single");
+	if (af_mode_s[strlen(af_mode_s)-1]=='1') run_command("/usr/bin/st app nx capture af-mode caf");
+	if (af_mode_s[strlen(af_mode_s)-1]=='4') run_command("/usr/bin/st app nx capture af-mode auto");
+	sprintf(stringline, "/usr/bin/st cap capdtm setusr AFMODE 0x%06x", af_mode);
+	run_command(stringline);
+}
+
 static void focus_to_position(int position)
 {
 	int amount = 0;
@@ -175,10 +206,12 @@ static void focus_move(int amount)
 static void run_stack(int near, int far, int steps, int delay)
 {
 	int current_position = 0, step = 0;
+	unsigned int af_mode=0;
 	double delta = 0;
 	char *stack_message="";
 	if (debug)  printf("Stacking - Near: %d \tFar: %d \tPhotos: %d \tDelay: %d\n",
 		   near, far, steps, delay);
+	af_mode = get_af_mode();
 	run_command("/usr/bin/st app nx capture af-mode manual\n");	// show manual focus mode
 	run_command("/usr/bin/st cap capdtm setusr AFMODE 0x70003\n");	// force manual focus mode
 	sleep(1);
@@ -203,6 +236,7 @@ static void run_stack(int near, int far, int steps, int delay)
 			   (near + (int)(step * delta) - current_position));
 		current_position = near + (int)(step * delta);
 	}
+	set_af_mode(af_mode);
 }
 
 static void click_near(void *data, Evas_Object * obj, void *event_info)
@@ -278,56 +312,94 @@ static void entry_show(int row)
 	if (entry_win) {
 		evas_object_del(entry_win);
 	}
-	entry_win = elm_win_add(win, "Entry", ELM_WIN_BASIC);
-	evas_object_move(entry_win, 60, button_height * row);
+	entry_win = elm_win_add(NULL, "Entry", ELM_WIN_BASIC);
+	evas_object_move(entry_win, 30, button_height * row);
 	bg = elm_bg_add(entry_win);
 	elm_win_resize_object_add(entry_win, bg);
 	evas_object_show(bg);
+// 	evas_object_size_hint_min_set(entry_win, SCREEN_WIDTH, button_height);
+// 	evas_object_size_hint_min_set(bg, SCREEN_WIDTH, button_height);
 
 	popup_box = elm_box_add(entry_win);
-	elm_box_horizontal_set(popup_box, EINA_TRUE);
+// 	elm_box_horizontal_set(popup_box, EINA_TRUE);
 	elm_win_resize_object_add(entry_win, popup_box);
 	evas_object_show(popup_box);
+	
+	table = elm_table_add(entry_win);
+	elm_box_pack_end(popup_box, table);
 
 	lab = elm_label_add(entry_win);
-	elm_object_text_set(lab, "Frames:");
-	evas_object_size_hint_min_set(lab, 140, button_height);
-	elm_box_pack_end(popup_box, lab);
+	elm_object_text_set(lab, "Shots:");
 	evas_object_show(lab);
 
-	char steps_string[255];
-	sprintf(steps_string, "%d", number_points);
+	bg = evas_object_rectangle_add(evas_object_evas_get(lab));
+	evas_object_color_set(bg, 0, 0, 0, 255);
+	evas_object_size_hint_min_set(bg, 140, button_height);
+	evas_object_show(bg);
+	elm_table_pack(table, bg, 1, 1, 1, 1);
+
+	elm_table_pack(table, lab, 1, 1, 1, 1);
+
+	char *steps_string;
+	asprintf(&steps_string, "%d", number_points);
 	entry_points = elm_entry_add(entry_win);
+	elm_entry_single_line_set(entry_points, EINA_TRUE);
 	elm_entry_input_panel_layout_set(entry_points,ELM_INPUT_PANEL_LAYOUT_NUMBERONLY);
 	elm_object_text_set(entry_points, steps_string);
+	evas_object_show(entry_points);
 	elm_entry_cursor_pos_set(entry_points, strlen(steps_string));
-	evas_object_show(entry_points);
-	evas_object_size_hint_min_set(entry_points, 100, button_height);
-	evas_object_show(entry_points);
-	elm_box_pack_end(popup_box, entry_points);
+
+	bg = evas_object_rectangle_add(evas_object_evas_get(entry_points));
+	evas_object_color_set(bg, 40, 40, 40, 255);
+	evas_object_size_hint_min_set(bg, 140, button_height);
+	evas_object_show(bg);
+	elm_table_pack(table, bg, 2, 1, 1, 1);
+
+	elm_table_pack(table, entry_points, 2, 1, 1, 1);
 
 	lab_2 = elm_label_add(entry_win);
 	elm_object_text_set(lab_2, "Delay:");
-	evas_object_size_hint_min_set(lab_2, 140, button_height);
-	elm_box_pack_end(popup_box, lab_2);
+	
+	bg = evas_object_rectangle_add(evas_object_evas_get(lab_2));
+	evas_object_color_set(bg, 0, 0, 0, 255);
+	evas_object_size_hint_min_set(bg, 140, button_height);
+	evas_object_show(bg);
+	elm_table_pack(table, bg, 3, 1, 1, 1);
+
+	elm_table_pack(table, lab_2, 3, 1, 1, 1);
 	evas_object_show(lab_2);
 
-	sprintf(steps_string, "%d", shot_delay);
+	char *delay_string;
+	asprintf(&delay_string, "%d", shot_delay);
 	entry_delay = elm_entry_add(entry_win);
 	elm_entry_input_panel_layout_set(entry_delay,ELM_INPUT_PANEL_LAYOUT_NUMBERONLY);
-	elm_object_text_set(entry_delay, steps_string);
-	elm_entry_cursor_pos_set(entry_points, strlen(steps_string));
+	elm_entry_single_line_set(entry_delay, EINA_TRUE);
+	elm_object_text_set(entry_delay, delay_string);
+	elm_entry_cursor_pos_set(entry_delay, strlen(delay_string));
 	evas_object_show(entry_delay);
-	evas_object_size_hint_min_set(entry_delay, 100, button_height);
-	evas_object_show(entry_delay);
-	elm_box_pack_end(popup_box, entry_delay);
+
+	bg = evas_object_rectangle_add(evas_object_evas_get(entry_delay));
+	evas_object_color_set(bg, 40, 40, 40, 255);
+	evas_object_size_hint_min_set(bg, 140, button_height);
+	evas_object_show(bg);
+	elm_table_pack(table, bg, 4, 1, 1, 1);
+	
+	elm_table_pack(table, entry_delay, 4, 1, 1, 1);
 
 	ok = elm_button_add(entry_win);
 	elm_object_text_set(ok, "OK");
-	evas_object_size_hint_min_set(ok, 100, button_height);
-	elm_box_pack_end(popup_box, ok);
+	elm_object_style_set(ok, "transparent");
+
+	bg = evas_object_rectangle_add(evas_object_evas_get(ok));
+	evas_object_color_set(bg, 0, 200, 0, 255);
+	evas_object_size_hint_min_set(bg, 100, button_height);
+	evas_object_show(bg);
+	elm_table_pack(table, bg, 5, 1, 1, 1);
+
+	elm_table_pack(table, ok, 5, 1, 1, 1);
 	evas_object_show(ok);
 
+	evas_object_show(table);
 	evas_object_show(entry_win);
 	elm_object_focus_set(entry_points, EINA_TRUE);
 
@@ -358,7 +430,7 @@ static void video_sweep() {
 
 static void click_info(void *data, Evas_Object * obj, void *event_info)
 {
-	popup_show("focus_stack v2.00<br>Usage:<br>Focus on near point - click \"Near\"<br>\
+	popup_show("focus_stack v2.10<br>Usage:<br>Focus on near point - click \"Near\"<br>\
 				Focus on far point - click \"Far\"<br>Click \"Conf.\" to set number of photos<br>\
 				Click on \"Start\" to start",10,1,5);
 }
@@ -377,16 +449,20 @@ EAPI int elm_main(int argc, char **argv)
 			video_sweep();
 			exit(0);
 		} else {
-			number_points = atoi(argv[1]);
+			if (atoi(argv[1])>0) 
+				number_points = atoi(argv[1]);
 		}
 		if (argc > 2) {
-			shot_delay = atoi(argv[2]);
+			if (atoi(argv[2])>0) 
+				shot_delay = atoi(argv[2]);
 		}
 		if (argc > 3) {
-			button_height = atoi(argv[3]);
+			if (atoi(argv[3])>0) 
+				button_height = atoi(argv[3]);
 		}
 		if (argc > 4) {
-			button_width = atoi(argv[4]);
+			if (atoi(argv[4])>0) 
+				button_width = atoi(argv[4]);
 		}
 	}
 

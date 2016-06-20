@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-on-wake
 
-                               v1.05
+                               v1.1
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -22,6 +22,11 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
                           CHANGE LOG
+
+Version 1.1 - 2016-06-20
+  - updated README - added requirement to set language to English before update
+  - camera mode turns out to NOT BE important
+  - thanks Otto for identifying root cause of xnilo's install issue
 
 Version 1.05 - 2016-06-19
   - yet another updated README :-(. ARSPR@dpreview - you are pushing it :-)
@@ -137,7 +142,7 @@ Version 1.0 - 2016-06-12
          disconnected except the battery, SD card and the lens.
        - POWER SAVE settings are: Auto Display Off = off and 
                                   Power Save = 30 min.
-       - camera is set to AUTO mode
+       - camera language is set to English <= this is VERY important
        - camera is off
   2. To install the mod you will require a 6-digit number that you will need
      to assemble from pieces spread around this README. This is intentional.
@@ -159,7 +164,7 @@ Version 1.0 - 2016-06-12
  14. Look at the SD card led: you will see it blink four (one long and three
      short) times as indicated in the "turn off your brain" paragraph above.
      This is your proof that everything  went OK. The second magic digit is 5.
- 15. Revert to the power saving settings you prefer.
+ 15. Revert to the power saving and language settings you prefer.
  16. ========== You can now turn your brain ON again if you wish :-) ==========
  17. Uninstallation: I could have provided an uninstall script but there's
      no way to automatically return the camera to its ORIGINAL state (the

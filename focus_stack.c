@@ -24,6 +24,7 @@ static char *caption_near = "Near";
 static char *caption_far = "Far";
 static char *caption_conf= "Conf.";
 static char *caption_start = "Start";
+static char *version_model, *version_release;
 static Evas_Object *entry_win,*lab, *win, *box, *btn_near, *btn_far, *btn_stack, *btn_quit, *btn_info, *entry_points, *entry_delay, *popup_box, *table, *btn_settings, *bg, *lab_2, *ok;
 Evas_Object *popup_win;
 Ecore_Timer *timer;
@@ -31,11 +32,68 @@ char stringline[255], label_entry[255], sample_text[255];
 int focus_pos_near = 0, focus_pos_far = 0, focus_pos_min = 0, focus_pos_max =
     0, number_points = DEFAULT_STEPS, shot_delay = 6;
 int button_height = 60, button_width = 120;
+pthread_t timer_thread, cleanup_thread;
+
+static void quit_app()
+{
+	elm_exit();
+	exit(0);
+}
+
+
+long msec_passed(struct timeval *fromtime, struct timeval *totime)
+{
+  long msec;
+  msec=(totime->tv_sec-fromtime->tv_sec)*1000;
+  msec+=(totime->tv_usec-fromtime->tv_usec)/1000;
+  return msec;
+}
+
+// Detect sleep events
+void* timer_loop(void* arg) {
+	struct timeval previous_time_loop, current_time_loop;
+	int timer_sleep=1;
+	long msec_elapsed;
+	while(1) {
+		gettimeofday(&previous_time_loop, NULL); 
+		sleep(timer_sleep);
+		gettimeofday(&current_time_loop, NULL); 
+		msec_elapsed = msec_passed(&previous_time_loop,&current_time_loop);
+		if (msec_elapsed>(timer_sleep*1000+300)) quit_app();
+	}
+}
+
 
 static void run_command(char *command)
 {
 	if (debug) printf("CMD: %s\n", command);
 	system(command);
+}
+
+static int version_load()
+{
+	FILE *fp;
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
+
+	fp = fopen("/etc/version.info", "r");
+	if (fp != NULL) {
+		if ((read = getline(&line, &len, fp)) != -1) {
+			line[strcspn(line, "\r\n")] = 0;
+			asprintf(&version_release, "%s", line);
+		}
+		if ((read = getline(&line, &len, fp)) != -1) {
+			line[strcspn(line, "\r\n")] = 0;
+			asprintf(&version_model, "%s", line);
+		}
+		fclose(fp);
+		free(line);
+		return 0;
+	}
+	printf("Unable to determine device model and firmware version!\n");
+	quit_app();
+	return -1;
 }
 
 static void save_settings()
@@ -92,8 +150,7 @@ static void load_settings()
 
 static void click_quit(void *data, Evas_Object * obj, void *event_info)
 {
-	elm_exit();
-	exit(0);
+	quit_app();
 }
 
 static Eina_Bool key_down_callback(void *data, int type, void *ev)
@@ -132,6 +189,11 @@ static Eina_Bool popup_timer_hide()
 	return ECORE_CALLBACK_CANCEL;
 }
 
+void* force_update(void* arg) {
+	ecore_main_loop_iterate();
+	return NULL;
+}
+
 static void popup_show(char *message, int timeout, int row, int height)
 {
 	Evas_Object *popup_box, *lab, *table, *bg;
@@ -162,7 +224,7 @@ static void popup_show(char *message, int timeout, int row, int height)
 	evas_object_show(lab);
 	bg = evas_object_rectangle_add(evas_object_evas_get(lab));
 	evas_object_size_hint_min_set(bg, SCREEN_WIDTH, button_height*height);
-	evas_object_color_set(bg, 0, 0, 0, 160);
+	evas_object_color_set(bg, 10, 30, 50, 255);
 	evas_object_show(bg);
 	elm_table_pack(table, bg, 1, 1, 1, 1);
 	elm_table_pack(table, lab, 1, 1, 1, 1);
@@ -177,6 +239,7 @@ static void popup_show(char *message, int timeout, int row, int height)
 		timer = ecore_timer_add(timeout, popup_timer_hide, NULL);
 		popup_shown=1;
 	}
+	force_update(NULL);
 }
 
 static int get_af_position()
@@ -253,6 +316,14 @@ static void run_stack(int near, int far, int steps, int delay)
 	char *stack_message="";
 	if (debug)  printf("Stacking - Near: %d \tFar: %d \tPhotos: %d \tDelay: %d\n",
 		   near, far, steps, delay);
+	//Turn QuickView OFF
+	if (0==strcmp("NX500",version_model)) {
+		system("prefman set 0 0x0210 l 0;st cap capdtm setusr 51 0x0330000");
+	}
+	if (0==strcmp("NX1",version_model)) {
+		system("prefman set 0 0x0210 l 0;st cap capdtm setusr 49 0x0310000");
+	}
+
 	af_mode = get_af_mode();
 	run_command("/usr/bin/st app nx capture af-mode manual\n");	// show manual focus mode
 	run_command("/usr/bin/st cap capdtm setusr AFMODE 0x70003\n");	// force manual focus mode
@@ -269,8 +340,8 @@ static void run_stack(int near, int far, int steps, int delay)
 		asprintf(&stack_message, "#%d of %d",step,steps);
 		popup_show(stack_message,1,0,1);
 
-//		run_command("/usr/bin/st app nx capture single && /bin/sleep 0.5 && /usr/bin/st key click s1\n");	// capture single frame and exit photo preview is exists
-        run_command("/usr/bin/st key push s1 && /bin/sleep 0.3 && /usr/bin/st key click s2 && /usr/bin/st key release s1 && /bin/sleep 0.5 && /usr/bin/st key click s1"); // capture single frame and exit photo preview is exists
+		run_command("/usr/bin/st app nx capture single\n");	// capture single frame
+//         run_command("/usr/bin/st key push s1 && /bin/sleep 0.3 && /usr/bin/st key click s2 && /usr/bin/st key release s1 && /bin/sleep 0.5 && /usr/bin/st key click s1"); // capture single frame and exit photo preview is exists
 		if (step == steps)
 			break;
 		sleep(delay);
@@ -313,11 +384,11 @@ static void click_stack(void *data, Evas_Object * obj, void *event_info)
 {
 	if (0==popup_shown) {
 		if (focus_pos_near == 0) {
-			popup_show("Set \"Near\" focus point first!",2,1,1);
+			popup_show("Set NEAR focus point first!",2,1,1);
 			return;
 		}
 		if (focus_pos_far == 0) {
-			popup_show("Set \"Far\" focus point first!",2,1,1);
+			popup_show("Set FAR focus point first!",2,1,1);
 			return;
 		}
 		pthread_t timer_thread;
@@ -440,21 +511,21 @@ static void video_sweep() {
 	int near, far;
 	char *command;
 	run_command("/usr/bin/st cap lens focus far");
-	sleep(1);
+	sleep(2);
 	far = get_af_position();
 	run_command("/usr/bin/st cap lens focus near");
-	sleep(1);
+	sleep(2);
 	near = get_af_position();
-	sleep(1);
-	run_command("st key click del; sleep 1; st key click fn; sleep 1; st key click rec; sleep 0.5");
-	asprintf(&command,"/usr/bin/st cap iq af mv 255 %d 2", (int)(far-near));
+	sleep(2);
+	run_command("st key click del; sleep 1; st key click fn; sleep 1; /usr/bin/st cap lens focus near; sleep 1;st key click rec; sleep 0.5");
+	asprintf(&command,"/usr/bin/st cap iq af mv 0 %d 0", (int)(far-near));
 	run_command(command);
-	run_command("st key click rec");
+	run_command("sleep 2;st key click rec");
 }
 
 static void click_info(void *data, Evas_Object * obj, void *event_info)
 {
-	popup_show("focus_stack v2.20<br>Usage:<br>Focus on near point - click \"Near\"<br>\
+	popup_show("focus_stack v2.30<br>Usage:<br>Focus on near point - click \"Near\"<br>\
 				Focus on far point - click \"Far\"<br>Click \"Conf.\" to set number of photos<br>\
 				Click on \"Start\" to start",10,1,5);
 }
@@ -462,6 +533,11 @@ static void click_info(void *data, Evas_Object * obj, void *event_info)
 
 EAPI int elm_main(int argc, char **argv)
 {
+	// detect power-off and quit on it
+	pthread_create(&timer_thread, NULL, &timer_loop, NULL);
+	// determine model and version of camera
+	version_load();
+	// load default settings
 	load_settings();
 	if (argc > 1) {
 		if (!strcmp(argv[1], "help")) {

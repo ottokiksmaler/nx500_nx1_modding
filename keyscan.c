@@ -360,11 +360,6 @@ int main (int argc, char *argv[])
 		call_shell=0;
         if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 2) {
 			debug && printf("%s %d\n", evval[ev.value], (int)ev.code);
-			if (debug) {
-				
-// 				if ((int)ev.value == 1) create_temp_file(nxkeyname[(int)ev.code]);
-// 				if ((int)ev.value == 0) unlink(key_temp_file);
-			}
 			if (ev.value == 1) {
 				msec_elapsed = msec_passed(&previous_ev.time,&ev.time);
 			}

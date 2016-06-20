@@ -47,6 +47,25 @@ static void save_settings()
 	}
 }
 
+static void settings_ok()
+{
+	evas_object_hide(entry_win);
+	evas_object_show(win);
+	int i = atoi(elm_object_text_get(entry_points));
+	if (i > 0)
+		number_points = i;
+	i = atoi(elm_object_text_get(entry_delay));
+	if (i > 0)
+		shot_delay = i;
+	char message[255];
+	sprintf(message, "Frames: %d  delay: %ds",
+		number_points, shot_delay);
+// 	popup_show(message, 2, 3,1);
+	if (debug) printf("Settings: %s\n", message);
+	save_settings();
+}
+
+
 static void load_settings()
 {
 	FILE *fp;
@@ -76,6 +95,29 @@ static void click_quit(void *data, Evas_Object * obj, void *event_info)
 	elm_exit();
 	exit(0);
 }
+
+static Eina_Bool key_down_callback(void *data, int type, void *ev)
+{
+	Ecore_Event_Key *event = ev;
+	if (debug) printf("Key: %s\n", event->key);
+	if ((0 == strcmp("Super_R", event->key) ||
+		0 == strcmp("Menu", event->key)||
+		0 == strcmp("Super_L", event->key)))
+	{
+		elm_exit();
+		exit(0);
+	}
+	
+	if (0 == strcmp("Return", event->key))
+		settings_ok();
+	
+	if (0 == strcmp("XF86PowerOff", event->key)) {
+		evas_object_hide(win);
+		system("st key click pwoff");
+	}
+	return ECORE_CALLBACK_PASS_ON;
+}
+
 
 static Eina_Bool popup_hide()
 {
@@ -283,24 +325,6 @@ static void click_stack(void *data, Evas_Object * obj, void *event_info)
 	}
 }
 
-static void settings_ok()
-{
-	evas_object_hide(entry_win);
-	evas_object_show(win);
-	int i = atoi(elm_object_text_get(entry_points));
-	if (i > 0)
-		number_points = i;
-	i = atoi(elm_object_text_get(entry_delay));
-	if (i > 0)
-		shot_delay = i;
-	char message[255];
-	sprintf(message, "Frames: %d  delay: %ds",
-		number_points, shot_delay);
-// 	popup_show(message, 2, 3,1);
-	if (debug) printf("Settings: %s\n", message);
-	save_settings();
-}
-
 static void entry_show(int row)
 {
 	if (1==popup_shown) {
@@ -430,7 +454,7 @@ static void video_sweep() {
 
 static void click_info(void *data, Evas_Object * obj, void *event_info)
 {
-	popup_show("focus_stack v2.10<br>Usage:<br>Focus on near point - click \"Near\"<br>\
+	popup_show("focus_stack v2.20<br>Usage:<br>Focus on near point - click \"Near\"<br>\
 				Focus on far point - click \"Far\"<br>Click \"Conf.\" to set number of photos<br>\
 				Click on \"Start\" to start",10,1,5);
 }
@@ -571,6 +595,7 @@ EAPI int elm_main(int argc, char **argv)
 	evas_object_show(table);
 	evas_object_show(win);
 
+	ecore_event_handler_add(ECORE_EVENT_KEY_DOWN, key_down_callback, NULL);
 	elm_run();
 	return 0;
 }

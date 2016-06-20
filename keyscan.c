@@ -361,18 +361,17 @@ int main (int argc, char *argv[])
         if (ev.type == EV_KEY && ev.value >= 0 && ev.value <= 2) {
 			debug && printf("%s %d\n", evval[ev.value], (int)ev.code);
 			if (debug) {
-				if ((int)ev.value == 1) create_temp_file(nxkeyname[(int)ev.code]);
-				if ((int)ev.value == 0) unlink(key_temp_file);
+				
+// 				if ((int)ev.value == 1) create_temp_file(nxkeyname[(int)ev.code]);
+// 				if ((int)ev.value == 0) unlink(key_temp_file);
 			}
 			if (ev.value == 1) {
 				msec_elapsed = msec_passed(&previous_ev.time,&ev.time);
 			}
-// 			if (NXKEY_EV1 != (int)ev.code && msec_elapsed < 1000 && ev.code == previous_ev.code && ev.value == previous_ev.value) {
-			if (msec_elapsed > 50 && msec_elapsed < 1000 && ev.code == previous_ev.code && ev.value == previous_ev.value) {
-				debug && printf("Doubleclick %s %d\n", nxkeyname[(int)ev.code], (int)ev.code);
+			if (msec_elapsed < 1000 && ev.code == previous_ev.code && ev.value == previous_ev.value) {
+				debug && printf("Doubleclick %s %d (%ld ms)\n", nxkeyname[(int)ev.code], (int)ev.code, msec_elapsed);
 				sprintf(shell_name,"%s_%s",nxkeyname[(int)ev.code],nxkeyname[(int)ev.code]);
 				call_shell=1;
-				ev_pressed=0;
 			}
 			if (NXKEY_SAS == (int)ev.code && 0 == ev.value) {
 				sprintf(shell_name,"%s",nxkeyname[(int)ev.code]);
@@ -392,7 +391,7 @@ int main (int argc, char *argv[])
 				if (0 == ev.value)
 					ev_pressed=0;
 			}
-			if (ev_pressed == 1 && (int)ev.code != NXKEY_EV && (int)ev.code != NXKEY_SHIFT && 1 == (int)ev.value) {
+			if (ev_pressed == 1 && (int)ev.code != NXKEY_EV && (int)ev.code != NXKEY_EV1 && (int)ev.code != NXKEY_SHIFT && 1 == (int)ev.value) {
 				ev_pressed=0;
 				debug && printf("Combo EV + %s %d %s\n", nxkeyname[(int)ev.code], (int)ev.code, evval[(int)ev.value]);
 				sprintf(shell_name,"EV_%s",nxkeyname[(int)ev.code]);

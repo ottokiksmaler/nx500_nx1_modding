@@ -23,7 +23,7 @@ static char *entries[ENTRIES_MAX];
 
 static char *version_model, *version_release, *current_open_file="", *current_video_mode="1920x1080@120.000000";
 static int pid_file, debug=0, debug_all=0, max_video_seconds=4500, video_seconds_grace=10, video_seconds_delay=2;
-double fps=30.0,max_video_frames=215000.0, current_frame=0.0;
+double fps=30.0, new_fps=30.0,max_video_frames=215000.0, current_frame=0.0;
 
 static void entries_init(){
 	int i;
@@ -197,6 +197,7 @@ int main (int argc, char *argv[])
 		}
 	}
 	
+	if (debug) printf("Max seconds: %d\tMax frames: %d\n",max_video_seconds,(int)max_video_frames);
     fd = open(log_file, O_RDONLY);
     if (fd == -1) {
 		debug && printf("D1 %s\n",log_file);
@@ -247,11 +248,14 @@ int main (int argc, char *argv[])
 				if (strstr(buffer_out,"TYPE 0: movResolution: ")!=NULL){
 					strncpy(buffer, strstr(buffer_out,"TYPE 0: movResolution: ")+strlen("TYPE 0: movResolution: "),BUFF_SIZE);
 					buffer[strstr(buffer," ")-buffer]=0;
-					if (debug) printf("Video mode:%s\n",buffer);
 					asprintf(&current_video_mode,"%s",buffer);
 					video_resolution=strtok(current_video_mode,"@");
 					video_fps=strtok(NULL," ");
-					sscanf(video_fps,"%lf",&fps);
+					if (sscanf(video_fps,"%lf",&new_fps) && new_fps>0) {
+						fps=new_fps;
+						if (debug) printf("Video mode:%s@%d\n",current_video_mode,(int)fps);
+					}
+
 				}
 				if (strstr(buffer_out,"GetCurrent called m_strURI = ")!=NULL){
 					strncpy(buffer, strstr(buffer_out,"/mnt/mmc"),BUFF_SIZE);

@@ -1,5 +1,7 @@
 #Customizing functions of various keys
 
+#*Notice: this is an early hack/mod - there are newer and better ones now*
+
 While NX1 has a solid amount of programmable keys, the NX500 is limited to just few that can perform only a small subset of operations. For example, in order to have a video preview (Movie STBY) you have to assign it to DEL (Custom/Trashcan) button but that means you cannot use a single click to switch to RAW shooting. 
 
 This is frustrating. 

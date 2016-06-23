@@ -4,15 +4,15 @@
 
 This is a repository hosting information for those interested in altering the functionality of their Samsung NX500 and NX1 cameras.
 
-These cameras run a full blown Linux distribution (Tizen) with shell, X, networking stack, debugging and testing tools - the works. This enables us to alter functionality of the cameras and ... well - just play around - it's fun! Seeing xeyes on your camera is such a heart pwarming experience :)
+These cameras run a full blown Linux distribution (Tizen) with shell, X, networking stack, debugging and testing tools - the works. This enables us to alter functionality of the cameras and ... well - just play around - it's fun! Seeing xeyes on your camera is such a heart warming experience :)
 
 Inital work was done and presented on DPReview Samsung Forum [here](http://www.dpreview.com/forums/thread/3964253) and [here](http://www.dpreview.com/forums/thread/3971805) and EOSHD [here](http://www.eoshd.com/comments/topic/19099-petition-for-samsung-nx1-hack/?do=findComment&comment=134256). Special thanks to tecnoworld who provided information on NX1.
 
 ##TL;DR - I want my camera hacked - what to do?
 
 Resources in this repository are aimed more at "developers" or "advanced users" than "regular users". If you just want to quickly use all these mods, there are two ways to take:
-  - Use a mod with many many integrated options packed together by @KinoSeed: [Read about it at facebook.com/NXKS2](https://www.facebook.com/NXKS2) or download directly from http://authors-vault.com/NX-KS2.zip - this mod is launched by enabling Bluetooth.
   - Use a mod pack made by @Vasile-gh [here](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch). You will need a one-time install of [this](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/nx-on-wake), though. This mod is integrated into the camera hibernation image and does not require Bluetooth for startup.
+  - Use a mod with many many integrated options packed together by @KinoSeed: [Read about it at facebook.com/NXKS2](https://www.facebook.com/NXKS2) or download directly from http://authors-vault.com/NX-KS2.zip - this mod is launched by enabling Bluetooth.
 
 You can always read the [Customizing functions of various keys](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Customizing%20keys.md) for introduction.
 
@@ -61,6 +61,7 @@ Things that work:
   - [Compiling against camera library] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Compile_against_camera_library.md)
   - [Updating the Hibernation Image] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Update_hibernation_image.md)
   - [Permanent bitrate mods to hibernation image] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Permanent_bitrate_mods.md) 
+  - [x] Higher bitrates for any video mode - developed by @vasile-gh - [see here]  (https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch) 
 
 ##To do ...
 
@@ -81,7 +82,6 @@ Things that could work with a bit of luck
 Not likely - but might be possible
   - [ ] No crop 4k video
   - [ ] Higher framerate 1080p or 720p (sensor can be read at 240fps but that's that - not implemented anywhere else in camera)
-  - [x] Higher bitrates for any video mode - under development by Vasile - [see here for NX1 instructions] (http://www.dpreview.com/forums/thread/3988168)
   - [ ] Full sensor video at any rate
   - [x] Silent shutter (fully electronic) - NX500 only for now
 

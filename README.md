@@ -39,6 +39,7 @@ Things that work:
     - ```popup_entry [message] [OK label] [cancel label] [sample entry] [number]``` - displays an entry box with OK/Cancel buttons and prefilled sample text, returns entered text and 0 code for OK or just 255 for cancel. If the fifth parameter is "number" then the NUMBERONLY keyboard is shown.
     - ```onscreen_key [Label] [button] [x y] [width height]``` - Displays a button at given coordinates (default 400 0) of given size (default 120 60) with given label (default REC) and clicks given button (default rec). To dismiss long-click it for at least five seconds. Record - rec, OK - ok, Half-shutter - S1, Full-shutter - S2, Menu - menu, etc.
     - ```shutter_to_rec``` - remaps half-shutter to OK (video pause) and full shutter to REC (video start/stop)
+    - ```log_watcher``` - restart video before file corruption, generate lists of selected/displayed files in gallery
   - [Running scripts without entering factory mode by starting Bluetooth] (https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode_BT.md)
   - [Running a FTP server on camera](https://github.com/ottokiksmaler/nx500/blob/master/Running%20FTP%20server%20on%20the%20camera.md)
   - [Enabling PTP mode on the camera](https://github.com/ottokiksmaler/nx500/blob/master/Enable-PTP-on-NX500-NX1.md)

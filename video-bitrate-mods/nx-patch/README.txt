@@ -1,10 +1,10 @@
                   Samsung NX1 and NX500 nx-patch
 
-                               v5.2
+                               v5.3
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
-     focus_stack, keyscan, popup_* and mod_gui Copyright (C) 2016
+     focus_*, keyscan, popup_* and mod_gui Copyright (C) 2016
          Otto Kiksmaler (https://github.com/ottokiksmaler)
 
    This program is free software; you can redistribute it and/or modify
@@ -23,7 +23,21 @@
 
                           CHANGE LOG
 
-Version 5.2 - 2016-06-17
+Version 5.3 BETA - 2016-06-25
+  - bitrate settings are preserved across mod pack upgrades
+  - added Otto's "shutter to rec" and "focus buttons"
+  - menu items now include a "back" button
+
+Version 5.22 - 2016-06-20
+  - updated mod_gui to allow power while menus are displayed
+  - mod menus are killed upon power off as one would normally expect
+
+Version 5.21 - 2016-06-19
+  - telnet is on ONLY until power off, and does not turn on again on its
+    own (since wifi is anyway off on startup and telnet is not meant to
+    be forgotten "on" since it might have an impact on camera performance
+
+Version 5.2 - 2016-06-18
   - added nq1, nq2, nq3 bitrate slots for both NX1 and NX500
   - telnet only indicates IP if already connected to Wi-Fi
 
@@ -33,7 +47,7 @@ Version 5.11 - 2016-06-17
   - no other functionality change
   
 Version 5.1 - 2016-06-17
-  - added focus stacking, silent shutter (NX500 only) and telnet access
+  - added Otto's focus stacking, silent shutter (NX500 only) and telnet access
   - NX1 now activates with double click on top LCD illumination button
 
 Version 5.01 - 2016-06-13
@@ -122,9 +136,9 @@ Initial version: v1.0
 
                              TESTING
   Thank you
-    - ARSPR@dpreview
-    - Hirsti@dpreview
-    - RiccoT@dpreview
+    - ARSPR@dpreview  [NX1]
+    - Hirsti@dpreview [NX1]
+    - RiccoT@dpreview [NX1]
   for your time and testing efforts.
 
                               HOW TO

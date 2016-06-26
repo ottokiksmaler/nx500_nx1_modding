@@ -23,10 +23,13 @@
 
                           CHANGE LOG
 
-Version 5.3 - 2016-06-25
+Version 5.3 - 2016-06-26
   - bitrate settings are preserved across mod pack upgrades
   - added Otto's "shutter to rec" and "focus buttons"
   - menu items now include a "back" button :-)
+  - telnet is turned off together with the camera to prevent it from
+    being forgotten "on" after use.
+  - fixed uninstall issue on NX1
 
 Version 5.22 - 2016-06-20
   - updated mod_gui to allow power while menus are displayed
@@ -177,9 +180,9 @@ Initial version: v1.0
   7. bitrates button allows to replace Samsung-chosen recording bitrates with
      other bitrates
   8. silent shutter (or electronic shutter) - only on NX500
-  9. shutter to rec is a key replacement tool that makes it easier to start
-     and stop video recording through a USB cable remote. Useful for drone
-     video
+  9. shutter to rec reassigns half shutter to OK and full shutter to REC
+     button functions in order to allow control of video recording by USB
+     cable. Useful for drone video.
  10. telnet: enables telnet. this will show IP address if camera is connected
      to WiFi.
  11. features without user interface: all factory recording limits are disabled

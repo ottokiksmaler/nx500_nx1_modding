@@ -174,6 +174,9 @@ Initial version: v1.0
                     click to restore saved focus position
      can be used for studio shooting, astrophotography (focus on infinity
      during day, recall the focus during the night), etc.
+       NB. Focus features work even if your lens is set to MF (more over, it could
+           be preferable for a more convenient use). Even when your lens is set to MF,
+           the camera can change its focus distance on its own.
   6. resolutions button will allow changing the various resolution "slots" to
      other "real" resolutions. For example, UHD => FHD will cause the camera to
      record un FHD although the setting says UHD.

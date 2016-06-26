@@ -17,6 +17,7 @@
 * Checkboxes upon activation and after executing the script, copy the script file to "auto" directory for keyscan to run upon start
 * Buttons just run the script 
 * If command starts with @ then it's used as a configuration file for sub-menu that is shown by clicking the button
+* If command starts with # or it's empty then the button has no effect (does not close the menu)
 * MENU closes the application
 * 
 * mod_gui apps [apps_dir] [debug]
@@ -147,6 +148,7 @@ static Eina_Bool key_down_callback(void *data, int type, void *ev)
 	if (0 == strcmp("F9", event->key)) asprintf(&key, "%s","s");
 	if (0 == strcmp("F10", event->key)) asprintf(&key, "%s","m");
 	if (0 == strcmp("KP_Home", event->key)) asprintf(&key, "%s","custom1");
+	if (0 == strcmp("Scroll_Lock", event->key)) asprintf(&key, "%s","custom2");
 	if (0 == strcmp("XF86PowerOff", event->key)) {
 		evas_object_hide(win);
 		system("st key click pwoff");
@@ -156,7 +158,21 @@ static Eina_Bool key_down_callback(void *data, int type, void *ev)
 		asprintf(&command,"/usr/bin/st key mode %s",key);
 		system(command);
 	}
-	quit_app();
+	asprintf(&key,"%s","");
+	if (0 == strcmp("Hiragana", event->key)) asprintf(&key, "%s","conti_n");
+	if (0 == strcmp("Muhenkan", event->key)) asprintf(&key, "%s","conti_h");
+	if (0 == strcmp("Control_R", event->key)) asprintf(&key, "%s","timer");
+	if (0 == strcmp("Alt_R", event->key)) asprintf(&key, "%s","bracket");
+	if (0 == strcmp("Katakana", event->key)) asprintf(&key, "%s","single");
+	if (strlen(key)>0) {
+		evas_object_hide(win);
+		asprintf(&command,"/usr/bin/st key drive %s",key);
+		system(command);
+	}	
+	if (0 == strcmp("XF86Reload",event->key) || 0 == strcmp("XF86WWW",event->key) || 0 == strcmp("KP_Enter", event->key))
+		return ECORE_CALLBACK_PASS_ON;
+	else 
+		quit_app();
 	return ECORE_CALLBACK_PASS_ON;
 }
 
@@ -167,7 +183,8 @@ static void click_btn_generic(void *data, Evas_Object * obj, void *event_info)
 	int btn_id = *((int *)data);
 	const char *btn_name = button_name[btn_id];
 	const char *btn_command = button_command[btn_id];
-	if (debug) printf("Button clicked: %s [%d]\n", btn_name, btn_id);
+	if (debug) printf("Button clicked: %s [%d] [%s]\n", btn_name, btn_id, btn_command);
+	if (strcmp("(null)",btn_command)==0 || btn_command[0] == '#') return;
 	if (btn_command[0] == '@') {
 		if (debug) printf("Clicked menu: %s\n",btn_command);
 		command=(char *)malloc(strlen(btn_command));
@@ -248,7 +265,7 @@ static int configuration_load()
 	char *btn_name, *btn_command, *btn_type, *glob_pattern;
 	size_t len=0, len1=0, len2=0, len3=0;
 	ssize_t read;
-	int i;
+	unsigned int i;
 
 	if (configuration_file[strlen(configuration_file)-1]=='/') {
 		asprintf(&glob_pattern,"%s*/app.cfg",configuration_file);
@@ -365,7 +382,7 @@ void show_main()
 	int first_button = 2;
 
 	int btn_num = 0;
-	if (button_number / 2 * button_height > SCREEN_HEIGHT)
+// 	if (button_number / 2 * button_height > SCREEN_HEIGHT)
 		button_height = SCREEN_HEIGHT * 2 / button_number;
 	for (btn_num = first_button; btn_num < first_button + button_number;
 	     btn_num++) {

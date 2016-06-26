@@ -534,7 +534,7 @@ static void click_info(void *data, Evas_Object * obj, void *event_info)
 EAPI int elm_main(int argc, char **argv)
 {
 	// detect power-off and quit on it
-	pthread_create(&timer_thread, NULL, &timer_loop, NULL);
+	pthread_create(&cleanup_thread, NULL, &timer_loop, NULL);
 	// determine model and version of camera
 	version_load();
 	// load default settings
@@ -542,10 +542,13 @@ EAPI int elm_main(int argc, char **argv)
 	if (argc > 1) {
 		if (!strcmp(argv[1], "help")) {
 			printf
-			    ("Usage:\nfocus_stack [ help | sweep | number_of_photos [ delay_between_photos [ button_height [ button_width ] ] ] ]\n\n");
+			    ("Usage:\nfocus_stack [ help | sweep | /path/to/config_file | number_of_photos [ delay_between_photos [ button_height [ button_width ] ] ] ]\n\n");
 			exit(0);
 		}
-		if (0==strcmp(argv[1], "sweep")) {
+		if (argv[1][0]=='/') {
+			settings_file=argv[1];
+		}
+		else if (0==strcmp(argv[1], "sweep")) {
 			video_sweep();
 			exit(0);
 		} else {

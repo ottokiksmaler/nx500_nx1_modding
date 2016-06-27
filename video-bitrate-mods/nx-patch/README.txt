@@ -1,11 +1,12 @@
                   Samsung NX1 and NX500 nx-patch
 
-                               v5.2
+                               v5.3
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
-     focus_stack, keyscan, popup_* and mod_gui Copyright (C) 2016
-         Otto Kiksmaler (https://github.com/ottokiksmaler)
+     focus_*, keyscan, popup_*, shutter_to_rec and mod_gui
+         Copyright (C) 2016 Otto Kiksmaler
+         (https://github.com/ottokiksmaler)
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,6 +24,27 @@
 
                           CHANGE LOG
 
+Version 5.3 - 2016-06-27
+  - bitrate settings are preserved across mod pack upgrades
+  - added Otto's "shutter to rec" and "focus buttons" (see below for 
+    description)
+  - menu items now include a "back" button :-)
+  - telnet is turned off together with the camera to prevent it from
+    being forgotten "on" after use.
+  - fixed uninstall issue on NX1
+  - new full-screen mod_gui
+  - "make default" renamed to "make persistent"
+  - make persistent now also operates on focus stacking and focus buttons
+
+Version 5.22 - 2016-06-20
+  - updated mod_gui to allow power while menus are displayed
+  - mod menus are killed upon power off as one would normally expect
+
+Version 5.21 - 2016-06-19
+  - telnet is on ONLY until power off, and does not turn on again on its
+    own (since wifi is anyway off on startup and telnet is not meant to
+    be forgotten "on" since it might have an impact on camera performance
+
 Version 5.2 - 2016-06-18
   - added nq1, nq2, nq3 bitrate slots for both NX1 and NX500
   - telnet only indicates IP if already connected to Wi-Fi
@@ -33,7 +55,7 @@ Version 5.11 - 2016-06-17
   - no other functionality change
   
 Version 5.1 - 2016-06-17
-  - added focus stacking, silent shutter (NX500 only) and telnet access
+  - added Otto's focus stacking, silent shutter (NX500 only) and telnet access
   - NX1 now activates with double click on top LCD illumination button
 
 Version 5.01 - 2016-06-13
@@ -121,13 +143,16 @@ Initial version: v1.0
   - replaces NX1 80 Mbps video bit rate 
 
                              TESTING
-  Thank you
-    - ARSPR@dpreview  [NX1]
-    - Hirsti@dpreview [NX1]
-    - RiccoT@dpreview [NX1]
-  for your time and testing efforts.
 
-                              HOW TO
+               NX1                           NX500
+          ARSPR@dpreview                PDM@dpreview
+          Hirsti@dpreview               ParkerFilm@dpreview
+          RiccoT@dpreview               xnilo@dpreview
+          BopBill@dpreview              Beagle77@dpreview
+
+            Thank you for your time and testing efforts.
+
+                              HOW TO - INSTALLATION
 
   0. The file containing this README.txt includes everything you need.
   1. Make sure the nx-on-wake mod is installed. This mod depends on nx-on-wake.
@@ -139,10 +164,47 @@ Initial version: v1.0
      up the camera, not the SD card :-)
   5. Pay attention to the messages showing on the screen.
   6. You will be informed when the mod is available (installation is finished).
-  7. Use EV EV (NX500) or double click on top LCD illumination button (NX1) to pop up the user interface.
-  8. New bitrates are NOT remembered across cold boots. This is to reduce
-     writes to the camera flash to the minimum necessary. Set them as defaults
-     to change them permanently (across cold boots as well).
+
+                              HOW TO - USAGE/FEATURES
+
+  1. Use EV EV (NX500) or double click on top LCD illumination button (NX1)
+     to pop up the user interface.
+  2. Refer to nx-patch.png to see which reslution/bitrate slots can be changed.
+  3. New bitrates, focus stack and focus buttons settings are NOT remembered 
+     across cold boots. This is to reduce writes to the camera flash to the 
+     minimum necessary. "make persistent" to change them permanently (across
+     cold boots as well).
+  4. focus stacking: Focus on near point - click "Near"
+                     Focus on far point  - click "Far"
+                     Click "Conf." to set number of photos
+                     Click "Start" to start
+  5. focus buttons: displays a line of buttons on top of the screen
+                    long press (>1 sec) to save current focus position
+                    click to restore saved focus position
+     can be used for studio shooting, astrophotography (focus on infinity
+     during day, recall the focus during the night), etc.
+       NB. Focus features work even if your lens is set to MF (more over,
+           it could be preferable for a more convenient use). Even when 
+           your lens is set to MF, the camera can change its focus distance 
+           on its own.
+  6. resolutions button will allow changing the various resolution "slots" to
+     other "real" resolutions. For example, UHD => FHD will cause the camera to
+     record un FHD although the setting says UHD.
+  7. bitrates button allows to replace Samsung-chosen recording bitrates with
+     other bitrates
+  8. silent shutter (or electronic shutter) - only on NX500
+  9. shutter to rec reassigns half shutter to OK and full shutter to REC
+     button functions in order to allow control of video recording by USB
+     cable. Useful for drone video. Includes (for free/gratis) known bug: 
+     max bitrates are lower than normal and there are delays in stop/pause
+     command recognition.
+ 10. telnet: enables telnet. this will show IP address if camera is connected
+     to WiFi.
+ 11. features without user interface: all factory recording limits are disabled
+     NB. this exposes a Samsung bug that causes video recording to crash after
+     a certain number of frames (around 74 min on 4K/1080p - Otto is working
+     on a workaround. DEV menu access is re-enabled, does not require any SD
+     card "special" file.
 
   A final word:
    If you find this program useful, I have a lens fund that only reached about

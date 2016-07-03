@@ -197,8 +197,15 @@ void* force_update(void* arg) {
 static void popup_show(char *message, int timeout, int row, int height)
 {
 	Evas_Object *popup_box, *lab, *table, *bg;
+	char *command="";
 	if (1==popup_shown) {
 		if (debug) printf("Popup already shown!\n");
+		return;
+	}
+	
+	if (strcmp("NX1",version_model)==0) {
+		asprintf(&command,"./popup_timeout \"%s\" %d %d %d &",message, timeout, row, height);
+		system(command);
 		return;
 	}
 	
@@ -313,7 +320,7 @@ static void run_stack(int near, int far, int steps, int delay)
 	int current_position = 0, step = 0;
 	unsigned int af_mode=0;
 	double delta = 0;
-	char *stack_message="";
+	char *stack_message="", *command="";
 	if (debug)  printf("Stacking - Near: %d \tFar: %d \tPhotos: %d \tDelay: %d\n",
 		   near, far, steps, delay);
 	//Turn QuickView OFF

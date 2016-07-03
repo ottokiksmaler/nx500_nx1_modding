@@ -1,7 +1,7 @@
 /*
 Compile with:
 
-arm-linux-gnueabi-gcc -Wall -o focus_stack focus_stack.c -s `pkg-config --cflags --libs ecore elementary` -lpthread --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.so
+arm-linux-gnueabi-gcc -o focus_stack focus_stack.c -s `pkg-config --cflags --libs ecore elementary`  -lecore_input  -lpthread --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.so
 
 We need to specify the correct ld or it will not work on device.
 */
@@ -334,7 +334,6 @@ static void run_stack(int near, int far, int steps, int delay)
 	delta = ((double)(far - current_position)) / (double)(steps - 1);
 	if (debug) printf("far: %d current: %d delta: %f\n", far, current_position, delta);
 	sleep(delay / 2);
-// 	while (current_position >= far && step < steps && step < MAX_STEPS) {
 	while (step < steps && step < MAX_STEPS) {
 		step++;
 		asprintf(&stack_message, "#%d of %d",step,steps);
@@ -537,8 +536,6 @@ EAPI int elm_main(int argc, char **argv)
 	pthread_create(&cleanup_thread, NULL, &timer_loop, NULL);
 	// determine model and version of camera
 	version_load();
-	// load default settings
-	load_settings();
 	if (argc > 1) {
 		if (!strcmp(argv[1], "help")) {
 			printf
@@ -547,6 +544,8 @@ EAPI int elm_main(int argc, char **argv)
 		}
 		if (argv[1][0]=='/') {
 			settings_file=argv[1];
+			// load default settings
+			load_settings();
 		}
 		else if (0==strcmp(argv[1], "sweep")) {
 			video_sweep();
@@ -567,6 +566,9 @@ EAPI int elm_main(int argc, char **argv)
 			if (atoi(argv[4])>0) 
 				button_width = atoi(argv[4]);
 		}
+	} else { 
+		// load default settings
+		load_settings();
 	}
 
 	printf("Stacking with %d photos at %d delay and %d button height\n",

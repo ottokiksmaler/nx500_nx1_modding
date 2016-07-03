@@ -4,8 +4,9 @@
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
-     focus_*, keyscan, popup_* and mod_gui Copyright (C) 2016
-         Otto Kiksmaler (https://github.com/ottokiksmaler)
+     focus_*, keyscan, popup_*, shutter_to_rec and mod_gui
+         Copyright (C) 2016 Otto Kiksmaler
+         (https://github.com/ottokiksmaler)
 
    This program is free software; you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -23,13 +24,19 @@
 
                           CHANGE LOG
 
-Version 5.3 - 2016-06-26
+Version 5.3 - 2016-07-03
   - bitrate settings are preserved across mod pack upgrades
-  - added Otto's "shutter to rec" and "focus buttons"
+  - added Otto's "shutter to rec" and "focus buttons" (see below for 
+    description)
   - menu items now include a "back" button :-)
   - telnet is turned off together with the camera to prevent it from
     being forgotten "on" after use.
   - fixed uninstall issue on NX1
+  - new full-screen mod_gui
+  - "make default" renamed to "make persistent"
+  - make persistent now also operates on focus stacking and focus buttons
+  - added killall option to leave camera in untouched mode except bitrates
+    NB. this will persist until battery pull.
 
 Version 5.22 - 2016-06-20
   - updated mod_gui to allow power while menus are displayed
@@ -138,11 +145,14 @@ Initial version: v1.0
   - replaces NX1 80 Mbps video bit rate 
 
                              TESTING
-  Thank you
-    - ARSPR@dpreview  [NX1]
-    - Hirsti@dpreview [NX1]
-    - RiccoT@dpreview [NX1]
-  for your time and testing efforts.
+
+               NX1                           NX500
+          ARSPR@dpreview                PDM@dpreview
+          Hirsti@dpreview               ParkerFilm@dpreview
+          RiccoT@dpreview               xnilo@dpreview
+          BopBill@dpreview              Beagle77@dpreview
+
+            Thank you for your time and testing efforts.
 
                               HOW TO - INSTALLATION
 
@@ -162,9 +172,10 @@ Initial version: v1.0
   1. Use EV EV (NX500) or double click on top LCD illumination button (NX1)
      to pop up the user interface.
   2. Refer to nx-patch.png to see which reslution/bitrate slots can be changed.
-  3. New bitrates are NOT remembered across cold boots. This is to reduce
-     writes to the camera flash to the minimum necessary. Set them as defaults
-     to change them permanently (across cold boots as well).
+  3. New bitrates, focus stack and focus buttons settings are NOT remembered 
+     across cold boots. This is to reduce writes to the camera flash to the 
+     minimum necessary. "make persistent" to change them permanently (across
+     cold boots as well).
   4. focus stacking: Focus on near point - click "Near"
                      Focus on far point  - click "Far"
                      Click "Conf." to set number of photos
@@ -174,9 +185,10 @@ Initial version: v1.0
                     click to restore saved focus position
      can be used for studio shooting, astrophotography (focus on infinity
      during day, recall the focus during the night), etc.
-       NB. Focus features work even if your lens is set to MF (more over, it could
-           be preferable for a more convenient use). Even when your lens is set to MF,
-           the camera can change its focus distance on its own.
+       NB. Focus features work even if your lens is set to MF (more over,
+           it could be preferable for a more convenient use). Even when 
+           your lens is set to MF, the camera can change its focus distance 
+           on its own.
   6. resolutions button will allow changing the various resolution "slots" to
      other "real" resolutions. For example, UHD => FHD will cause the camera to
      record un FHD although the setting says UHD.
@@ -185,7 +197,9 @@ Initial version: v1.0
   8. silent shutter (or electronic shutter) - only on NX500
   9. shutter to rec reassigns half shutter to OK and full shutter to REC
      button functions in order to allow control of video recording by USB
-     cable. Useful for drone video.
+     cable. Useful for drone video. Includes (for free/gratis) known bug: 
+     max bitrates are lower than normal and there are delays in stop/pause
+     command recognition.
  10. telnet: enables telnet. this will show IP address if camera is connected
      to WiFi.
  11. features without user interface: all factory recording limits are disabled
@@ -193,6 +207,8 @@ Initial version: v1.0
      a certain number of frames (around 74 min on 4K/1080p - Otto is working
      on a workaround. DEV menu access is re-enabled, does not require any SD
      card "special" file.
+ 12. killall: kills everything except already set bitrates, until battery pull.
+     NB. When the battery is re-inserted the mods will again become available.
 
   A final word:
    If you find this program useful, I have a lens fund that only reached about

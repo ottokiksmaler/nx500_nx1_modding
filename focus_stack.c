@@ -165,7 +165,7 @@ static Eina_Bool key_down_callback(void *data, int type, void *ev)
 		exit(0);
 	}
 	
-	if (0 == strcmp("Return", event->key))
+	if (0 == strcmp("Return", event->key) || 0 == strcmp("KP_Enter", event->key))
 		settings_ok();
 	
 	if (0 == strcmp("XF86PowerOff", event->key)) {
@@ -549,7 +549,7 @@ EAPI int elm_main(int argc, char **argv)
 			    ("Usage:\nfocus_stack [ help | sweep | /path/to/config_file | number_of_photos [ delay_between_photos [ button_height [ button_width ] ] ] ]\n\n");
 			exit(0);
 		}
-		if (argv[1][0]=='/') {
+		if (argv[1][0]=='/' || argv[1][0]=='.') {
 			settings_file=argv[1];
 			// load default settings
 			load_settings();

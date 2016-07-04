@@ -1,6 +1,6 @@
                   Samsung NX1 and NX500 nx-on-wake
 
-                               v1.1
+                               v1.11
 
      Copyright (C) 2016  Vasile Dumitrescu, (ppnx.vasile@dfgh.net)
 
@@ -22,6 +22,9 @@
    Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
 
                           CHANGE LOG
+
+Version 1.11 - 2016-07-05
+  - updated README following siditm power issues
 
 Version 1.1 - 2016-06-20
   - updated README - added requirement to set language to English before update
@@ -139,10 +142,12 @@ Version 1.0 - 2016-06-12
        - battery is FULLY charged and that the camera is NOT connected to
          anything: Bluetooth, wifi, any cables (EVEN CHARGING), external flash,
          battery grip. EVERYTHING that can be disconnected should be
-         disconnected except the battery, SD card and the lens.
-       - POWER SAVE settings are: Auto Display Off = off and 
-                                  Power Save = 30 min.
+         disconnected except the battery and the SD card.
+       - POWER SAVE settings are: Auto Display Off = 5 min and 
+                                  Power Save = 10 min.
        - camera language is set to English <= this is VERY important
+       - mode dial is on M (manual)
+       - NO lens is attached (sensor cap is on camera - do not want dust in)
        - camera is off
   2. To install the mod you will require a 6-digit number that you will need
      to assemble from pieces spread around this README. This is intentional.

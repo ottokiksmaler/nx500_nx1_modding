@@ -14,7 +14,7 @@ We need to specify the correct ld or it will not work on device.
 #include <pthread.h>
 
 #define SCREEN_WIDTH 720
-#define MAX_STEPS 100
+#define MAX_STEPS 200
 #define DEFAULT_STEPS 10
 
 static int debug = 1, running = 0, popup_shown=0, entry_shown=0;
@@ -202,13 +202,7 @@ static void popup_show(char *message, int timeout, int row, int height)
 		if (debug) printf("Popup already shown!\n");
 		return;
 	}
-	
-	if (strcmp("NX1",version_model)==0) {
-		asprintf(&command,"./popup_timeout \"%s\" %d %d %d &",message, timeout, row, height);
-		system(command);
-		return;
-	}
-	
+		
 	if (entry_win) {
 // 		evas_object_hide(entry_win);
  		ecore_timer_del(timer);
@@ -344,7 +338,12 @@ static void run_stack(int near, int far, int steps, int delay)
 	while (step < steps && step < MAX_STEPS) {
 		step++;
 		asprintf(&stack_message, "#%d of %d",step,steps);
-		popup_show(stack_message,1,0,1);
+		if (strcmp("NX1",version_model)==0) {
+			asprintf(&command,"/opt/usr/nx-on-wake/popup_timeout \"%s\" 1 &",stack_message);
+			system(command);
+		} else {
+			popup_show(stack_message,1,0,1);
+		}
 
 		run_command("/usr/bin/st app nx capture single\n");	// capture single frame
 //         run_command("/usr/bin/st key push s1 && /bin/sleep 0.3 && /usr/bin/st key click s2 && /usr/bin/st key release s1 && /bin/sleep 0.5 && /usr/bin/st key click s1"); // capture single frame and exit photo preview is exists

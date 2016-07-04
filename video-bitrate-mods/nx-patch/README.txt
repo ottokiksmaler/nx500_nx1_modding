@@ -24,7 +24,7 @@
 
                           CHANGE LOG
 
-Version 5.3 - 2016-07-03
+Version 5.3 - 2016-07-05
   - bitrate settings are preserved across mod pack upgrades
   - added Otto's "shutter to rec" and "focus buttons" (see below for 
     description)
@@ -189,6 +189,8 @@ Initial version: v1.0
            it could be preferable for a more convenient use). Even when 
            your lens is set to MF, the camera can change its focus distance 
            on its own.
+       ALSO, focus buttons should NOT be used with Touchscreen AF.
+           Set Touchscreen to Off.
   6. resolutions button will allow changing the various resolution "slots" to
      other "real" resolutions. For example, UHD => FHD will cause the camera to
      record un FHD although the setting says UHD.

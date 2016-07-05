@@ -24,7 +24,7 @@
 
                           CHANGE LOG
 
-Version 5.3 - 2016-06-27
+Version 5.3 - 2016-07-05
   - bitrate settings are preserved across mod pack upgrades
   - added Otto's "shutter to rec" and "focus buttons" (see below for 
     description)
@@ -35,6 +35,8 @@ Version 5.3 - 2016-06-27
   - new full-screen mod_gui
   - "make default" renamed to "make persistent"
   - make persistent now also operates on focus stacking and focus buttons
+  - added killall option to leave camera in untouched mode except bitrates
+    NB. this will persist until battery pull.
 
 Version 5.22 - 2016-06-20
   - updated mod_gui to allow power while menus are displayed
@@ -187,6 +189,8 @@ Initial version: v1.0
            it could be preferable for a more convenient use). Even when 
            your lens is set to MF, the camera can change its focus distance 
            on its own.
+       ALSO, focus buttons should NOT be used with Touchscreen AF.
+           Set Touchscreen to Off.
   6. resolutions button will allow changing the various resolution "slots" to
      other "real" resolutions. For example, UHD => FHD will cause the camera to
      record un FHD although the setting says UHD.
@@ -205,6 +209,8 @@ Initial version: v1.0
      a certain number of frames (around 74 min on 4K/1080p - Otto is working
      on a workaround. DEV menu access is re-enabled, does not require any SD
      card "special" file.
+ 12. killall: kills everything except already set bitrates, until battery pull.
+     NB. When the battery is re-inserted the mods will again become available.
 
   A final word:
    If you find this program useful, I have a lens fund that only reached about

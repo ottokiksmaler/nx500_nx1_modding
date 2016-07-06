@@ -1,3 +1,9 @@
+/*
+ * Fast "st app" alternative
+ * Compile with 
+ * arm-linux-gnueabi-gcc -o stapp stapp.c --sysroot=../arm/ -Wl,-dynamic-linker,/lib/ld-2.13.so
+ * 
+ */
 #include <sys/msg.h>
 #include <errno.h>
 #include <stdlib.h>
@@ -106,20 +112,5 @@ int send_message_array(int num, ...) {
 
 int main (int argc, char *argv[])
 {
-//	char message_text[208]="\5\0\0\0/usr/bin/st\0\0\0\0\0\0\0\0\0app\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0nx\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0capture\0\0\0\0\0\0\0\0\0\0\0\0\0single\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
-//zero right padded - clicking keys - 6-4B + command-20B + param-20B + param-20B + param-20B + param-20B + param-20B + 000000->208B total
-// 	char message_text[208]="\6\0\0\0/usr/bin/st\0\0\0\0\0\0\0\0\0app\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0nx\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0key\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0single\0\0\0\0\0\0\0\0\0\0\0\0\0\0ok\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
-
 	if (argc>1 && strlen(argv[1])>1) return send_message(argv[1]);
-// 	send_message("/usr/bin/st app nx key single ok");
-// 	fd = msgget(0x8828, 0666);
-// 	if (fd>0) {
-// 		send_message_array(5, "app","nx","key","single","ok");
-// 		send_message_array(5, "app","nx","key","single","ok");
-// 	} else {
-// 		perror(strerror(errno));
-// 		printf("ERROR %d %d\n",errno, fd);
-// 		return 1;
-// 	}
-// 	return 0;
 }

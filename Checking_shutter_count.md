@@ -2,6 +2,8 @@
 
 This is useful to inspect, for example, second hand camera you want to buy or just to inspect your own camera if you don't want to hack it.
 
+You will need a spare SD card for this (any card, size is not important, you can reuse the card afterwards).
+
 Instructions:
   - Download this ZIP file: [nxinfo.zip](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/nxinfo.zip?raw=true)
   - Unpack it to some spare SD card (so that there is a file **info.tg** on the root directory of the SD card, for example, the file ```E:\info.tg``` exists)

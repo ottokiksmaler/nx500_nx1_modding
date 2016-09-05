@@ -14,6 +14,9 @@ Resources in this repository are aimed more at "developers" or "advanced users" 
   - Use a mod pack made by @Vasile-gh [here](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch). You will need a one-time install of [this](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/nx-on-wake), though. This mod is integrated into the camera hibernation image and does not require Bluetooth for startup.
   - Use a mod with many many integrated options packed together by @KinoSeed: [Read about it at facebook.com/NXKS2](https://www.facebook.com/NXKS2) or download directly from http://authors-vault.com/NX-KS2.zip - this mod is launched by enabling Bluetooth.
 
+##TL;DR - I want to check second hand camera (or my own, but I don't want to hack it) for shutter count, etc, What to do?
+
+Read these instructions: [Checking Shutter Count, Power-on Count, etc. Without Hacking the Camera](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Checking_shutter_count.md)
 
 ##Status
 

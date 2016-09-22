@@ -249,6 +249,7 @@ static void do_capture(int type, int number, float delay, int lcd_black, int dur
 	printf("Capture Video: %d\t Number: %d\tDelay: %f\tDuration: %d\tWait: %d\tBlackout: %d\tTimer: %d\t After OFF:%d\tAfter GUI:%d\n",
 		   type, number, delay, duration, start_delay, lcd_black, show_timer, after_off, after_gui);
 	if (0!=type) run_command("/usr/bin/st key click del");
+	if (delay<0.99) delay=1.0;
 	if (1==lcd_black) {
 		//Turn QuickView OFF
 		if (0==strcmp("NX500",version_model)) {

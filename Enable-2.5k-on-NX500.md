@@ -1,4 +1,6 @@
-#Enabling 2.5k video on NX500 (very low bitrate)
+#Enabling 2.5k video on NX500
+
+##Note: This is an old method with very low bitrate. Suggested approach is via [Vasile's](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch) or [NX-KS](https://www.facebook.com/NXKS2) modpack.
 
 First see procedure of running shell scripts from SD card as explained here: [Running arbitrary shell scripts from SD card](https://github.com/ottokiksmaler/nx500/blob/master/Running-shell-scripts-from-SD-card.md)
 

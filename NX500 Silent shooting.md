@@ -18,7 +18,7 @@ UserData is ADJUSTSHUTTERTYPE_MECHA (0x750000)
 ROLLING is full electronic shutter.
 
 Findings so far:
-  1. I can see no difference in image quality between ROLLING and MECHA shutter (tested up to ISO 6400, did not test 5 stop pushing of SRW and similar tests)
+  1. I can see no significant difference in image quality between ROLLING and MECHA shutter for lower ISOs (maybe a bit decreased DR when pushing shadows), ISO over 6400 produces unusable results.
 
   2. I can see no shutter shock at any speed in ROLLING => actually clearer image
 

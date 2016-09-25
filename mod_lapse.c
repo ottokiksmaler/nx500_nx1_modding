@@ -27,7 +27,7 @@
 static int debug=1;
 
 // for EV Smoothing
-static int Tv, ev_step=0, ev_rolling=1, ev_steps=5, threshold=3;
+static int Tv, ev_step=0, ev_rolling=1, ev_steps=5, threshold=4;
 
 static Eina_Bool is_video=EINA_FALSE, lcd_off=EINA_FALSE, lcd_show_capture=EINA_FALSE, after_gui=EINA_FALSE, after_off=EINA_FALSE, save_settings=EINA_FALSE, smooth_ev=EINA_FALSE;
 static Evas_Object *black, *win, *bg, *bg2, *box, *btn, *chk, *table, *entry_period, *entry_duration, *entry_shots, *status_display, *entry_start_delay;
@@ -56,6 +56,60 @@ static void run_command(char *command)
 	if (debug) printf(" done.\n");
 }
 
+int send_message(char * message_in){
+	int i=0, result, fd=-1;
+	unsigned char message_text[208]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+	char  *param, *message, *spl;
+	struct msg_buf_out {
+		long mtype;
+		char mtext[208];
+	} msg;
+	if (message_in[0]=='/')
+		asprintf(&message,"%s",message_in);
+	else
+		asprintf(&message,"/usr/bin/st %s",message_in);
+	
+	spl=strtok(message," ");
+	
+	while(spl && strlen(spl)>0) {
+		if (debug>2) printf("Adding at %d %s(%d)\n",4+i*20,spl,(int)strlen(spl));
+		memcpy(message_text+4+i*20,spl,strlen(spl));
+		i++;
+		spl = strtok(NULL, " ");
+	}
+	asprintf(&spl,"%d",i);
+	memcpy(message_text,spl, strlen(spl));
+
+	if (debug>1) {
+		printf("Message:\n");
+		for(i=0;i<208;i++) {
+			if ((i-4)%20==0) printf("\n");
+			if (message_text[i]==0) 
+				printf("_"); 
+			else 
+				printf("%c",(char)message_text[i]);
+		}
+		printf("\n");
+	}
+
+	if (fd<1) {
+		fd = msgget(0x8828, 0666);
+		if (fd<0) {
+			perror(strerror(errno));
+			printf("ERROR %d %d\n",errno, fd);
+			return -1;
+		}
+	}
+	msg.mtype=1;
+	memcpy(msg.mtext, message_text, 208);
+	result = msgsnd(fd, &msg, 208, 0);
+	if (result<0) {
+		perror( strerror(errno) );
+		return -1;
+	}
+	return result;
+}
+
 long msec_passed(struct timeval *fromtime, struct timeval *totime)
 {
   long msec;
@@ -76,6 +130,43 @@ void* timer_loop(void* arg) {
 		msec_elapsed = msec_passed(&previous_time_loop,&current_time_loop);
 		if (msec_elapsed>(timer_sleep+100)) exit(1);
 	}
+}
+
+static unsigned int get_af_mode()
+{
+	FILE *fp;
+	char *spl = NULL;
+	fp = popen("/usr/bin/st cap capdtm getusr AFMODE", "r");
+	if (fp == NULL) {
+		if (debug) printf("Failed get current focus mode\n");
+		return 0;
+	} else {
+		if (fgets(stringline, sizeof(stringline) - 1, fp) != NULL) {
+			stringline[0] = '_';	// fix st output
+			spl = strtok(stringline, "(");
+			spl = strtok(NULL, ")");
+		}
+		pclose(fp);
+		if (debug) printf("Current focus mode: %s (%ld)\n", spl,strtol(spl, NULL, 16));
+		return strtol(spl, NULL, 16);
+	}
+}
+
+static void set_af_mode(unsigned int af_mode)
+{
+	char * af_mode_s;
+	asprintf(&af_mode_s,"0x%06x",af_mode);
+	if (af_mode_s[strlen(af_mode_s)-1]=='0') run_command("/usr/bin/st app nx capture af-mode single");
+	if (af_mode_s[strlen(af_mode_s)-1]=='1') run_command("/usr/bin/st app nx capture af-mode caf");
+	if (af_mode_s[strlen(af_mode_s)-1]=='3') {
+		run_command("/usr/bin/st app nx capture af-mode manual");	// show manual focus mode
+		usleep(300000);
+		run_command("/usr/bin/st cap capdtm setusr AFMODE 0x70003");	// force manual focus mode
+		usleep(300000);
+	}
+	if (af_mode_s[strlen(af_mode_s)-1]=='4') run_command("/usr/bin/st app nx capture af-mode auto");
+	sprintf(stringline, "/usr/bin/st cap capdtm setusr AFMODE 0x%06x", af_mode);
+	run_command(stringline);
 }
 
 void ev_smooth_clean(int steps, int value) {
@@ -160,60 +251,6 @@ void do_ev_smooth(int steps) {
 	if (ev_step>=steps) {
 		ev_step=0;
 	}
-}
-
-int send_message(char * message_in){
-	int i=0, result, fd=-1;
-	unsigned char message_text[208]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
-	char  *param, *message, *spl;
-	struct msg_buf_out {
-		long mtype;
-		char mtext[208];
-	} msg;
-	if (message_in[0]=='/')
-		asprintf(&message,"%s",message_in);
-	else
-		asprintf(&message,"/usr/bin/st %s",message_in);
-	
-	spl=strtok(message," ");
-	
-	while(spl && strlen(spl)>0) {
-		if (debug>2) printf("Adding at %d %s(%d)\n",4+i*20,spl,(int)strlen(spl));
-		memcpy(message_text+4+i*20,spl,strlen(spl));
-		i++;
-		spl = strtok(NULL, " ");
-	}
-	asprintf(&spl,"%d",i);
-	memcpy(message_text,spl, strlen(spl));
-
-	if (debug>1) {
-		printf("Message:\n");
-		for(i=0;i<208;i++) {
-			if ((i-4)%20==0) printf("\n");
-			if (message_text[i]==0) 
-				printf("_"); 
-			else 
-				printf("%c",(char)message_text[i]);
-		}
-		printf("\n");
-	}
-
-	if (fd<1) {
-		fd = msgget(0x8828, 0666);
-		if (fd<0) {
-			perror(strerror(errno));
-			printf("ERROR %d %d\n",errno, fd);
-			return -1;
-		}
-	}
-	msg.mtype=1;
-	memcpy(msg.mtext, message_text, 208);
-	result = msgsnd(fd, &msg, 208, 0);
-	if (result<0) {
-		perror( strerror(errno) );
-		return -1;
-	}
-	return result;
 }
 
 static void quit_app()
@@ -312,10 +349,6 @@ static void show_black()
 	elm_win_prop_focus_skip_set(black, EINA_TRUE); // we want key events to ignore this window
 	evas_object_smart_callback_add(black, "delete,request", click_quit, NULL);
 	evas_object_size_hint_min_set(black, SCREEN_WIDTH, SCREEN_HEIGHT);
-// 	bg = elm_bg_add(black);
-// 	elm_bg_color_set(bg, 0,0,0);
-// 	elm_win_resize_object_add(black, bg);
-// 	evas_object_show(bg);
 	box = elm_box_add(black);
 	elm_win_resize_object_add(black, box);
 	evas_object_size_hint_min_set(box, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -342,10 +375,8 @@ static void show_black()
 	evas_object_color_set(bg, 0,0,0,255);
 	evas_object_show(bg);
 
-// 	elm_box_pack_end(box, status_display);
 	elm_table_pack(table, bg, 1, 1, 1, 1);
 	elm_table_pack(table, status_display, 1, 1, 1, 1);
-// 	elm_entry_text_style_user_push(status_display, "DEFAULT='font=Tizen:style=Light font_size=30 color=#f00 align=center'");
 	elm_entry_text_style_user_push(status_display, "DEFAULT='color=#f00 align=center'");
 
 }
@@ -361,6 +392,14 @@ static void do_capture(int type, int number, float delay, int lcd_black, int dur
 	char *status_message,*prefix;
 	struct timeval previous_time, current_time;
 	long msec_elapsed, sleep_for;
+	
+	if (ev_smooth) {
+		printf("Entering M mode\n");
+		send_message("key mode m");
+		usleep(300000);
+	}
+	int af_mode = get_af_mode();
+	set_af_mode(3);
 	
 	ev_smooth_clean(ev_steps,0);
 	
@@ -428,6 +467,7 @@ static void do_capture(int type, int number, float delay, int lcd_black, int dur
 			sleep(3);
 		}
 	}
+	set_af_mode(af_mode);
 	if (1==after_off) {
 		printf("Shutting down in 3 s ...\n");
 		system("sync;sync;sync;sleep 3;echo -n disk > /sys/power/state");
@@ -446,10 +486,8 @@ static void click_save_settings(void *data, Evas_Object *obj, void *event_info)
 	start_delay=atoi(elm_object_text_get(entry_start_delay));
 	lcd_black=(int)lcd_off;
 	lcd_show=(int)lcd_show_capture;
-	//ev_smooth=atoi(elm_object_text_get(entry_ev_smooth));
-	int ev_smooth=0;
 	printf("Saving settings...");
-	do_save_settings(video, shots, delay, duration, lcd_black, lcd_show, (int)after_off, (int)after_gui, (int)start_delay, (int)ev_smooth);
+	do_save_settings(video, shots, delay, duration, lcd_black, lcd_show, (int)after_off, (int)after_gui, (int)start_delay, (int)smooth_ev);
 	printf(" done.\n");
 }
 
@@ -885,7 +923,6 @@ void show_main()
 }
 
 void* timer_capture(void* arg) {
-// 	sleep(1);
 	do_capture(a_type,a_number,a_delay,a_lcd_black,a_duration,a_show_timer, a_after_off, a_after_gui, a_start_delay, a_ev_smooth);
 	return NULL;
 }
@@ -943,6 +980,7 @@ EAPI int elm_main(int argc, char **argv)
 		asprintf(&input_duration,"%d",a_duration);
 		asprintf(&input_start_delay,"%d",a_start_delay);
 		is_video=a_type;
+		smooth_ev=a_ev_smooth;
 		save_settings=a_save_settings;
 		after_gui=a_after_gui;
 		after_off=a_after_off;

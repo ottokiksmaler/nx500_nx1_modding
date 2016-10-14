@@ -80,16 +80,34 @@ int isDoubleStart () {
   return 0;
 }
 
-  // requires a file descriptor to opened /proc/mounts
+  // requires a FILE pointer to opened /proc/mounts
   // returns 1 if SD is mounted (by looking into /proc/mounts)
-int isSdMounted (int procMountsFd) {
+int isSdMounted (FILE *procMountsFile) {
     // go to beginning of /proc/mounts
-  lseek (procMountsFd, 0, SEEK_SET);
-  char buf[3000] = "";  // must be more than /proc/mounts size
-    // read all /proc/mounts - ugly (assumes small size of /proc/mounts) but fast
-  int readNum = 0;
-  if ((readNum = read (procMountsFd, buf, sizeof(buf)-1)) > 0) {
-    if (strstr(buf, "/opt/storage/sdcard") != NULL) return 1;
+  fseek (procMountsFile, 0, SEEK_SET);
+  char line[256] = "";  // enough for reading a line
+    // read lines from /proc/mounts until EOF reached
+  while (fgets(line, 256, procMountsFile) != NULL) {
+    char *sep = strstr(line, " ");
+    if (sep != NULL) {
+      *sep = '\0';
+    } else {
+      debug && system ("echo nx-on-wake: failed to parse /proc/mounts >/dev/kmsg");
+      break;
+    }
+    char *source = line;
+    char *target = sep + 1;
+    sep = strstr(target, " ");
+    if (sep != NULL) {
+      *sep = '\0';
+    } else {
+      debug && system ("echo nx-on-wake: failed to parse /proc/mounts >/dev/kmsg");
+      break;
+    }
+    if (!strcmp(source, "/dev/mmcblk1p1") &&
+        !strcmp(target, "/opt/storage/sdcard")) {
+      return 1;
+    }
   }
   return 0;
 }
@@ -114,7 +132,10 @@ int main (int argc, char *argv[]) {
   char *runFileOpt = "/opt/usr/nx-on-wake/on-wake";
   char *runFileSD = "/opt/storage/sdcard/nx-on-wake/on-wake";
 
-  int mfd = open("/proc/mounts", O_RDONLY, 0);
+  FILE *mfile = fopen("/proc/mounts", "r");
+  int mfd = fileno(mfile);
+
+  int sdMounted = 0;
   struct pollfd pfd;
   int pollReturnValue;
   pfd.fd = mfd;
@@ -125,7 +146,13 @@ int main (int argc, char *argv[]) {
     if (pfd.revents & POLLERR) {
         // this will also detect unmounts so make sure you only run when 
         // SD card is mounted
-      if (isSdMounted (mfd)) {
+      if (isSdMounted (mfile)) {
+        if (sdMounted) {
+            // sdcard was already mounted.
+            // don't run on-wake again.
+          continue;
+        }
+        sdMounted = 1;
           // running SD file FIRST is a safety measure: if for any reason
           // the /opt/usr/nx-on-wake is messed up, it can be overridden
           // by putting something on the SD card that will bring back control
@@ -139,6 +166,9 @@ int main (int argc, char *argv[]) {
         } else {
           debug && system ("echo nx-on-wake: no file to run>/dev/kmsg");
         }
+      } else {
+          // sdcard is not mounted
+        sdMounted = 0;
       }
     }
     pfd.revents = 0;

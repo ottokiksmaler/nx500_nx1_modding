@@ -49,7 +49,7 @@ elm_main(int argc, char **argv)
 	if (argc > 6) {
 	   h=atof(argv[6]);
 	} else {
-	   printf("how to use: ./onscreen_png filename command x y w h \n");
+	   printf("how to use: ./button_png filename command x y w h \n");
 	   elm_exit();
 	   exit(0);
 	}

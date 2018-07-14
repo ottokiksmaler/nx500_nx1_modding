@@ -18,7 +18,7 @@ Resources in this repository are aimed more at "developers" or "advanced users" 
 
 Read these instructions: [Removing 30 min Movie Recording Limit Without Hacking the Camera](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Removing_Movie_Recording_Limit_Without_Hack.md)
 
-##TL;DR - I want to check second hand camera (or my own, but I don't want to hack it) for shutter count, etc, What to do?
+## TL;DR - I want to check second hand camera (or my own, but I don't want to hack it) for shutter count, etc, What to do?
 
 Read these instructions: [Checking Shutter Count, Power-on Count, etc. Without Hacking the Camera](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Checking_shutter_count.md)
 
@@ -73,7 +73,7 @@ Things that work:
   - [Updating the Hibernation Image](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Update_hibernation_image.md)
   - [Permanent bitrate mods to hibernation image](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Permanent_bitrate_mods.md) 
 
-##To do ...
+## To do ...
 
 Things that should work given time:
   - [x] Removing video recording time limit - thanks to Vasile
@@ -95,7 +95,7 @@ Not likely - but might be possible
   - [ ] Full sensor video at any rate
   - [x] Silent shutter (fully electronic) - NX500 only for now
 
-#Donations
+# Donations
 
 Q: So, where's the **Donate** button?
 A: Nowhere. Find a suitable charity and donate. If you cannot afford it, find a local charity and see if they need help in person - it will do you a world of good.

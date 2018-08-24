@@ -1,4 +1,4 @@
-#Running shell scripts from SD card
+# Running shell scripts from SD card
 
 How to run a shell script file:
   1. Put file named "info.tg" on the SD card root with contents "nx_cs.adj" and a newline

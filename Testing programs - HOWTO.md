@@ -1,4 +1,4 @@
-#How to test programs without installing them to your camera
+# How to test programs without installing them to your camera
 
 **Note:** This assumes you have already modded your camera by installing [Vasile's master mod](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/nx-on-wake) and [Vasile's mod pack](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch).
 

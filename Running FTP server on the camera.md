@@ -1,4 +1,4 @@
-#Running FTP server on the camera.md
+# Running FTP server on the camera.md
 
 You have to cross compile **busybox** for your camera or use the one present in NX300 open source package like described in [telnet server instructions](https://github.com/ottokiksmaler/nx500/blob/master/Running-telnet-server-on-camera.md).
 

@@ -1,8 +1,8 @@
-#Running gdb
+# Running gdb
 
 There are two approaches: local and remote.
 
-##Remote gdb
+## Remote gdb
 
 Your easiest route is to use prebuilt gdb and gdbserver from [linaro](https://launchpad.net/linaro-toolchain-binaries/trunk/2012.10/+download/gcc-linaro-arm-linux-gnueabihf-4.7-2012.10-20121022_linux.tar.bz2). 
   1. You will need gdbserver from gcc-linaro-arm-linux-gnueabihf-4.7-2012.10-20121022_linux/arm-linux-gnueabihf/debug-root/usr/bin/gdbserver on the camera (SD card)
@@ -21,7 +21,7 @@ Your easiest route is to use prebuilt gdb and gdbserver from [linaro](https://la
   ... debug as usual ...
   ```
 
-##Local gdb
+## Local gdb
 
 You have to cross-compile gdb on your computer statically. Follow generic instructions just use **make LDFLAGS=-static** at the end.
 

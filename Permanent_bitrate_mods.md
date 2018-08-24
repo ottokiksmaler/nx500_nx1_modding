@@ -1,10 +1,10 @@
-#Making Permanent Bitrate Mods
+# Making Permanent Bitrate Mods
 
 Permanent => stored to hibernation image => modifications are available instantly with no need to wait for mods to load.
 
 # BEWARE - THIS MODIFIES YOUR CAMERA PERMANENTLY 
 # BEWARE - do NOT attempt this unless you know what you are doing.
-###TESTED ON NX500 FW 1.11
+### TESTED ON NX500 FW 1.11
 
 Also, read this first https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/doc/Update_hibernation_image.md
 

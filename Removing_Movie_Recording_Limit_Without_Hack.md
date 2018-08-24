@@ -1,6 +1,6 @@
-#Removing 30 min Movie Recording Limit Without Hacking the Camera
+# Removing 30 min Movie Recording Limit Without Hacking the Camera
 
-###NOTE: This only removes 30 min limit. To have unlimited 4k/UHD on NX500 you need to hack your camera as described [here](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/nx-on-wake) and [here](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch)
+### NOTE: This only removes 30 min limit. To have unlimited 4k/UHD on NX500 you need to hack your camera as described [here](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/nx-on-wake) and [here](https://github.com/ottokiksmaler/nx500_nx1_modding/tree/master/video-bitrate-mods/nx-patch)
 
 This tool is useful to remove 30 min movie recording limit on your own camera if you don't want to hack it.
 
@@ -20,4 +20,4 @@ Instructions:
     - Whether the settings have been saved (should be "SETTINGS SAVED")
   - The text will disappear in 10 seconds and camera will restart
 
-###IMPORTANT - This SD card will start the camera in *"Factory mode"* that has limited touchscreen (and other) functionality. The tool should disable itself after one run, but you can always remove this card (or delete file ```info.tg``` or format the card) and power on the camera.
+### IMPORTANT - This SD card will start the camera in *"Factory mode"* that has limited touchscreen (and other) functionality. The tool should disable itself after one run, but you can always remove this card (or delete file ```info.tg``` or format the card) and power on the camera.

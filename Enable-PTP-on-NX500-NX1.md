@@ -1,4 +1,4 @@
-#Enabling support for PTP over USB for NX500 and related cameras (NX2000 and newer)
+# Enabling support for PTP over USB for NX500 and related cameras (NX2000 and newer)
 
 **This is a very simple non-destructive "hack" that you can safely try.**
 

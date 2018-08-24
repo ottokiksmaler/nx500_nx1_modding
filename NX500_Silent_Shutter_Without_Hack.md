@@ -1,6 +1,6 @@
-#NX500 - Enable Silent Shutter Without Hack
+# NX500 - Enable Silent Shutter Without Hack
 
-###NOTE: This only works on NX500 at SINGLE frame shooting (not with CONTINUOUS). See [here](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX500%20Silent%20shooting.md)
+### NOTE: This only works on NX500 at SINGLE frame shooting (not with CONTINUOUS). See [here](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/NX500%20Silent%20shooting.md)
 
 This tool is useful to enable silent (full electronic) shooting on your own camera if you don't want to hack it.
 
@@ -14,4 +14,4 @@ Instructions:
   - Wait a bit
   - That's it - now you should have silent shooting enabled
 
-###IMPORTANT - This SD card will start the camera in *"Factory mode"* that has limited touchscreen (and other) functionality.
+### IMPORTANT - This SD card will start the camera in *"Factory mode"* that has limited touchscreen (and other) functionality.

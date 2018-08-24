@@ -1,4 +1,4 @@
-#Running telnet server on camera
+# Running telnet server on camera
 
 How to run a telnet server on camera:
   1. Put file named "info.tg" on the SD card root with contents "nx_cs.adj" and a newline
@@ -8,7 +8,7 @@ How to run a telnet server on camera:
 sleep 30
 /mnt/mmc/telnetd &
 ```
-  4. Extract busybox binary from Samsung NX300 rootfs [available here](http://opensource.samsung.com/reception/receptionSub.do?method=sub&sub=F&searchValue=nx300) and save it to SD card root as **telnetd** . Alternatively, some cameras (Gear 360 v. 2017) can use buseybox for [ARM7](https://busybox.net/downloads/binaries/1.21.1/).
+  4. Extract busybox binary from Samsung NX300 rootfs [available here](http://opensource.samsung.com/reception/receptionSub.do?method=sub&sub=F&searchValue=nx300) and save it to SD card root as **telnetd** . Alternatively, some cameras (Gear 360 v. 2017) can use busybox for [ARM7](https://busybox.net/downloads/binaries/1.21.1/).
   5. Put SD card in camera
   5. Camera to AUTO mode (IIRC it works in any mode but whatever, it's in AUTO in the Service Manual)
   6. Power on the camera and connect to wireless network of your choice (that's the reason for *sleep 30*)

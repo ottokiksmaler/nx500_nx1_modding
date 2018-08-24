@@ -1,8 +1,8 @@
-# How to Access DEV and CS Modes (and Remove Video Time Limit)
+# How to Access DEV and CS Modes (and Remove Video Time Limit) - not for current firmwares
 
 Original work was done and published by [Vasile on DPReview](http://www.dpreview.com/forums/thread/3979382).
 
-##A cessing DEV Mode
+## Acessing DEV Mode
 
 Create file on SD card root with name **nx_dev.adj** with **smart_camera** text in it (no newline).
 

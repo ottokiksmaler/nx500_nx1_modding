@@ -1,4 +1,4 @@
-#ST Commands
+# ST Commands
 
 Misc usage instructions included in various places in firmware. Not all commands/operations work.
 

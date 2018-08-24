@@ -1,4 +1,4 @@
-#Enabling 1080p 120fps video on NX500 (not a real 120fps)
+# Enabling 1080p 120fps video on NX500 (not a real 120fps)
 
 First see procedure of running shell scripts from SD card as explained here: [Running arbitrary shell scripts from SD card](https://github.com/ottokiksmaler/nx500/blob/master/Running-shell-scripts-from-SD-card.md)
 
@@ -26,7 +26,7 @@ So, decent bitrate - very usable. To my eyes looks better than 720p video of the
 
 **Note:** In camera playback does not work properly.
 
-##List of video modes available in firmware
+## List of video modes available in firmware
 
 For NX500:
   - 4096_2160_24p

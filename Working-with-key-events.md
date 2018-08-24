@@ -1,4 +1,4 @@
-#Working with key events
+# Working with key events
 
 As these cameras run Linux working with keys is quite normal. Only differences are two keyboards (top face / back face) and non-standard keys (obviously).
 
@@ -50,7 +50,7 @@ MOBILE - 233
 ```
 CW and CCW roughly mean to left and to right (as it's arbitraty on the back wheel).
 
-###Generating key and touch events
+### Generating key and touch events
 
 You can use **st key** for simulating pressing, releasing and clicking, like this:
 ```
@@ -64,7 +64,7 @@ st key touch push 200 200
 st key touch release 400 300 
 ```
 
-###Recording key events
+### Recording key events
 
 xinput works for trying things out.
 Keyboards are accessible via standard /dev/input/event* access, just like in any other Linux.

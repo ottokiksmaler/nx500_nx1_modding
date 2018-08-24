@@ -1,4 +1,4 @@
-#Working with focus
+# Working with focus
 
 Working with focus is spread across few different st commands but most of it can be gathered from **st cap iq af**, for example:
   - Getting current focus position

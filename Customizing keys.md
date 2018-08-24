@@ -1,6 +1,6 @@
-#Customizing functions of various keys
+# Customizing functions of various keys
 
-#*Notice: this is an early hack/mod - there are newer and better ones now*
+# *Notice: this is an early hack/mod - there are newer and better ones now*
 
 While NX1 has a solid amount of programmable keys, the NX500 is limited to just few that can perform only a small subset of operations. For example, in order to have a video preview (Movie STBY) you have to assign it to DEL (Custom/Trashcan) button but that means you cannot use a single click to switch to RAW shooting. 
 
@@ -42,11 +42,11 @@ Possible key combinations (shell script names) on NX500:
   - EV_RIGHT
   - Many more on NX1
 
-##How does it work?
+## How does it work?
 
 Camera finds info.tg file on SD card, executes it by executing scripts/nx_cs.adj file that in turn executes the scripts/test.sh file. test.sh file starts keyscan binary, waits a bit and kills dfmsd so we can use the touchscreen again.
 
-##How does the keyscan binary work?
+## How does the keyscan binary work?
 
 It's a simple C program that listens on two devices (/dev/event0 and /dev/event1) for key events. When it detects an event it tries executing corresponding script from provided directory, like this:
 
@@ -59,7 +59,7 @@ For debugging, start it from telnet session like this:
 keyscan /dev/event0 /dev/event1 /mnt/mmc/scripts/ debug
 ```
 
-##So, where's the source? How do I know it's not doing something bad?
+## So, where's the source? How do I know it's not doing something bad?
 
 Source is here: [keyscan.c](https://github.com/ottokiksmaler/nx500/blob/master/keyscan.c)
 Compile it with: arm-linux-gnueabihf-gcc --static -o keyscan keyscan.c -s

@@ -1,4 +1,4 @@
-#Checking Shutter Count, Power-on Count, etc. Without Hacking the Camera
+# Checking Shutter Count, Power-on Count, etc. Without Hacking the Camera
 
 This is useful to inspect, for example, second hand camera you want to buy or just to inspect your own camera if you don't want to hack it.
 
@@ -17,5 +17,5 @@ Instructions:
     - Flash external count
   - The text will disappear in 30 seconds
 
-###IMPORTANT - This SD card will start the camera in *"Factory mode"* that has limited touchscreen (and other) functionality. To normally test/use the camera, remove this card (or delete file ```info.tg``` or format the card) and power on the camera.
+### IMPORTANT - This SD card will start the camera in *"Factory mode"* that has limited touchscreen (and other) functionality. To normally test/use the camera, remove this card (or delete file ```info.tg``` or format the card) and power on the camera.
   

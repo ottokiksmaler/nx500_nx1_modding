@@ -1,10 +1,10 @@
-#Controlling the camera from command line or shell
+# Controlling the camera from command line or shell
 
 There are two different ways to accomplish this goal:
   1. By using **st** command from command line or script
   2. By using **dfms** commands
 
-##The *st* way
+## The *st* way
 
 There is a command named **st** on the camera - it's a veritable swiss army knife. It can control many parameters of the camera, simulate key or touch events, etc.
 ```
@@ -14,7 +14,7 @@ st cap capt iris drive 7.1
 
 You can use any of the st commands available and documented in part here: [ST Commands](https://github.com/ottokiksmaler/nx500/blob/master/ST%20Commands.md)
 
-##The *dfms* way
+## The *dfms* way
 
 First step is to have dfmsd running on the camera. This also disables the touchscreen operation as it overlays the screen with 8 lines of green text (you can see dots on the left - these are the lines, they just contain "." by default).
 

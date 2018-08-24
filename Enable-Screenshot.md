@@ -1,4 +1,4 @@
-#Enable screenshot functionality
+# Enable screenshot functionality
 
 **This is a very simple non-destructive "hack" that you can safely try.**
 

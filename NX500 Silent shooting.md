@@ -1,4 +1,4 @@
-#NX500 - Enabling Fully Electronic Shutter (Silent)
+# NX500 - Enabling Fully Electronic Shutter (Silent)
 
 **Does not work on NX1**
 

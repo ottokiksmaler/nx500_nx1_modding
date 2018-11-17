@@ -1,4 +1,4 @@
-#Prefman tool
+# Prefman tool
 
 Samsung includes very powerful tool named **prefman** with modern NX cameras (/usr/bin/prefman). This tool enables a variety of operations to be performed on camera settings. There is also a **prefman.sh** script (/usr/bin/prefman.sh) that automates full dumps/restores.
 

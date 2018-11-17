@@ -137,7 +137,7 @@ value = 1 (0x00000001)
 ```
 That's it. No more recording limit.
 
-##NX500 prefman info
+## NX500 prefman info
 
 ```
 [root@drime5 ~]# prefman info 0
@@ -1149,7 +1149,7 @@ That's it. No more recording limit.
  0x00000200    1048576    DPC2PREF_DATA 
 ```
 
-##NX1 prefman info
+## NX1 prefman info
 
 ```
 0 : app

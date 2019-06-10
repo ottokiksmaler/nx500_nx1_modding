@@ -1,5 +1,7 @@
 # Downgrade NX1000 to body firmware version 1.13
 
+## BEWARE - Works for my camera - might kill your camera and pets too
+
 Newer version don't have the support for simple acces to DEV MENU, so you can use these files to downgrade to v1.13 (it will be shown as v1.16 in the Device information). Files in this directory have been HEX edited to appear as firmware v1.16 so you can upgrade to it from the current firmware (v1.15) although they contain firmware v1.13 with just the string "1.13" changed to "1.16" in nx1000.bin file. No other changes have been made.
 
 Procedure:

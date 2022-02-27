@@ -48,6 +48,7 @@ Things that work:
     - ```shutter_to_rec``` - remaps half-shutter to OK (video pause) and full shutter to REC (video start/stop)
     - ```log_watcher``` - restart video before file corruption, generate lists of selected/displayed files in gallery
   - [Running scripts without entering factory mode by starting Bluetooth](https://github.com/ottokiksmaler/nx500_nx1_modding/blob/master/Running_scripts_without_factory_mode_BT.md)
+  - [Running an SSH/SFTP/SCP server on camera](https://github.com/ottokiksmaler/nx500/blob/master/ssh-server/README.md)
   - [Running a FTP server on camera](https://github.com/ottokiksmaler/nx500/blob/master/Running%20FTP%20server%20on%20the%20camera.md)
   - [Enabling PTP mode on the camera](https://github.com/ottokiksmaler/nx500/blob/master/Enable-PTP-on-NX500-NX1.md)
   - [Capturing screenshots of LCD](https://github.com/ottokiksmaler/nx500/blob/master/Enable-Screenshot.md)

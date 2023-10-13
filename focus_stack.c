@@ -70,6 +70,60 @@ static void run_command(char *command)
 	system(command);
 }
 
+int send_message(char * message_in){
+	int i=0, result, fd=-1;
+	unsigned char message_text[208]="\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0";
+	char  *param, *message, *spl;
+	struct msg_buf_out {
+		long mtype;
+		char mtext[208];
+	} msg;
+	if (message_in[0]=='/')
+		asprintf(&message,"%s",message_in);
+	else
+		asprintf(&message,"/usr/bin/st %s",message_in);
+	
+	spl=strtok(message," ");
+	
+	while(spl && strlen(spl)>0) {
+		if (debug>2) printf("Adding at %d %s(%d)\n",4+i*20,spl,(int)strlen(spl));
+		memcpy(message_text+4+i*20,spl,strlen(spl));
+		i++;
+		spl = strtok(NULL, " ");
+	}
+	asprintf(&spl,"%d",i);
+	memcpy(message_text,spl, strlen(spl));
+
+	if (debug>1) {
+		printf("Message:\n");
+		for(i=0;i<208;i++) {
+			if ((i-4)%20==0) printf("\n");
+			if (message_text[i]==0) 
+				printf("_"); 
+			else 
+				printf("%c",(char)message_text[i]);
+		}
+		printf("\n");
+	}
+
+	if (fd<1) {
+		fd = msgget(0x8828, 0666);
+		if (fd<0) {
+			perror(strerror(errno));
+			printf("ERROR %d %d\n",errno, fd);
+			return -1;
+		}
+	}
+	msg.mtype=1;
+	memcpy(msg.mtext, message_text, 208);
+	result = msgsnd(fd, &msg, 208, 0);
+	if (result<0) {
+		perror( strerror(errno) );
+		return -1;
+	}
+	return result;
+}
+
 static int version_load()
 {
 	FILE *fp;
@@ -300,13 +354,15 @@ static void focus_to_position(int position)
 	int amount = 0;
 	amount = position - get_af_position();
 	sprintf(stringline, "/usr/bin/st cap iq af mv 255 %d 255", amount);
-	run_command(stringline);
+	//run_command(stringline);
+	send_message(stringline);
 }
 
 static void focus_move(int amount)
 {
 	sprintf(stringline, "/usr/bin/st cap iq af mv 255 %d 255", amount);
-	run_command(stringline);
+	//run_command(stringline);
+	send_message(stringline);
 }
 
 static void run_stack(int near, int far, int steps, int delay)
@@ -345,7 +401,8 @@ static void run_stack(int near, int far, int steps, int delay)
 			popup_show(stack_message,1,0,1);
 		}
 
-		run_command("/usr/bin/st app nx capture single\n");	// capture single frame
+		//run_command("/usr/bin/st app nx capture single\n");	// capture single frame
+		send_message("app nx capture single");	// capture single frame
 //         run_command("/usr/bin/st key push s1 && /bin/sleep 0.3 && /usr/bin/st key click s2 && /usr/bin/st key release s1 && /bin/sleep 0.5 && /usr/bin/st key click s1"); // capture single frame and exit photo preview is exists
 		if (step == steps)
 			break;

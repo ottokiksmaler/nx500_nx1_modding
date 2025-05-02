@@ -47,6 +47,7 @@
 #include <sys/sendfile.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <ifaddrs.h>
 #include <unistd.h>
 #include <pthread.h>
 
@@ -92,6 +93,30 @@ static void run_command(char *command)
 	asprintf(&cmd, "%s &", command);
 	system(cmd);
 	quit_app();
+}
+
+static void get_ip(char **ip)
+{
+	struct ifaddrs *addrs, *tmp;
+	getifaddrs(&addrs);
+	tmp = addrs;
+	while (tmp)
+	{
+		if (tmp->ifa_addr && tmp->ifa_addr->sa_family == AF_INET)
+		{
+			struct sockaddr_in *pAddr = (struct sockaddr_in *)tmp->ifa_addr;
+			printf("%s: %s\n", tmp->ifa_name, inet_ntoa(pAddr->sin_addr));
+			if (0 == strcmp("mlan0", tmp->ifa_name)) {
+				asprintf(ip, "IP: %s", inet_ntoa(pAddr->sin_addr));
+				freeifaddrs(addrs);
+				return;
+			}
+		}
+
+		tmp = tmp->ifa_next;
+	}
+	asprintf(ip, "WiFi offline");
+	freeifaddrs(addrs);
 }
 
 static void click_quit(void *data, Evas_Object * obj, void *event_info)
@@ -319,6 +344,9 @@ static int configuration_load()
 			asprintf(&button_name[button_number], "%s", btn_name);
 			asprintf(&button_command[button_number], "%s",
 				 btn_command);
+			if (0 == strcmp(btn_name, "IP")) {
+				get_ip(&button_name[button_number]);
+			}
 			if (debug) printf("CONFIG:\t%s\t%s\n",
 				      button_name[button_number],
 				      button_command[button_number]);

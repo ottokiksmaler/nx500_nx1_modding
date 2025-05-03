@@ -430,6 +430,21 @@ void show_main()
 		btn = elm_button_add(win);
 		elm_object_style_set(btn, "transparent");
 		elm_object_text_set(btn, (button_name[btn_num - first_button]));
+		if (0 == strcmp((button_name[btn_num - first_button]), "CANCEL")) {
+			evas_object_color_set(btn, 127, 0, 0, 128);
+		} else
+		if (0 == strcmp((button_name[btn_num - first_button]), "GO BACK")) {
+			evas_object_color_set(btn, 0, 127, 127, 128);
+		} else
+		if (0 == strcmp((button_name[btn_num - first_button]), "START")) {
+			evas_object_color_set(btn, 0, 127, 0, 128);
+		} else
+		if (0 == strncmp((button_name[btn_num - first_button]), "IP: ", 4)) {
+			evas_object_color_set(btn, 96, 255, 96, 128);
+		} else
+		if (0 == strcmp((button_command[btn_num - first_button]), "(null)")) {
+			evas_object_color_set(btn, 255, 127, 127, 128);
+		}
 		evas_object_show(btn);
 		evas_object_size_hint_min_set(btn, button_width, button_height);
 		bg2 = evas_object_rectangle_add(evas_object_evas_get(btn));

@@ -209,7 +209,11 @@ static void click_btn_generic(void *data, Evas_Object * obj, void *event_info)
 	const char *btn_name = button_name[btn_id];
 	const char *btn_command = button_command[btn_id];
 	if (debug) printf("Button clicked: %s [%d] [%s]\n", btn_name, btn_id, btn_command);
-	if (strcmp("(null)",btn_command)==0 || btn_command[0] == '#') return;
+	if (strcmp("(null)",btn_command)==0 || btn_command[0] == '#') {
+		if (0 == strcmp("CANCEL", btn_name))
+			quit_app();
+		return;
+	}
 	if (btn_command[0] == '@') {
 		if (debug) printf("Clicked menu: %s\n",btn_command);
 		command=(char *)malloc(strlen(btn_command));

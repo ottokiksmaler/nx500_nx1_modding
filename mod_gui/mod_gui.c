@@ -478,7 +478,7 @@ void show_main()
 			elm_table_pack(table, chk, btn_num % 2 + 1, btn_num / 2,
 				       1, 1);
 		if (0 == strcmp(button_type[btn_num - first_button], "button"))
-			evas_object_smart_callback_add(btn, "clicked",
+			evas_object_smart_callback_add(btn, "pressed",
 						       click_btn_generic,
 						       &datas[btn_num]);
 		if (0 ==

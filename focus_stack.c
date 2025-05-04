@@ -585,6 +585,13 @@ static void entry_show(int row)
 	elm_table_pack(table, ok, 5, 1, 1, 1);
 	evas_object_show(ok);
 
+	// add tiny frame to the right
+	bg = evas_object_rectangle_add(evas_object_evas_get(table));
+	evas_object_color_set(bg, 0, 0, 0, 255);
+	evas_object_size_hint_min_set(bg, 10, button_height);
+	evas_object_show(bg);
+	elm_table_pack(table, bg, 6, 1, 1, 1);
+
 	evas_object_show(table);
 	evas_object_show(entry_win);
 	elm_object_focus_set(entry_points, EINA_TRUE);

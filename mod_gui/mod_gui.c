@@ -112,6 +112,11 @@ static void get_ip(char **ip)
 				freeifaddrs(addrs);
 				return;
 			}
+			if (0 == strcmp("uap0", tmp->ifa_name)) {
+				asprintf(ip, "IP: %s (AP)", inet_ntoa(pAddr->sin_addr));
+				freeifaddrs(addrs);
+				return;
+			}
 		}
 
 		tmp = tmp->ifa_next;

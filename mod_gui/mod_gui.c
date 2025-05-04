@@ -68,6 +68,7 @@ static char *scripts;
 static char *button_type[MAX_BUTTONS];
 static char *button_name[MAX_BUTTONS];
 static char *button_command[MAX_BUTTONS];
+static Evas_Object *button_bg[MAX_BUTTONS];
 pthread_t timer_thread;
 
 static void show_main();
@@ -201,6 +202,13 @@ static Eina_Bool key_down_callback(void *data, int type, void *ev)
 	return ECORE_CALLBACK_PASS_ON;
 }
 
+static void highlight_button(int btn_id)
+{
+	evas_object_color_set(button_bg[btn_id], 255, 150, 150, 220);
+	// re-render the UI
+	ecore_main_loop_iterate();
+}
+//
 // GENERIC BUTTON CLICK HANDLER BEGIN
 static void click_btn_generic(void *data, Evas_Object * obj, void *event_info)
 {
@@ -210,10 +218,13 @@ static void click_btn_generic(void *data, Evas_Object * obj, void *event_info)
 	const char *btn_command = button_command[btn_id];
 	if (debug) printf("Button clicked: %s [%d] [%s]\n", btn_name, btn_id, btn_command);
 	if (strcmp("(null)",btn_command)==0 || btn_command[0] == '#') {
-		if (0 == strcmp("CANCEL", btn_name))
+		if (0 == strcmp("CANCEL", btn_name)) {
+			highlight_button(btn_id);
 			quit_app();
+		}
 		return;
 	}
+	highlight_button(btn_id);
 	if (btn_command[0] == '@') {
 		if (debug) printf("Clicked menu: %s\n",btn_command);
 		command=(char *)malloc(strlen(btn_command));
@@ -240,6 +251,7 @@ static void click_checkbox_generic(void *data, Evas_Object * obj,
 				   void *event_info)
 {
 	int btn_id = *((int *)data);
+	highlight_button(btn_id);
 	if (debug) printf("Checkbox: %d -> %d\n", btn_id, chk_value[btn_id]);
 	char *checkbox_script;
 	asprintf(&checkbox_script, "%s/%s", scripts, button_command[btn_id]);
@@ -449,13 +461,15 @@ void show_main()
 		evas_object_size_hint_min_set(btn, button_width, button_height);
 		bg2 = evas_object_rectangle_add(evas_object_evas_get(btn));
 		evas_object_size_hint_min_set(bg2, button_width, button_height);
-		evas_object_color_set(bg2, 20, 30, 40, 255);
+		evas_object_color_set(bg2, 135, 150, 160, 180);
 		evas_object_show(bg2);
 		bg = evas_object_rectangle_add(evas_object_evas_get(btn));
 		evas_object_size_hint_min_set(bg, button_width - 2,
 					      button_height - 2);
-		evas_object_color_set(bg, 40, 60, 80, 255);
+		evas_object_color_set(bg, 0, 5, 10, 220);
 		evas_object_show(bg);
+		evas_object_render_op_set(bg, EVAS_RENDER_MUL);
+		button_bg[btn_num - first_button] = bg;
 		elm_table_pack(table, bg2, btn_num % 2 + 1, btn_num / 2, 1, 1);
 		elm_table_pack(table, bg, btn_num % 2 + 1, btn_num / 2, 1, 1);
 		elm_table_pack(table, btn, btn_num % 2 + 1, btn_num / 2, 1, 1);

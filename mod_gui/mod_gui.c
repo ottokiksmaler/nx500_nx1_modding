@@ -432,7 +432,7 @@ void show_main()
 
 	int btn_num = 0;
 // 	if (button_number / 2 * button_height > SCREEN_HEIGHT)
-		button_height = SCREEN_HEIGHT * 2 / button_number;
+		button_height = SCREEN_HEIGHT * 2 / button_number - 16;
 	for (btn_num = first_button; btn_num < first_button + button_number;
 	     btn_num++) {
 		datas[btn_num] = btn_num - first_button;

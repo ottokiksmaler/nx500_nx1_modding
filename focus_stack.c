@@ -27,7 +27,7 @@ static char *caption_start = "Start";
 static char *version_model, *version_release;
 static Evas_Object *entry_win,*lab, *win, *box, *btn_near, *btn_far, *btn_stack, *btn_quit, *btn_info, *entry_points, *entry_delay, *popup_box, *table, *btn_settings, *bg, *lab_2, *ok;
 Evas_Object *popup_win;
-Ecore_Timer *timer;
+Ecore_Timer *popup_timer, *stacking_timer;
 char stringline[255], label_entry[255], sample_text[255];
 int focus_pos_near = 0, focus_pos_far = 0, focus_pos_min = 0, focus_pos_max =
     0, number_points = DEFAULT_STEPS, shot_delay = 6;
@@ -259,7 +259,7 @@ static void popup_show(char *message, int timeout, int row, int height)
 		
 	if (entry_win) {
 // 		evas_object_hide(entry_win);
- 		ecore_timer_del(timer);
+ 		ecore_timer_del(popup_timer);
 	}// else {
 		popup_win = elm_win_add(win, "Info", ELM_WIN_DIALOG_BASIC);
 		elm_win_prop_focus_skip_set(popup_win, EINA_TRUE);
@@ -288,10 +288,10 @@ static void popup_show(char *message, int timeout, int row, int height)
 	elm_object_text_set(lab, message);
 	evas_object_move(popup_win, 60, button_height * row);
 	evas_object_show(popup_win);
-	elm_win_render(popup_win);
+	//elm_win_render(popup_win);
 
 	if (timeout > 0) {
-		timer = ecore_timer_add(timeout, popup_timer_hide, NULL);
+		popup_timer = ecore_timer_add(timeout, popup_timer_hide, NULL);
 		popup_shown=1;
 	}
 	force_update(NULL);
@@ -365,14 +365,19 @@ static void focus_move(int amount)
 	send_message(stringline);
 }
 
-static void run_stack(int near, int far, int steps, int delay)
+int current_position = 0, step = 0;
+unsigned int af_mode=0;
+double delta = 0;
+
+Eina_Bool run_stack_2_focus(void* data);
+Eina_Bool run_stack_3_begin(void* data);
+Eina_Bool run_stack_4_step(void* data);
+Eina_Bool run_stack_5_cleanup(void* data);
+
+static Eina_Bool run_stack_1_mode(void* data)
 {
-	int current_position = 0, step = 0;
-	unsigned int af_mode=0;
-	double delta = 0;
-	char *stack_message="", *command="";
 	if (debug)  printf("Stacking - Near: %d \tFar: %d \tPhotos: %d \tDelay: %d\n",
-		   near, far, steps, delay);
+		   focus_pos_near, focus_pos_far, number_points, shot_delay);
 	//Turn QuickView OFF
 	if (0==strcmp("NX500",version_model)) {
 		system("prefman set 0 0x0210 l 0;st cap capdtm setusr 51 0x0330000");
@@ -384,34 +389,62 @@ static void run_stack(int near, int far, int steps, int delay)
 	af_mode = get_af_mode();
 	run_command("/usr/bin/st app nx capture af-mode manual\n");	// show manual focus mode
 	run_command("/usr/bin/st cap capdtm setusr AFMODE 0x70003\n");	// force manual focus mode
-	sleep(1);
-	focus_to_position(near);
-	sleep(2);
-	current_position = get_af_position();
-	delta = ((double)(far - current_position)) / (double)(steps - 1);
-	if (debug) printf("far: %d current: %d delta: %f\n", far, current_position, delta);
-	sleep(delay / 2);
-	while (step < steps && step < MAX_STEPS) {
-		step++;
-		asprintf(&stack_message, "#%d of %d",step,steps);
-		if (strcmp("NX1",version_model)==0) {
-			asprintf(&command,"/opt/usr/nx-on-wake/popup_timeout \"%s\" 1 &",stack_message);
-			system(command);
-		} else {
-			popup_show(stack_message,1,0,1);
-		}
+	stacking_timer = ecore_timer_add(1, run_stack_2_focus, NULL);
+	return 0;
+}
 
-		//run_command("/usr/bin/st app nx capture single\n");	// capture single frame
-		send_message("app nx capture single");	// capture single frame
-//         run_command("/usr/bin/st key push s1 && /bin/sleep 0.3 && /usr/bin/st key click s2 && /usr/bin/st key release s1 && /bin/sleep 0.5 && /usr/bin/st key click s1"); // capture single frame and exit photo preview is exists
-		if (step == steps)
-			break;
-		sleep(delay);
+Eina_Bool run_stack_2_focus(void *data)
+{
+	if (debug)  printf("run_stack_2_focus: %d\n", focus_pos_near);
+	focus_to_position(focus_pos_near);
+	stacking_timer = ecore_timer_add(2, run_stack_3_begin, NULL);
+	return 0;
+}
+
+Eina_Bool run_stack_3_begin(void *data)
+{
+	current_position = get_af_position();
+	if (debug)  printf("run_stack_3_begin: %d\n", current_position);
+	delta = ((double)(focus_pos_far - current_position)) / (double)(number_points - 1);
+	if (debug) printf("far: %d current: %d delta: %f\n", focus_pos_far, current_position, delta);
+	run_stack_4_step(NULL);
+	if (number_points > 1)
+		stacking_timer = ecore_timer_add(shot_delay, run_stack_4_step, NULL);
+	return 0;
+}
+
+Eina_Bool run_stack_4_step(void *data)
+{
+	if (debug)  printf("run_stack_4_step: %d\n", step);
+	if (step > 0) {
 		focus_move((int)
-			   (near + (int)(step * delta) - current_position));
-		current_position = near + (int)(step * delta);
+			   (focus_pos_near + (int)(step * delta) - current_position));
+		current_position = focus_pos_near + (int)(step * delta);
 	}
+	step++;
+	char *stack_message;
+	asprintf(&stack_message, "#%d of %d (%ds)",step,number_points,shot_delay);
+	if (debug) printf("\n***** %s *****\n", stack_message);
+	popup_hide();
+	popup_show(stack_message,3+shot_delay,0,1);
+
+	send_message("app nx capture single");	// capture single frame
+	if (step == number_points) {
+		ecore_timer_del(stacking_timer);
+		stacking_timer = ecore_timer_add(1, run_stack_5_cleanup, NULL);
+		return 0;
+	}
+	return 1;
+}
+
+Eina_Bool run_stack_5_cleanup(void* data)
+{
+	if (debug)  printf("run_stack_5_cleanup: %d\n", af_mode);
 	set_af_mode(af_mode);
+ 	popup_hide();
+	evas_object_show(win);
+	running = 0;
+	return 0;
 }
 
 static void click_near(void *data, Evas_Object * obj, void *event_info)
@@ -430,16 +463,13 @@ static void click_far(void *data, Evas_Object * obj, void *event_info)
 	}
 }
 
-void * thread_stack(void *arg) {
+void start_stack() {
 	char *message;
 	evas_object_hide(win);
 	asprintf (&message, "<align=center>Making %d photos with delay %ds</align>",number_points,shot_delay);
-	popup_show(message,1,0,1);
+	popup_show(message,30,0,1);
 	running = 1;
-	run_stack(focus_pos_near, focus_pos_far, number_points, shot_delay);
- 	evas_object_hide(popup_win);
-	evas_object_show(win);
-	return (void *)0;
+	stacking_timer = ecore_timer_add(0.1, run_stack_1_mode, NULL);
 }
 
 static void click_stack(void *data, Evas_Object * obj, void *event_info)
@@ -453,8 +483,7 @@ static void click_stack(void *data, Evas_Object * obj, void *event_info)
 			popup_show("Set FAR focus point first!",2,1,1);
 			return;
 		}
-		pthread_t timer_thread;
-		pthread_create(&timer_thread, NULL, &thread_stack, NULL);
+		start_stack();
 	}
 }
 
@@ -561,7 +590,7 @@ static void entry_show(int row)
 	elm_object_focus_set(entry_points, EINA_TRUE);
 
 	evas_object_smart_callback_add(ok, "clicked", settings_ok, NULL);
-	elm_win_render(entry_win);
+	//elm_win_render(entry_win);
 }
 
 static void click_settings(void *data, Evas_Object * obj, void *event_info)

@@ -63,7 +63,7 @@ char *version_model, *version_release, *configuration_file;
 int button_height = 80, button_width = 360, button_number = 0;
 
 static Eina_Bool chk_value[MAX_BUTTONS];
-static int datas[16];
+static int datas[MAX_BUTTONS];
 static char *scripts;
 static char *button_type[MAX_BUTTONS];
 static char *button_name[MAX_BUTTONS];

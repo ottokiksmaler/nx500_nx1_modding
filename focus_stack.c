@@ -387,6 +387,8 @@ static Eina_Bool run_stack_1_mode(void* data)
 	}
 
 	af_mode = get_af_mode();
+	popup_hide();
+	popup_show("Setting MF mode...", 0, 0, 1);
 	run_command("/usr/bin/st app nx capture af-mode manual\n");	// show manual focus mode
 	run_command("/usr/bin/st cap capdtm setusr AFMODE 0x70003\n");	// force manual focus mode
 	stacking_timer = ecore_timer_add(1, run_stack_2_focus, NULL);
@@ -396,6 +398,8 @@ static Eina_Bool run_stack_1_mode(void* data)
 Eina_Bool run_stack_2_focus(void *data)
 {
 	if (debug)  printf("run_stack_2_focus: %d\n", focus_pos_near);
+	popup_hide();
+	popup_show("Re-focusing...", 0, 0, 1);
 	focus_to_position(focus_pos_near);
 	stacking_timer = ecore_timer_add(2, run_stack_3_begin, NULL);
 	return 0;
@@ -426,7 +430,7 @@ Eina_Bool run_stack_4_step(void *data)
 	asprintf(&stack_message, "#%d of %d (%ds)",step,number_points,shot_delay);
 	if (debug) printf("\n***** %s *****\n", stack_message);
 	popup_hide();
-	popup_show(stack_message,3+shot_delay,0,1);
+	popup_show(stack_message,0,0,1);
 
 	send_message("app nx capture single");	// capture single frame
 	if (step == number_points) {
@@ -466,8 +470,8 @@ static void click_far(void *data, Evas_Object * obj, void *event_info)
 void start_stack() {
 	char *message;
 	evas_object_hide(win);
-	asprintf (&message, "<align=center>Making %d photos with delay %ds</align>",number_points,shot_delay);
-	popup_show(message,30,0,1);
+	asprintf (&message, "<align=center>Stacking %d photos with delay %ds</align>",number_points,shot_delay);
+	popup_show(message,0,0,1);
 	running = 1;
 	stacking_timer = ecore_timer_add(0.1, run_stack_1_mode, NULL);
 }

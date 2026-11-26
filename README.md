@@ -8,6 +8,17 @@ These cameras run a full blown Linux distribution (Tizen) with shell, X, network
 
 Inital work was done and presented on DPReview Samsung Forum [here](http://www.dpreview.com/forums/thread/3964253) and [here](http://www.dpreview.com/forums/thread/3971805) and EOSHD [here](http://www.eoshd.com/comments/topic/19099-petition-for-samsung-nx1-hack/?do=findComment&comment=134256). Special thanks to tecnoworld, Vasile, Kino Seed, outerbeat, arspr and many others.
 
+## Emergency Recovery / Unbrick (Samsung NX500)
+
+If your **Samsung NX500** is soft-bricked (for example after an `nx-on-wake` install or `systemctl rescue`), you can trigger the camera's built-in firmware recovery mode **without disassembly**:
+
+1. Put official, unmodified `nx500.bin` firmware on the root of a clean FAT32 SD card and insert it.
+2. Remove the battery, flip the screen fully up into selfie position, and reinsert the battery.
+3. Hold **MOBILE (Wi-Fi) + AEL + full Shutter**, then switch the camera **ON**.
+4. When the **Recovery Mode** screen appears, hold the shutter button to flash `nx500.bin` (keep power connected until `Update Finish`).
+
+Verified on a soft-bricked NX500 (not verified on NX1). See [doc/NX500_Recovery.md](doc/NX500_Recovery.md) for full steps and technical background.
+
 ## TL;DR - I want my camera hacked - what to do?
 
 There were multiple generations of hacks developed and improved from 2014 to 2017.

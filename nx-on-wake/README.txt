@@ -136,6 +136,19 @@ Version 1.0 - 2016-06-12
 
                        YOU HAVE BEEN WARNED.
 
+     -------------------------------------------------------------------
+     EMERGENCY RECOVERY (SAMSUNG NX500 ONLY - SOFT BRICK / UNBRICK)
+     If an nx-on-wake install leaves your NX500 unable to boot normally,
+     you can enter the built-in Recovery Mode without disassembly:
+       1. Copy official, unmodified nx500.bin to a clean FAT32 SD root.
+       2. Remove the battery, insert the SD card, flip the screen fully
+          upward into selfie position, and reinsert the battery.
+       3. Hold MOBILE (Wi-Fi) + AEL + full Shutter, then switch power ON.
+       4. When Recovery Mode appears, hold Shutter to flash nx500.bin.
+          Use a charged battery and do NOT cut power during Updating.
+     (Verified on NX500; NOT verified on NX1. See ../doc/NX500_Recovery.md)
+     -------------------------------------------------------------------
+
   0. The zip file containing this README.txt includes everything you need.
   1. Check that: 
        - NX camera is on firmware v1.41 (NX1) or v1.12 (NX500).
